@@ -147,16 +147,28 @@
       }
 
       window.netlifyIdentity.on("init", function (user) {
-        gate.style.display = "block";
         if (user) {
           setNfJwt(user);
-          redirectByRole(user);
+          var roles = rolesOf(user);
+          // Si el token ya trae rol, llevamos al panel correspondiente.
+          // Si no trae rol (token viejo), mostramos la puerta para
+          // cerrar sesión y volver a entrar con un token fresco.
+          if (roles.indexOf("admin") !== -1 || roles.indexOf("editor") !== -1) {
+            redirectByRole(user);
+            return;
+          }
         }
+        gate.style.display = "block";
       });
 
       window.netlifyIdentity.on("login", function (user) {
         setNfJwt(user);
         redirectByRole(user);
+      });
+
+      window.netlifyIdentity.on("logout", function () {
+        document.cookie = "nf_jwt=; path=/; max-age=0";
+        gate.style.display = "block";
       });
 
       window.netlifyIdentity.on("error", function (err) {
