@@ -35,7 +35,7 @@ collections:
             summary: "{{name}} — S/ {{price}}"
             fields:
               - { label: "Nombre del producto", name: "name", widget: "string" }
-              - { label: "Precio (S/)", name: "price", widget: "number", hint: "Precio referencial en soles." }
+              - { label: "Precio (S/)", name: "price", widget: "number", hint: "Precio en soles." }
               - { label: "Descripción corta", name: "description", widget: "text" }
               - { label: "Etiqueta", name: "tag", widget: "string", hint: "Ej.: Nuevo, Perfumes, Bolso, Calzado...", required: false }
               - label: "Disponibilidad"

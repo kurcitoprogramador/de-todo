@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>De Todo - Catálogo</title>
-<meta name="description" content="Catálogo De Todo. Precios referenciales en soles. Compra escribiéndonos por WhatsApp." />
+<meta name="description" content="Catálogo De Todo. Precios en soles. Compra escribiéndonos por WhatsApp." />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -742,7 +742,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-4.6 9.3-9A5.5 5.5 0 0 0 12 6.5 5.5 5.5 0 0 0 2.7 12C5 16.4 12 21 12 21z"/><path d="M12 8v5l3 3"/></svg>
           </div>
           <div>
-            <h4>Precios referenciales</h4>
+            <h4>Precios</h4>
             <p>Valores en soles. Confirma el precio final al escribirnos.</p>
           </div>
         </div>
@@ -816,7 +816,7 @@
           priceEl.textContent = "";
           priceEl.appendChild(document.createTextNode("S/ " + p.price));
           var small = document.createElement("small");
-          small.textContent = "Precio referencial";
+          small.textContent = "Precio";
           priceEl.appendChild(small);
           var btn = article.querySelector(".btn-wa");
           if (agotado) {
