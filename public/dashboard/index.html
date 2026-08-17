@@ -247,8 +247,17 @@
           return;
         }
 
-        // A) Token fresco del widget.
-        window.netlifyIdentity.refresh()
+        // A) Token FRESCO del widget: jwt(true) fuerza renovación real del
+        //    token (Netlify acuña un JWT nuevo con los roles actuales y
+        //    renueva la cookie nf_jwt por servidor). Fallback: refresh().
+        var refreshJwt = function () {
+          var cur = window.netlifyIdentity.currentUser();
+          if (cur && typeof cur.jwt === "function") {
+            return cur.jwt(true);
+          }
+          return window.netlifyIdentity.refresh();
+        };
+        refreshJwt()
           .then(function (jwt) { return fetchStatsAttempt(jwt).then(applyStats); })
           .catch(function (errA) {
             var msgA = (errA && errA.message) || "error";

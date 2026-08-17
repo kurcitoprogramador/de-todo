@@ -146,12 +146,21 @@
       }
 
       // Obtiene un JWT renovado y el perfil fresco del servidor.
-      // refresh() una sola vez; getUserData() actualiza app_metadata.
+      // jwt(true) fuerza una renovación REAL: Netlify acuña un token nuevo
+      // (con los roles actuales del registro) y renueva la cookie nf_jwt
+      // por servidor (cabecera X-Use-Cookie). Si no está disponible, cae a
+      // refresh() del widget; getUserData() actualiza app_metadata.
       async function getFreshSession(user) {
         if (!user) return null;
         try {
-          var jwt = await window.netlifyIdentity.refresh();
-          var freshUser = window.netlifyIdentity.currentUser() || user;
+          var cur = window.netlifyIdentity.currentUser() || user;
+          var jwt = null;
+          if (cur && typeof cur.jwt === "function") {
+            jwt = await cur.jwt(true);
+          } else {
+            jwt = await window.netlifyIdentity.refresh();
+          }
+          var freshUser = cur || user;
           try {
             if (freshUser && typeof freshUser.getUserData === "function") {
               freshUser = await freshUser.getUserData();
