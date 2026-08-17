@@ -71,7 +71,7 @@
 flowchart LR
   V[Visitante<br/>móvil o escritorio] -->|navega /| NET
   E[Editora<br/>edita en /admin/] -->|/admin/| NET
-  D[Dueña<br/>estadísticas] -->|/dashboard/| NET
+  D[Kurt<br/>estadísticas] -->|/dashboard/| NET
   subgraph NET["NETLIFY"]
     direction TB
     EDGE["Edge / CDN<br/>páginas + redirects por rol"]
@@ -85,7 +85,7 @@ flowchart LR
     FN --> FM
   end
   NET -->|commit/merge| GH[GitHub<br/>repo y historial]
-  NET -->|email| MAIL[Correo de la dueña]
+  NET -->|email| MAIL[Correo de Kurt]
   E -->|compra por WhatsApp| WA[WhatsApp wa.me]
 </pre>
   </div>
@@ -112,7 +112,7 @@ sequenceDiagram
 
   <div class="card">
     <h2>3 · Registro e ingreso de usuarios</h2>
-    <p class="sub">Cuando alguien se registra: se guarda el movimiento, se envía correo de confirmación y Netlify avisa a la dueña.</p>
+    <p class="sub">Cuando alguien se registra: se guarda el movimiento, se envía correo de confirmación y Netlify avisa a Kurt.</p>
     <pre class="mermaid">
 flowchart TD
   A[Persona entra a /acceso/] --> B[Identity: registra a la persona]
@@ -121,7 +121,7 @@ flowchart TD
   D -->|registro nuevo| E[Evento identity-signup]
   E --> F[Blobs movimientos - signup]
   E --> G[Form nueva-cuenta]
-  G --> MAIL[Email a la dueña: alguien se registró]
+  G --> MAIL[Email a Kurt: alguien se registró]
   D -->|login| H[Evento identity-login]
   H --> F2[Blobs movimientos - login]
   J[JWT nuevo + cookie nf_jwt]
@@ -159,7 +159,7 @@ sequenceDiagram
 
   <div class="card">
     <h2>5 · Avisos por correo (sin tocar nada)</h2>
-    <p class="sub">Cada registro nuevo y cada edición publicada dispara un email automático a la cuenta de Netlify de la dueña.</p>
+    <p class="sub">Cada registro nuevo y cada edición publicada dispara un email automático a la cuenta de Netlify de Kurt.</p>
     <pre class="mermaid">
 flowchart LR
   A[Se registra alguien] --> F1[identity-signup]
@@ -172,14 +172,14 @@ flowchart LR
   </div>
 
   <div class="card">
-    <h2>6 · Panel de estadísticas (solo la dueña)</h2>
+    <h2>6 · Panel de estadísticas (solo Kurt)</h2>
     <p class="sub">El panel pide datos a una función protegida que lee los movimientos guardados. Sin rol admin, todo se rechaza (edge + función).</p>
     <pre class="mermaid">
 flowchart TD
-  D[Dueña entra /dashboard/] --> EDGE{Edge: ¿rol admin?}
+  D[Kurt entra /dashboard/] --> EDGE{Edge: ¿rol admin?}
   EDGE -->|no| NEG[Ver dashboard-negado]
   EDGE -->|sí| PAGE[Panel /dashboard/]
-  PAGE --> TOK[Renueva token<br/>jwt(true)]
+  PAGE --> TOK["Renueva token<br/>jwt(true)"]
   TOK --> STAT[stats.js]
   STAT --> RF{¿rol admin?}
   RF -->|no| R403[403 no autorizado]
@@ -197,7 +197,7 @@ flowchart TD
         <tr><td>Visitante anónimo</td><td>✅</td><td>✅</td><td>❌ (va a la tienda)</td><td>❌ (acceso restringido)</td></tr>
         <tr><td>Registrado (sin rol)</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
         <tr><td>Editora <b>(editor)</b></td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
-        <tr><td>Dueña <b>(admin)</b></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Kurt <b>(admin)</b></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
       </tbody>
     </table>
   </div>
