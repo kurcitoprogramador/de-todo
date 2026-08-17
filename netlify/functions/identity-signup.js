@@ -7,12 +7,16 @@ exports.handler = async (event) => {
     const store = getStore({ name: "movimientos" });
     const user = event.user || {};
     const key = `signup:${Date.now()}:${(user.id || "anon") + Math.random().toString(36).slice(2, 6)}`;
+    const am = user.app_metadata || {};
+    const roles = (Array.isArray(am.roles) && am.roles)
+      || (am.authorization && Array.isArray(am.authorization.roles) && am.authorization.roles)
+      || [];
     await store.setJSON(key, {
       type: "signup",
       email: user.email || "",
       userId: user.id || "",
       at: new Date().toISOString(),
-      roles: (user.app_metadata && user.app_metadata.authorization && user.app_metadata.authorization.roles) || [],
+      roles,
     });
   } catch (err) {
     console.error("identity-signup error", err);

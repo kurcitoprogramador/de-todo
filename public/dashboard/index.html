@@ -120,23 +120,15 @@
       var main = document.querySelector("main");
       var errEl = document.getElementById("err");
 
+      // Netlify Identity: ruta canónica de roles.
+      //   app_metadata.roles                 <- fuente canónica
+      //   app_metadata.authorization.roles   <- solo lectura legacy/externo
       function rolesOf(user) {
-        if (!user || !user.app_metadata) return [];
-        return (user.app_metadata.authorization && user.app_metadata.authorization.roles) || user.app_metadata.roles || [];
-      }
-
-      // Escribe la cookie nf_jwt que el edge usa para chequear roles,
-      // por si el usuario llega con sesión pero sin cookie.
-      function setNfJwt(user) {
-        try {
-          var token = (user && user.token && user.token.access_token) || "";
-          if (token) {
-            var secure = window.location.protocol === "https:" ? "; secure" : "";
-            document.cookie = "nf_jwt=" + token + "; path=/; samesite=lax; max-age=3600" + secure;
-          }
-        } catch (err) {
-          console.error("nf_jwt cookie error", err);
-        }
+        if (!user) return [];
+        var am = user.app_metadata || {};
+        if (Array.isArray(am.roles)) return am.roles;
+        if (am.authorization && Array.isArray(am.authorization.roles)) return am.authorization.roles;
+        return [];
       }
 
       function showError(msg) {
@@ -232,14 +224,36 @@
           return;
         }
 
-        fetch("/.netlify/functions/stats", { headers: { "Authorization": "Bearer " + user.token.access_token } })
-          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-          .then(function (res) {
-            if (!res.ok) throw new Error((res.j && res.j.error) || "HTTP " + res.j);
-            render(res.j);
+        // JWT fresco: refresh() renueva el token y la cookie nf_jwt en el
+        // servidor. Nunca dependemos de user.token.access_token viejo.
+        window.netlifyIdentity.refresh()
+          .then(function (jwt) {
+            fetch("/.netlify/functions/stats", { headers: { "Authorization": "Bearer " + jwt } })
+              .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+              .then(function (res) {
+                if (!res.ok) throw new Error((res.j && res.j.error) || "HTTP " + res.j);
+                render(res.j);
+              })
+              .catch(function (e) {
+                showError("No se pudieron cargar las estadísticas: " + e.message);
+              });
           })
-          .catch(function (e) {
-            showError("No se pudieron cargar las estadísticas: " + e.message);
+          .catch(function () {
+            // Fallback: token en caché.
+            var cached = user.token && user.token.access_token;
+            if (!cached) {
+              showError("No se pudo renovar la sesión. Vuelve a iniciar sesión.");
+              return;
+            }
+            fetch("/.netlify/functions/stats", { headers: { "Authorization": "Bearer " + cached } })
+              .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+              .then(function (res) {
+                if (!res.ok) throw new Error((res.j && res.j.error) || "HTTP " + res.j);
+                render(res.j);
+              })
+              .catch(function (e) {
+                showError("No se pudieron cargar las estadísticas: " + e.message);
+              });
           });
       }
 
@@ -249,12 +263,11 @@
             '<a href="/acceso/">Ir a iniciar sesión</a></div>';
           return;
         }
-        setNfJwt(user);
         load();
       });
 
       window.netlifyIdentity.on("login", function (user) {
-        setNfJwt(user);
+        if (!user) return;
         load();
       });
       window.netlifyIdentity.on("logout", function () {

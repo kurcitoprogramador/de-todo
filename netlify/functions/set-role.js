@@ -1,31 +1,27 @@
+// TEMPORAL — invocación SOLO desde CLI/terminal.
+// Corrige el rol del usuario ADMIN en Netlify Identity.
+//
+//   POST /.netlify/functions/set-role
+//   Header: x-bootstrap-key: <BOOTSTRAP_ADMIN_KEY env var>
+//
+// Reglas:
+//   - Solo el email del dueño (TARGET_EMAIL).
+//   - Escribe la ruta canónica app_metadata.roles = ["admin"].
+//   - Preserva app_metadata.provider y el resto de app_metadata.
+//   - NO toca app_metadata.authorization.roles.
+//   - Nunca es llamado desde el frontend. Se elimina tras confirmar.
 
-// Fija el rol "admin" en app_metadata.authorization.roles para un usuario
-// dado su email. Solo funciona cuando el operator token está disponible
-// (contexto Netlify Function con Identity activo).
-// Llamar con: POST /.netlify/functions/set-role
-// Body JSON: { "email": "...", "role": "admin" }
-// Header requerido: x-set-role-key: <SET_ROLE_KEY env var>
-
-const ALLOWED_ROLES = ["admin", "editor"];
+const TARGET_EMAIL = "kurtnarra17@gmail.com";
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "{}" };
   }
 
-  // Autenticación por key de env
-  const roleKey = process.env.SET_ROLE_KEY || "";
-  const provided = (event.headers["x-set-role-key"] || "").trim();
-  if (!roleKey || provided !== roleKey) {
+  const secret = process.env.BOOTSTRAP_ADMIN_KEY || "";
+  const provided = (event.headers["x-bootstrap-key"] || "").trim();
+  if (!secret || provided !== secret) {
     return { statusCode: 403, body: JSON.stringify({ error: "Forbidden" }) };
-  }
-
-  let body;
-  try { body = JSON.parse(event.body || "{}"); } catch { body = {}; }
-  const { email, role } = body;
-
-  if (!email || !ALLOWED_ROLES.includes(role)) {
-    return { statusCode: 400, body: JSON.stringify({ error: "email y role requeridos" }) };
   }
 
   const ident = (context && context.clientContext && context.clientContext.identity) || {};
@@ -33,39 +29,34 @@ exports.handler = async (event, context) => {
     return { statusCode: 500, body: JSON.stringify({ error: "no operator token" }) };
   }
 
-  // 1. Buscar usuario por email
+  // 1. Buscar al dueño por email
   const listRes = await fetch(`${ident.url}/admin/users?per_page=200`, {
     headers: { Authorization: `Bearer ${ident.token}` },
   });
   const listData = await listRes.json();
   const users = listData.users || [];
-  const target = users.find((u) => u.email === email);
+  const target = users.find((u) => u.email === TARGET_EMAIL);
 
   if (!target) {
-    return { statusCode: 404, body: JSON.stringify({ error: "Usuario no encontrado", email }) };
+    return { statusCode: 404, body: JSON.stringify({ error: "Usuario no encontrado", email: TARGET_EMAIL }) };
   }
 
-  // 2. Leer roles actuales (ambas rutas posibles)
+  // 2. Preservar app_metadata existente y fijar roles canónicos
   const am = target.app_metadata || {};
-  const existingAuth = (am.authorization && am.authorization.roles) || am.roles || [];
-  const newRoles = existingAuth.includes(role) ? existingAuth : [...existingAuth, role];
+  const newAppMetadata = {
+    ...am,
+    roles: ["admin"],
+  };
+  delete newAppMetadata.authorization;
 
-  // 3. Escribir en la ruta correcta: app_metadata.authorization.roles
+  // 3. Actualizar el usuario real
   const patchRes = await fetch(`${ident.url}/admin/users/${target.id}`, {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${ident.token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      app_metadata: {
-        ...am,
-        // Siempre usar authorization.roles (es la ruta que Netlify lee para el JWT)
-        authorization: { roles: newRoles },
-        // Mantener compatibilidad con la ruta plana también
-        roles: newRoles,
-      },
-    }),
+    body: JSON.stringify({ app_metadata: newAppMetadata }),
   });
 
   const patchData = await patchRes.json();

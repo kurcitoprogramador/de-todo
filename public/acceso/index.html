@@ -63,6 +63,18 @@
     margin: 0 0 14px;
     display: none;
   }
+  .diag {
+    background: #f5f0f8;
+    border: 1px dashed #c9b8dd;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #5a5563;
+    line-height: 1.5;
+    margin-bottom: 14px;
+    display: none;
+    word-break: break-word;
+  }
   #identity-gate { display: none; }
 </style>
 </head>
@@ -74,6 +86,7 @@
 
     <div class="err" id="err"></div>
     <div class="info" id="info"></div>
+    <div class="diag" id="diag"></div>
 
     <div id="identity-gate">
       <div data-netlify-identity-button>Entrar / Registrarse</div>
@@ -93,123 +106,73 @@
     (function () {
       var errEl  = document.getElementById("err");
       var infoEl = document.getElementById("info");
+      var diagEl = document.getElementById("diag");
       var gate   = document.getElementById("identity-gate");
 
-      // Ruta canónica de roles en Netlify Identity JWTs.
-      // El widget los expone en user.app_metadata.authorization.roles
-      // (no en app_metadata.roles, aunque ambos pueden coexistir).
+      // ----------------------------------------------------------------------
+      // Netlify Identity: ruta canónica de roles.
+      //   app_metadata.roles                 <- fuente canónica (Netlify Identity)
+      //   app_metadata.authorization.roles   <- solo lectura legacy/externo
+      // ----------------------------------------------------------------------
       function rolesOf(user) {
-        if (!user || !user.app_metadata) return [];
-        var am = user.app_metadata;
-        return (am.authorization && am.authorization.roles) || am.roles || [];
+        if (!user) return [];
+        var am = user.app_metadata || {};
+        if (Array.isArray(am.roles)) return am.roles;
+        if (am.authorization && Array.isArray(am.authorization.roles)) return am.authorization.roles;
+        return [];
       }
 
-      // Escribe nf_jwt en la cookie para que el edge de Netlify
-      // evalúe el rol antes de servir /dashboard/ o /admin/.
-      function setNfJwt(user) {
+      // Decodifica SOLO el payload del JWT (sin verificar firma).
+      // Temporal: sirve para el diagnóstico de roles. No muestra tokens.
+      function decodeJwtPayload(token) {
         try {
-          var t = user && user.token && user.token.access_token;
-          if (t) {
-            var sec = location.protocol === "https:" ? "; secure" : "";
-            document.cookie = "nf_jwt=" + t + "; path=/; samesite=lax; max-age=3600" + sec;
-          }
-        } catch (e) { console.error("nf_jwt", e); }
+          var b64 = token.split(".")[1];
+          if (!b64) return null;
+          var normalized = b64.replace(/-/g, "+").replace(/_/g, "/");
+          var padded = normalized + "=".repeat((4 - (normalized.length % 4)) % 4);
+          var json = decodeURIComponent(
+            atob(padded)
+              .split("")
+              .map(function (c) {
+                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+              })
+              .join("")
+          );
+          return JSON.parse(json);
+        } catch (err) {
+          console.error("JWT decode error:", err);
+          return null;
+        }
       }
 
-      function redirectByRole(user) {
-        var roles = rolesOf(user);
-        if (roles.indexOf("admin") !== -1)  { location.href = "/dashboard/"; return; }
-        if (roles.indexOf("editor") !== -1) { location.href = "/admin/"; return; }
-        location.href = "/";
-      }
-
-      // Cuando el usuario inicia sesión, llama a decode-token para ver
-      // qué hay realmente dentro del JWT (diagnóstico transparente).
-      // Si app_metadata.authorization.roles está vacío, llama a set-role
-      // usando la env var SET_ROLE_KEY y luego pide al usuario que
-      // cierre sesión y vuelva a entrar (el nuevo JWT ya tendrá los roles).
-      function checkAndFixRoles(user) {
-        var roles = rolesOf(user);
-        if (roles.length > 0) {
-          // Ya tiene roles → escribir cookie y redirigir
-          setNfJwt(user);
-          redirectByRole(user);
-          return;
-        }
-
-        // Sin roles: decodificar el JWT para ver los claims reales
-        var tok = user && user.token && user.token.access_token;
-        if (!tok) {
-          showErr("No se pudo obtener el token de sesión. Recarga e intenta de nuevo.");
-          gate.style.display = "block";
-          return;
-        }
-
-        // 1. Verificar claims reales en el JWT
-        fetch("/.netlify/functions/decode-token", {
-          headers: { "Authorization": "Bearer " + tok }
-        })
-        .then(function(r){ return r.json(); })
-        .then(function(d){
-          var payload = d.payload || {};
-          var amClaims = payload.app_metadata || {};
-          var jwtRoles = (amClaims.authorization && amClaims.authorization.roles)
-                         || amClaims.roles || [];
-
-          if (jwtRoles.length > 0) {
-            // El JWT sí tiene roles pero el widget no los ve — situación rara.
-            // Escribir cookie y redirigir de todas formas.
-            setNfJwt(user);
-            redirectByRole({ app_metadata: amClaims, token: user.token });
-            return;
-          }
-
-          // El JWT realmente no tiene roles. El bootstrap pudo haber
-          // guardado en app_metadata.roles en lugar de authorization.roles.
-          // Usar set-role para corregirlo.
-          showInfo("Configurando permisos por primera vez…");
-          var roleKey = window.__SET_ROLE_KEY__ || "";
-          if (!roleKey) {
-            // Sin key de entorno disponible en el cliente, mostrar instrucción.
-            showErr(
-              "Tu cuenta no tiene permisos asignados. Contacta al administrador " +
-              "o ejecuta el proceso de configuración de roles."
-            );
-            gate.style.display = "block";
-            return;
-          }
-
-          fetch("/.netlify/functions/set-role", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-set-role-key": roleKey
-            },
-            body: JSON.stringify({ email: user.email, role: "admin" })
-          })
-          .then(function(r){ return r.json(); })
-          .then(function(res){
-            if (res.ok) {
-              showInfo(
-                "Permisos configurados. Cierra sesión y vuelve a iniciar sesión " +
-                "para obtener un token actualizado."
-              );
-              // Cerrar sesión automáticamente para que el nuevo JWT se genere
-              setTimeout(function(){ window.netlifyIdentity.logout(); }, 2500);
-            } else {
-              showErr("No se pudieron configurar los permisos: " + (res.error || "error desconocido"));
-              gate.style.display = "block";
+      // Obtiene un JWT renovado y el perfil fresco del servidor.
+      // refresh() una sola vez; getUserData() actualiza app_metadata.
+      async function getFreshSession(user) {
+        if (!user) return null;
+        try {
+          var jwt = await window.netlifyIdentity.refresh();
+          var freshUser = window.netlifyIdentity.currentUser() || user;
+          try {
+            if (freshUser && typeof freshUser.getUserData === "function") {
+              freshUser = await freshUser.getUserData();
             }
-          })
-          .catch(function(e){
-            showErr("Error de red al configurar permisos: " + e.message);
-            gate.style.display = "block";
-          });
-        })
-        .catch(function(e){
-          showErr("Error al verificar token: " + e.message);
-          gate.style.display = "block";
-        });
+          } catch (e) {
+            console.warn("No se pudo refrescar metadata", e);
+          }
+          return { user: freshUser, jwt: jwt };
+        } catch (err) {
+          console.error("No se pudo refrescar Identity:", err);
+          return {
+            user: user,
+            jwt: (user && user.token && user.token.access_token) || null
+          };
+        }
+      }
+
+      function redirectByRoles(roles) {
+        if (roles.indexOf("admin") !== -1)  { location.replace("/dashboard/"); return; }
+        if (roles.indexOf("editor") !== -1) { location.replace("/admin/"); return; }
+        location.replace("/");
       }
 
       function showErr(msg) {
@@ -223,48 +186,92 @@
         infoEl.style.display = "block";
       }
 
-      window.netlifyIdentity.on("init", function (user) {
-        if (user) {
-          // Sesión activa: refrescar token para garantizar que esté fresco
-          window.netlifyIdentity.refresh()
-            .then(function(freshToken) {
-              // refresh() devuelve el token string, no el user object completo
-              // Necesitamos el user actualizado
-              var freshUser = window.netlifyIdentity.currentUser();
-              setNfJwt(freshUser);
-              var roles = rolesOf(freshUser);
-              if (roles.length > 0) {
-                redirectByRole(freshUser);
-              } else {
-                // Token fresco pero sin roles
-                gate.style.display = "block";
-              }
-            })
-            .catch(function() {
-              // Si refresh falla, usar el user en caché
-              var cachedUser = window.netlifyIdentity.currentUser();
-              var roles = rolesOf(cachedUser);
-              if (roles.length > 0) {
-                setNfJwt(cachedUser);
-                redirectByRole(cachedUser);
-              } else {
-                gate.style.display = "block";
-              }
-            });
-        } else {
-          gate.style.display = "block";
+      // Diagnóstico TEMPORAL de sesión: solo datos no sensibles.
+      function mostrarDiagnosticoTemporal(d) {
+        try {
+          var lineas = [];
+          if (d.email) lineas.push("email: " + d.email);
+          lineas.push("roles user (getUserData): " + JSON.stringify(d.userRoles));
+          lineas.push("roles jwt: " + JSON.stringify(d.jwtRoles));
+          if (d.payload && d.payload.exp) {
+            lineas.push("jwt exp: " + new Date(d.payload.exp * 1000).toISOString());
+          }
+          lineas.push("refresh: " + (d.refreshOk ? "OK" : "fallback"));
+          diagEl.textContent = "Diagnóstico: " + lineas.join(" | ");
+          diagEl.style.display = "block";
+        } catch (e) {
+          diagEl.textContent = "Diagnóstico error: " + e.message;
+          diagEl.style.display = "block";
         }
+      }
+
+      function jwtRolesOf(session) {
+        if (!session || !session.jwt) return [];
+        var payload = decodeJwtPayload(session.jwt);
+        if (payload && payload.app_metadata && Array.isArray(payload.app_metadata.roles)) {
+          return payload.app_metadata.roles;
+        }
+        return [];
+      }
+
+      // ----------------------------------------------------------------------
+      // init: sesión restaurada o primera visita
+      // ----------------------------------------------------------------------
+      window.netlifyIdentity.on("init", async function (user) {
+        if (!user) {
+          gate.style.display = "block";
+          return;
+        }
+        var session = await getFreshSession(user);
+        var jwtRoles = jwtRolesOf(session);
+        var userRoles = rolesOf(session.user);
+        mostrarDiagnosticoTemporal({
+          email: (user && user.email) || (session.user && session.user.email),
+          userRoles: userRoles,
+          jwtRoles: jwtRoles,
+          payload: session.jwt ? decodeJwtPayload(session.jwt) : null,
+          refreshOk: !!session.jwt
+        });
+
+        if (jwtRoles.length) {
+          redirectByRoles(jwtRoles);
+          return;
+        }
+        if (userRoles.length) {
+          redirectByRoles(userRoles);
+          return;
+        }
+        // Sin roles: mostrar la puerta (permite cerrar sesión y reintentar).
+        gate.style.display = "block";
       });
 
-      window.netlifyIdentity.on("login", function (user) {
-        checkAndFixRoles(user);
+      // ----------------------------------------------------------------------
+      // login: sesión nueva
+      // ----------------------------------------------------------------------
+      window.netlifyIdentity.on("login", async function (user) {
+        window.netlifyIdentity.close();
+        var session = await getFreshSession(user);
+        var jwtRoles = jwtRolesOf(session);
+        var userRoles = rolesOf(session.user);
+        mostrarDiagnosticoTemporal({
+          email: (user && user.email) || (session.user && session.user.email),
+          userRoles: userRoles,
+          jwtRoles: jwtRoles,
+          payload: session.jwt ? decodeJwtPayload(session.jwt) : null,
+          refreshOk: !!session.jwt
+        });
+
+        redirectByRoles(jwtRoles.length ? jwtRoles : userRoles);
       });
 
+      // ----------------------------------------------------------------------
+      // logout: el widget ya llamó a netlifyIdentity.logout(). Aquí solo
+      // limpiamos la cookie legacy y volvemos a la tienda (sin re-logout).
+      // ----------------------------------------------------------------------
       window.netlifyIdentity.on("logout", function () {
         document.cookie = "nf_jwt=; path=/; max-age=0";
-        infoEl.style.display = "none";
-        errEl.style.display = "none";
         gate.style.display = "block";
+        location.replace("/");
       });
 
       window.netlifyIdentity.on("error", function (err) {

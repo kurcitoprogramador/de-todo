@@ -10,8 +10,7 @@
   to = "/admin/index.html"
   status = 200
   force = true
-  [redirects.conditions.Role]
-    values = ["editor", "admin"]
+  conditions = { Role = ["editor", "admin"] }
 
 # Si no tiene rol editor/admin, "/admin" devuelve la home (no se deja entrar)
 [[redirects]]
@@ -28,8 +27,7 @@
   to = "/dashboard/index.html"
   status = 200
   force = true
-  [redirects.conditions.Role]
-    values = ["admin"]
+  conditions = { Role = ["admin"] }
 
 [[redirects]]
   from = "/dashboard/*"

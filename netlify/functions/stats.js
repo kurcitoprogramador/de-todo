@@ -7,7 +7,9 @@ const STORE = "movimientos";
 function rolesOf(user) {
   if (!user) return [];
   const am = user.app_metadata || {};
-  return am.authorization && am.authorization.roles ? am.authorization.roles : am.roles || [];
+  if (Array.isArray(am.roles)) return am.roles;
+  if (am.authorization && Array.isArray(am.authorization.roles)) return am.authorization.roles;
+  return [];
 }
 
 exports.handler = async (event, context) => {
