@@ -131,12 +131,31 @@
         }
       }
 
+      // El widget no escribe la cookie nf_jwt que el edge usa para los
+      // redirects por rol. La escribimos aquí para que /dashboard/ y
+      // /admin/ reconozcan al usuario al cargar la página.
+      function setNfJwt(user) {
+        try {
+          var token = (user && user.token && user.token.access_token) || "";
+          if (token) {
+            var secure = window.location.protocol === "https:" ? "; secure" : "";
+            document.cookie = "nf_jwt=" + token + "; path=/; samesite=lax; max-age=3600" + secure;
+          }
+        } catch (err) {
+          console.error("nf_jwt cookie error", err);
+        }
+      }
+
       window.netlifyIdentity.on("init", function (user) {
         gate.style.display = "block";
-        if (user) redirectByRole(user);
+        if (user) {
+          setNfJwt(user);
+          redirectByRole(user);
+        }
       });
 
       window.netlifyIdentity.on("login", function (user) {
+        setNfJwt(user);
         redirectByRole(user);
       });
 
