@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>De Todo - CatÃ¡logo</title>
-<meta name="description" content="CatÃ¡logo De Todo. Precios referenciales en soles. Compra escribiÃ©ndonos por WhatsApp." />
+<title>De Todo - Catálogo</title>
+<meta name="description" content="Catálogo De Todo. Precios referenciales en soles. Compra escribiéndonos por WhatsApp." />
 <link rel="icon" type="image/x-icon" href="favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -108,6 +108,22 @@
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+
+  .nav-access {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .nav-access:hover {
+    background: var(--surface-soft);
+    border-color: var(--accent);
   }
 
   .nav-wa {
@@ -658,10 +674,11 @@
         <img class="brand-logo" src="isologo/isologo-pastel-soft-144.png" alt="Isologo De Todo" />
         <span class="brand-copy">
           De Todo
-          <small>CatÃ¡logo</small>
+          <small>Catálogo</small>
         </span>
       </a>
       <div class="nav-actions">
+        <a class="nav-access" href="/acceso/">Acceso</a>
         <a class="nav-wa" href="https://wa.me/51961841885?text=Hola%2C%20me%20gustaria%20comprar%20un%20producto%20de%20De%20Todo">
           Contactar
         </a>
@@ -674,9 +691,9 @@
       <div class="hero-mark">
         <img src="isologo/isologo-pastel-soft-600.png" alt="Isologo principal De Todo" />
       </div>
-      <span class="eyebrow">CatÃ¡logo 2026</span>
+      <span class="eyebrow">Catálogo 2026</span>
       <h1>De Todo</h1>
-      <p>Una selecciÃ³n de perfumes, bolsos y accesorios pensada para ti. Elige lo que te guste y escrÃ­benos por WhatsApp para coordinar tu compra.</p>
+      <p>Una selección de perfumes, bolsos y accesorios pensada para ti. Elige lo que te guste y escríbenos por WhatsApp para coordinar tu compra.</p>
       <a class="hero-cta" href="#catalogo">
         Ver productos
       </a>
@@ -700,7 +717,7 @@
       </div>
     </section>
 
-    <section class="info" aria-label="InformaciÃ³n">
+    <section class="info" aria-label="Información">
       <div class="info-inner">
         <div class="info-item reveal reveal-stagger">
           <div class="info-dot dot-pink">
@@ -708,7 +725,7 @@
           </div>
           <div>
             <h4>Compra por WhatsApp</h4>
-            <p>EscrÃ­benos y coordina tu pedido de forma directa y rÃ¡pida.</p>
+            <p>Escríbenos y coordina tu pedido de forma directa y rápida.</p>
           </div>
         </div>
         <div class="info-item reveal reveal-stagger">
@@ -736,8 +753,8 @@
   <footer>
     <p class="foot-brand">De Todo</p>
     <p>Actualizado: 16 de agosto de 2026</p>
-    <p>Owner Â· romis</p>
-    <p class="foot-meta"><a href="/acceso/">Acceso</a> · <a href="/dashboard/">Panel</a> · <a href="/admin/">Editar</a></p>
+    <p>Owner · romis</p>
+    <p class="foot-meta"><a href="/acceso/">Acceso</a> � <a href="/dashboard/">Panel</a> � <a href="/admin/">Editar</a></p>
   </footer>
 
   <a class="wa-float" href="https://wa.me/51961841885?text=Hola%2C%20me%20gustaria%20comprar%20un%20producto%20de%20De%20Todo" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
@@ -836,7 +853,7 @@
         })
         .catch(function () {
           var grid = document.getElementById("product-grid");
-          if (grid) grid.innerHTML = '<p style="grid-column:1/-1;color:var(--ink-soft);text-align:center;padding:20px;">No se pudo cargar el catálogo.</p>';
+          if (grid) grid.innerHTML = '<p style="grid-column:1/-1;color:var(--ink-soft);text-align:center;padding:20px;">No se pudo cargar el cat�logo.</p>';
           observeReveals();
         });
 
