@@ -182,7 +182,7 @@ flowchart TD
   PAGE --> TOK[Renueva token<br/>jwt(true)]
   TOK --> STAT[stats.js]
   STAT --> RF{¿rol admin?}
-  RF -->|no| 403[403 no autorizado]
+  RF -->|no| R403[403 no autorizado]
   RF -->|sí| BL[(Blobs movimientos)]
   BL --> JSON[Estadisticas: usuarios,<br/>actividad, gráficos]
   JSON --> PAGE
