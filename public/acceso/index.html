@@ -76,6 +76,12 @@
   }
   #session-go { background: var(--ink); color: #fff; border: 1px solid var(--ink); }
   #logout-btn { background: #f5f0f8; color: #5a5563; border: 1px solid #e3d9ef; }
+  #session-stats {
+    display: block;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
   #identity-gate { display: none; }
 </style>
 </head>
@@ -96,6 +102,7 @@
       <p class="email" id="session-email"></p>
       <p class="role" id="session-role"></p>
       <button id="session-go" style="display:none">Ir al panel</button>
+      <a id="session-stats" href="/dashboard/" style="display:none">Ver estadísticas</a>
       <button id="logout-btn">Cerrar sesión</button>
     </div>
 
@@ -118,6 +125,7 @@
       var sessionEmail  = document.getElementById("session-email");
       var sessionRole   = document.getElementById("session-role");
       var sessionGo     = document.getElementById("session-go");
+      var sessionStats = document.getElementById("session-stats");
       var logoutBtn     = document.getElementById("logout-btn");
       var sessionRoles  = [];
 
@@ -135,6 +143,7 @@
         sessionRole.textContent = "Rol: " + roleLabel(sessionRoles);
         var hasAccess = sessionRoles.indexOf("admin") !== -1 || sessionRoles.indexOf("editor") !== -1;
         sessionGo.style.display = hasAccess ? "block" : "none";
+        sessionStats.style.display = sessionRoles.indexOf("admin") !== -1 ? "block" : "none";
         sessionPanel.style.display = "block";
       }
 
@@ -213,7 +222,8 @@
       }
 
       function redirectByRoles(roles) {
-        if (roles.indexOf("admin") !== -1)  { location.replace("/dashboard/"); return; }
+        // admin y editor van al editor de productos (Decap CMS).
+        if (roles.indexOf("admin") !== -1)  { location.replace("/admin/"); return; }
         if (roles.indexOf("editor") !== -1) { location.replace("/admin/"); return; }
         location.replace("/");
       }
