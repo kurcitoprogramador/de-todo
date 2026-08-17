@@ -96,6 +96,8 @@
 
     <div class="err" id="err"></div>
 
+    <div id="diagnostico" style="display:none;background:#f5f0f8;border:1px dashed #c9b8dd;border-radius:10px;padding:10px 12px;font-size:12px;color:#5a5563;line-height:1.5;margin-bottom:14px;"></div>
+
     <div id="identity-gate">
       <div data-netlify-identity-button>Entrar / Registrarse</div>
     </div>
@@ -114,6 +116,25 @@
     (function () {
       var errEl = document.getElementById("err");
       var gate = document.getElementById("identity-gate");
+      var diagEl = document.getElementById("diagnostico");
+
+      // Diagnóstico temporal (se retira cuando se resuelva el acceso).
+      function mostrarDiagnostico(user) {
+        try {
+          var lineas = [];
+          if (user && user.email) lineas.push("email: " + user.email);
+          lineas.push("roles(app_metadata): " + JSON.stringify(rolesOf(user)));
+          var am = (user && user.app_metadata) || {};
+          lineas.push("app_metadata: " + JSON.stringify(am).slice(0, 200));
+          var hasCookie = document.cookie.indexOf("nf_jwt=") !== -1;
+          lineas.push("cookie nf_jwt presente: " + hasCookie);
+          diagEl.textContent = "Diagnóstico: " + lineas.join(" | ");
+          diagEl.style.display = "block";
+        } catch (e) {
+          diagEl.textContent = "Diagnóstico error: " + e.message;
+          diagEl.style.display = "block";
+        }
+      }
 
       function rolesOf(user) {
         if (!user || !user.app_metadata) return [];
@@ -147,6 +168,7 @@
       }
 
       window.netlifyIdentity.on("init", function (user) {
+        mostrarDiagnostico(user);
         if (user) {
           setNfJwt(user);
           var roles = rolesOf(user);
@@ -163,6 +185,7 @@
 
       window.netlifyIdentity.on("login", function (user) {
         setNfJwt(user);
+        mostrarDiagnostico(user);
         redirectByRole(user);
       });
 
