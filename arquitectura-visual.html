@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Arquitectura visual · De Todo</title>
+<style>
+  :root {
+    --mint: #b7e4c7;
+    --pink: #f9d5e5;
+    --peach: #ffd8be;
+    --cream: #fdf6ee;
+    --ink: #3c3644;
+    --ink-soft: #8a8296;
+    --surface: #ffffff;
+    --line: #e8e1ef;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: linear-gradient(160deg, #fdeef4 0%, #eef7f1 45%, #fdf3ea 100%);
+    min-height: 100vh;
+  }
+  header.hero {
+    text-align: center;
+    padding: 34px 20px 10px;
+  }
+  header.hero h1 { margin: 0 0 6px; font-size: 26px; }
+  header.hero p { margin: 0 auto; color: var(--ink-soft); max-width: 720px; font-size: 14px; line-height: 1.5; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 18px 20px 60px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(74, 68, 83, 0.08);
+    padding: 18px;
+    margin: 22px 0;
+  }
+  .card h2 { margin: 0 0 4px; font-size: 17px; }
+  .card .sub { margin: 0 0 12px; color: var(--ink-soft); font-size: 13px; }
+  .mermaid { display: flex; justify-content: center; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px 10px; }
+  th { color: var(--ink-soft); font-weight: 600; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; font-size: 12px; margin: 10px 0 4px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-soft); }
+  .sw { width: 14px; height: 14px; border-radius: 5px; display: inline-block; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Mapa de arquitectura · De Todo</h1>
+  <p>Así se mueven los datos entre la tienda, el editor, los usuarios, GitHub y Netlify. Cada diagrama es un flujo real del sitio.</p>
+  <div class="legend">
+    <span><i class="sw" style="background:#ffe7ee"></i> Usuario / persona</span>
+    <span><i class="sw" style="background:#e2f3e8"></i> Servicio Netlify</span>
+    <span><i class="sw" style="background:#fdeedf"></i> Externo (GitHub, WhatsApp)</span>
+    <span><i class="sw" style="background:#efe9f7"></i> Datos guardados</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>1 · Vista general (cómo encaja todo)</h2>
+    <p class="sub">Un visitante entra a la tienda; Netlify sirve las páginas, controla quién entra a cada panel, guarda movimientos y avisa por correo.</p>
+    <pre class="mermaid">
+flowchart LR
+  V[Visitante<br/>móvil o escritorio] -->|navega /| NET
+  E[Editora<br/>edita en /admin/] -->|/admin/| NET
+  D[Dueña<br/>estadísticas] -->|/dashboard/| NET
+  subgraph NET["NETLIFY"]
+    direction TB
+    EDGE["Edge / CDN<br/>páginas + redirects por rol"]
+    ID["Identity<br/>login + registro + JWT"]
+    FN["Functions<br/>eventos + APIs"]
+    FM["Forms<br/>envíos → correo"]
+    BL["Blobs<br/>movimientos"]
+    EDGE --- FN
+    ID --- FN
+    FN --> BL
+    FN --> FM
+  end
+  NET -->|commit/merge| GH[GitHub<br/>repo y historial]
+  NET -->|email| MAIL[Correo de la dueña]
+  E -->|compra por WhatsApp| WA[WhatsApp wa.me]
+</pre>
+  </div>
+
+  <div class="card">
+    <h2>2 · La tienda: cómo se muestra un producto y cómo se compra</h2>
+    <p class="sub">Todo es estático: la página lee el catálogo y cada botón de "Comprar" abre una conversación de WhatsApp con el mensaje listo.</p>
+    <pre class="mermaid">
+sequenceDiagram
+  participant Nav as Navegador
+  participant CD as Netlify CDN
+  participant P as products.json
+  participant WA as WhatsApp
+
+  Nav->>CD: GET / (index.html)
+  CD-->>Nav: página + CSS/JS
+  Nav->>CD: GET /products.json
+  CD-->>Nav: lista de productos
+  Nav->>Nav: pinta tarjetas (foto, precio S/, stock)
+  Nav->>WA: wa.me/51...?text=Hola, me interesa &lt;producto&gt;
+  WA-->>Nav: conversación abierta ✓
+</pre>
+  </div>
+
+  <div class="card">
+    <h2>3 · Registro e ingreso de usuarios</h2>
+    <p class="sub">Cuando alguien se registra: se guarda el movimiento, se envía correo de confirmación y Netlify avisa a la dueña.</p>
+    <pre class="mermaid">
+flowchart TD
+  A[Persona entra a /acceso/] --> B[Identity: se registra]
+  B --> C[Correo de confirmación<br/>al usuario]
+  B --> D{¿Es login o registro?}
+  D -->|registro nuevo| E[Evento identity-signup]
+  E --> F[Blobs movimientos: signup]
+  E --> G[Form nueva-cuenta]
+  G --> MAIL[Email a la dueña:<br/>"se registró ..."]
+  D -->|login| H[Evento identity-login]
+  H --> F2[Blobs movimientos: login]
+  E --> J[JWT nuevo + cookie nf_jwt]
+  H --> J
+  J --> K[Acceso según rol]
+</pre>
+  </div>
+
+  <div class="card">
+    <h2>4 · Cómo entra el editor y publica productos</h2>
+    <p class="sub">La persona editora entra a /admin/ (solo con rol editor/admin), edita en el CMS, y "Publicar" genera un commit a GitHub que reconstruye el sitio.</p>
+    <pre class="mermaid">
+sequenceDiagram
+  participant Ed as Editora
+  participant Edge as Netlify Edge<br/>/admin/ por rol
+  participant CMS as Decap CMS
+  participant GW as Git Gateway
+  participant GH as GitHub main
+  participant B as Netlify Build
+  participant Site as Tienda /
+
+  Ed->>Edge: GET /admin/
+  Edge-->>Ed: pagina del CMS (si editor/admin)
+  Ed->>CMS: edita producto
+  CMS->>CMS: "Guardar" = borrador (rama cms/*)
+  Ed->>CMS: "Publicar"
+  CMS->>GW: commit + merge a main
+  GW->>GH: push a main
+  GH->>B: build automatico (~1 min)
+  B->>Site: publica public/ actualizado
+  Ed->>Site: recarga y ve el cambio ✓
+</pre>
+  </div>
+
+  <div class="card">
+    <h2>5 · Avisos por correo (sin tocar nada)</h2>
+    <p class="sub">Cada registro nuevo y cada edición publicada dispara un email automático a la cuenta de Netlify de la dueña.</p>
+    <pre class="mermaid">
+flowchart LR
+  A[Se registra alguien] --> F1[identity-signup]
+  F1 --> GM1[Form nueva-cuenta] --> M1[Email: nuevo registro]
+  B[Se publica una edición<br/>de producto] --> F2[deploy-succeeded<br/>filtra mensajes del editor]
+  B ~~~ BB[Netlify Build termina]
+  BB --> F2
+  F2 --> GM2[Form edicion-producto] --> M2[Email: producto actualizado]
+</pre>
+  </div>
+
+  <div class="card">
+    <h2>6 · Panel de estadísticas (solo la dueña)</h2>
+    <p class="sub">El panel pide datos a una función protegida que lee los movimientos guardados. Sin rol admin, todo se rechaza (edge + función).</p>
+    <pre class="mermaid">
+flowchart TD
+  D[Dueña entra /dashboard/] --> EDGE{Edge: ¿rol admin?}
+  EDGE -->|no| NEG[Ver dashboard-negado]
+  EDGE -->|sí| PAGE[Panel /dashboard/]
+  PAGE --> TOK[Renueva token<br/>jwt(true)]
+  TOK --> STAT[stats.js]
+  STAT --> RF{¿rol admin?}
+  RF -->|no| 403[403 no autorizado]
+  RF -->|sí| BL[(Blobs movimientos)]
+  BL --> JSON[Estadisticas: usuarios,<br/>actividad, gráficos]
+  JSON --> PAGE
+</pre>
+  </div>
+
+  <div class="card">
+    <h2>Quién puede hacer qué</h2>
+    <table>
+      <thead><tr><th>Persona</th><th>Tienda /</th><th>Registro /acceso/</th><th>Editor /admin/</th><th>Stats /dashboard/</th></tr></thead>
+      <tbody>
+        <tr><td>Visitante anónimo</td><td>✅</td><td>✅</td><td>❌ (va a la tienda)</td><td>❌ (acceso restringido)</td></tr>
+        <tr><td>Registrado (sin rol)</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
+        <tr><td>Editora <b>(editor)</b></td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Dueña <b>(admin)</b></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="text-align:center;color:var(--ink-soft);font-size:12px">Documento de arquitectura completo en ARCHITECTURE.md · Generado 17 ago 2026</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: "base",
+    themeVariables: {
+      primaryColor: "#f9d5e5",
+      primaryTextColor: "#3c3644",
+      primaryBorderColor: "#e0b9cf",
+      lineColor: "#8a8296",
+      secondaryColor: "#e2f3e8",
+      tertiaryColor: "#efe9f7",
+      fontSize: "14px",
+      fontFamily: "system-ui, -apple-system, 'Segoe UI', sans-serif"
+    },
+    securityLevel: "loose",
+    flowchart: { useMaxWidth: true, htmlLabels: true }
+  });
+</script>
+</body>
+</html>
