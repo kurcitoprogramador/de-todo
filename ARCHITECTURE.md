@@ -1,7 +1,7 @@
 # ARQUITECTURA — De Todo · Catálogo Electrónico
 
 > **Documento:** Arquitectura técnica y operativa del proyecto.
-> **Versión:** 2.0 — Refleja el estado actual desplegado.
+> **Versión:** 2.1 — Refleja el estado actual desplegado.
 > **Fecha:** 17 de agosto de 2026.
 > **Estado:** Estable · Producción activa.
 > **Repositorio:** `kurcitoprogramador/de-todo` — rama `main`.
@@ -26,7 +26,8 @@
 13. Atributos no funcionales
 14. Modos de fallo y runbook operativo
 15. Limitaciones y evolución
-16. Glosario
+16. Mapa visual de la arquitectura
+17. Glosario
 
 ---
 
@@ -39,7 +40,7 @@
 |---|---|---|---|
 | Tienda pública | `/` | Cualquier visitante | Público |
 | Editor de catálogo (Decap CMS) | `/admin/` | `editor` y `admin` | Condicionado por rol |
-| Panel de estadísticas | `/dashboard/` | `admin` (dueño) | Condicionado por rol |
+| Panel de estadísticas | `/dashboard/` | `admin` (Kurt) | Condicionado por rol |
 | Acceso (login/registro) | `/acceso/` | Público | Público |
 
 **Decisiones de fondo:**
@@ -56,7 +57,7 @@
   profundidad.
 - **Notificación por correo sin servicios externos**: los formularios de
   Netlify con detección automática se usan como canal de email hacia la
-  cuenta del dueño para cada registro nuevo y cada edición de producto.
+  cuenta de Kurt para cada registro nuevo y cada edición de producto.
 
 ---
 
@@ -71,7 +72,7 @@
 | ADR-05 | Telemetría en Netlify Blobs (store `movimientos`) | Sin BD externa; económico; SDK oficial `@netlify/blobs` | ✅ |
 | ADR-06 | Eventos de Identity por convención *legacy* de archivo (`identity-*.js`) | Soporte vigente y de menor fricción que handlers tipados | ✅ |
 | ADR-07 | Renovación real de sesión con `user.jwt(true)` (refresco forzado) | `refresh()` + sesión restaurada de `localStorage` pueden reutilizar un JWT antiguo **sin roles**; el forzado acuña token nuevo y renueva la cookie `nf_jwt` vía `X-Use-Cookie` | ✅ |
-| ADR-08 | Notificaciones vía **Formularios Netlify** (detección + email a la cuenta del dueño) | Gratis, sin API keys externas; cupo ~100 envíos/mes en plan gratuito | ✅ |
+| ADR-08 | Notificaciones vía **Formularios Netlify** (detección + email a la cuenta de Kurt) | Gratis, sin API keys externas; cupo ~100 envíos/mes en plan gratuito | ✅ |
 | ADR-09 | `deploy-succeeded` como **función de evento** para avisar cada publicación | El pipeline publica solo desde Git; el evento es el punto de sincronización natural | ✅ |
 | ADR-10 | Detección de formularios habilitada vía `processing_settings.ignore_html_forms=false` | Netlify la desactiva por defecto en sitios creados por API | ✅ |
 
@@ -98,11 +99,11 @@
        └───┬──────────────┬───────────────┬───────────────┬────────┘
            │              │               │               │
            ▼              ▼               ▼               ▼
-      ┌─────────┐   ┌──────────┐   ┌───────────┐   ┌──────────────┐
-      │ GitHub  │   │ WhatsApp │   │ Correo de │   │ Git Gateway  │
-      │ (repo + │   │ (compra: │   │  la dueña │   │ (puente Git- │
-      │  historial│   │  wa.me/  │   │ (avizos)  │   │  CMS→GitHub)│
-      └─────────┘   └──────────┘   └───────────┘   └──────────────┘
+┌─────────┐   ┌──────────┐   ┌───────────┐   ┌──────────────┐
+   │ GitHub  │   │ WhatsApp │   │ Correo de │   │ Git Gateway  │
+   │ (repo + │   │ (compra: │   │   Kurt    │   │ (puente Git- │
+   │  historial│   │  wa.me/  │   │ (avizos)  │   │  CMS→GitHub)│
+   └─────────┘   └──────────┘   └───────────┘   └──────────────┘
 ```
 
 **Actores**
@@ -110,7 +111,7 @@
 - **Visitante anónimo**: navega la tienda; puede registrarse.
 - **Registrado (sin rol)**: ve la tienda; su registro queda en telemetría.
 - **Editor (`editor`)**: administra productos en `/admin/`.
-- **Dueño (`admin`)**: edita productos y consulta `/dashboard/`.
+- **Kurt (`admin`)**: edita productos y consulta `/dashboard/`.
 - **Sistema/CI**: GitHub, Netlify Build y la extensión de email de Forms.
 
 ---
@@ -163,20 +164,21 @@ romis/
 │   │   └── config.yml             #   backend git-gateway + collections
 │   ├── acceso/                    # Gate de autenticación
 │   │   └── index.html
-│   ├── dashboard/                 # Estadísticas (dueño)
+│   ├── dashboard/                 # Estadísticas (Kurt)
 │   │   └── index.html
 │   └── dashboard-negado.html      # Aviso de acceso restringido
 ├── netlify/
 │   └── functions/
-│       ├── identity-signup.js     # Evento: alta → blob + email dueña
+│       ├── identity-signup.js     # Evento: alta → blob + email a Kurt
 │       ├── identity-login.js      # Evento: ingreso → blob
 │       ├── stats.js               # API stats (rol admin, Blobs)
-│       └── deploy-succeeded.js    # Evento: publicación → email dueña
+│       └── deploy-succeeded.js    # Evento: publicación → email a Kurt
 ├── emails/                        # Plantillas Identity (requiere plan Pro)
 ├── netlify.toml                   # Build, funciones, redirects y roles
 ├── package.json                   # Dependencias de funciones
 ├── DEPLOY_NETLIFY.md              # Guía de puesta en marcha
 ├── FLUJO_PRODUCTOS.md             # Guía operativa del negocio
+├── arquitectura-visual.html       # Mapa visual Mermaid (imprime/mira en navegador)
 ├── ARCHITECTURE.md                # Este documento
 └── instrucs.txt                   # Apuntes internos (no forma parte del sitio)
 ```
@@ -291,8 +293,8 @@ Dos formularios ocultos en `index.html` (requisito: detección de formularios
 | `nueva-cuenta` | `nombre`, `email`, `hora` | Alta de un usuario (desde `identity-signup.js`) |
 | `edicion-producto` | `quien`, `detalle`, `rama`, `hora` | Cada publicación del editor (desde `deploy-succeeded.js`) |
 
-Netlify convierte cada envío en un registro y un **email a la cuenta del
-dueño** (asunto del tipo `New submission: edicion-producto`). En plan
+Netlify convierte cada envío en un registro y un **email a la cuenta de
+Kurt** (asunto del tipo `New submission: edicion-producto`). En plan
 gratuito el cupo es ~100 envíos/mes.
 
 ---
@@ -317,7 +319,7 @@ GET / ────────────────────────�
    │     │ email de confirmación (marcadores {{ confirmation_url }})
    │     └── evento userSignup (legacy identity-signup.js)
    │            ├─ blob signup {type,email,userId,at,roles}
-   │            └─ notifyNewUser → POST form "nueva-cuenta" → email dueña
+   │            └─ notifyNewUser → POST form "nueva-cuenta" → email a Kurt
    │
    └─ LOGIN: credentials/fresh → Identity emite JWT + cookie nf_jwt
          └── evento userLogin (legacy identity-login.js) → blob login
@@ -341,7 +343,7 @@ GET / ────────────────────────�
 ```
 merge a main → build → deploySucceeded (evento) ── deploy-succeeded.js
    filtra commit: /Agregar producto|Actualizar producto|Eliminar producto|Subir imagen/
-   → POST form "edicion-producto" → email a la dueña
+   → POST form "edicion-producto" → email a Kurt
 ```
 
 ### 8.5 Panel de estadísticas
@@ -457,7 +459,7 @@ push main / merge CMS ──► Netlify Build (sin command) ──► publish pu
    las herramientas de gestión se desplegaron y retiraron.
 6. **Sin secretos en el frontend**: ni tokens ni claves en HTML/JS públicos.
 7. **Form endpooints**: sirven config pública y recepción de envíos sin datos
-   sensibles; el email va únicamente a la cuenta del dueño.
+   sensibles; el email va únicamente a la cuenta de Kurt.
 8. **`robots noindex`** en páginas privadas (`/admin`, `/dashboard`,
    `/acceso`, `dashboard-negado`).
 
@@ -465,7 +467,7 @@ push main / merge CMS ──► Netlify Build (sin command) ──► publish pu
 
 ## 12. Notificaciones y observabilidad
 
-- **Email al dueño**:
+- **Email a Kurt**:
   - Registro nuevo → `nueva-cuenta`.
   - Publicación del editor → `edicion-producto`.
 - **Dashboard** (`/dashboard/`): métricas de actividad de Identity.
@@ -519,7 +521,54 @@ push main / merge CMS ──► Netlify Build (sin command) ──► publish pu
 
 ---
 
-## 16. Glosario
+## 16. Mapa visual de la arquitectura
+
+Además de este documento técnico, el proyecto incluye un **mapa visual**
+(`arquitectura-visual.html`) pensado para verse en el navegador (o imprimirse)
+sin conocimientos técnicos. Se abre con doble clic, no necesita servidor ni
+deploy. Cubre:
+
+1. Tienda pública (visitante, Kurt y editora → CDN/Forms/GitHub).
+2. Rol por persona (matriz rápida).
+3. Registro e ingreso de usuarios.
+4. Catálogo: edición por CMS y publicación a `main`.
+5. Avisos por correo automáticos (registros y ediciones).
+6. Panel de estadísticas (solo Kurt, rol `admin`).
+
+Los diagramas usan **Mermaid** (al cargar vía CDN de jsdelivr). Reglas de
+mantenimiento:
+
+- No romper la sintaxis al editar: los nodos y sus etiquetas deben validarse.
+- Los errores típicos ya corregidos: nodos cuyo **id** no empieza con número
+  (ej. `403` → `R403`), etiquetas con comillas simples, y **paréntesis dentro de
+  una etiqueta** (ej. `jwt(true)` debe ir entre comillas:
+  `["Renueva token<br/>jwt(true)"]`).
+- Al abrir el archivo en un navegador, si un diagrama queda en blanco o avisa
+  `Syntax error in text`, revisar la sintaxis de esa sección.
+
+**Validación local de los diagramas** (tras editar cualquier sección):
+
+```powershell
+cd tools
+npm install            # primera vez únicamente
+node check-mermaid.js ..\arquitectura-visual.html
+# esperado: 6/6 OK
+```
+
+El script (`tools/check-mermaid.js`) abre cada bloque `<pre class="mermaid">`
+con Mermaid real (v11.16.1, la misma que tu navegador) y reporta OK/ERROR por
+diagrama. Herramientas: `tools/package.json` (+ `mermaid`, `puppeteer-core`).
+`node_modules/` no se sube al repo.
+
+> **Nombres en la arquitectura:** en los documentos de arquitectura el owner se
+> llama **Kurt** (`admin`). En la tienda publicada el crédito de la página es
+> **romis** ("Owner · romis"), tal como aparece en `public/index.html`. Ambas
+> referencias conviven: una es la autoría técnica, la otra el crédito visible
+> de la tienda.
+
+---
+
+## 17. Glosario
 
 - **JWT**: JSON Web Token de acceso emitido por Netlify Identity.
 - **`nf_jwt`**: cookie HttpOnly de sesión que consume el edge.
