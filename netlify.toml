@@ -5,6 +5,13 @@
 # ---------------------------------------------------------------------------
 # PANEL DE ADMINISTRACIÓN (Decap CMS) — solo roles editor y admin
 # ---------------------------------------------------------------------------
+# El CMS pide /admin/config.yml como archivo real: se sirve tal cual
+# (debe ir ANTES del redirect por rol, que se evalua de arriba a abajo).
+[[redirects]]
+  from = "/admin/config.yml"
+  to = "/admin/config.yml"
+  status = 200
+
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"

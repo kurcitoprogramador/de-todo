@@ -63,17 +63,16 @@
     margin: 0 0 14px;
     display: none;
   }
-  .diag {
+#logout-btn {
+    width: 100%;
+    margin-top: 16px;
+    border: 1px solid #e3d9ef;
     background: #f5f0f8;
-    border: 1px dashed #c9b8dd;
-    border-radius: 10px;
-    padding: 10px 12px;
-    font-size: 11px;
     color: #5a5563;
-    line-height: 1.5;
-    margin-bottom: 14px;
-    display: none;
-    word-break: break-word;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 13px;
+    cursor: pointer;
   }
   #identity-gate { display: none; }
 </style>
@@ -86,11 +85,11 @@
 
     <div class="err" id="err"></div>
     <div class="info" id="info"></div>
-    <div class="diag" id="diag"></div>
 
     <div id="identity-gate">
       <div data-netlify-identity-button>Entrar / Registrarse</div>
     </div>
+    <button id="logout-btn" style="display:none">Cerrar sesión</button>
 
     <noscript>
       <p class="hint">Necesitas activar JavaScript para iniciar sesión.</p>
@@ -106,8 +105,15 @@
     (function () {
       var errEl  = document.getElementById("err");
       var infoEl = document.getElementById("info");
-      var diagEl = document.getElementById("diag");
       var gate   = document.getElementById("identity-gate");
+      var logoutBtn = document.getElementById("logout-btn");
+
+      function showLogoutBtn() {
+        logoutBtn.style.display = "block";
+      }
+      logoutBtn.addEventListener("click", function () {
+        window.netlifyIdentity.logout();
+      });
 
       // ----------------------------------------------------------------------
       // Netlify Identity: ruta canónica de roles.
@@ -195,32 +201,6 @@
         infoEl.style.display = "block";
       }
 
-      // Diagnóstico TEMPORAL de sesión: solo datos no sensibles.
-      function mostrarDiagnosticoTemporal(d) {
-        try {
-          var lineas = [];
-          if (d.email) lineas.push("email: " + d.email);
-          lineas.push("roles user (getUserData): " + JSON.stringify(d.userRoles));
-          lineas.push("roles jwt: " + JSON.stringify(d.jwtRoles));
-          if (d.payload && d.payload.exp) {
-            lineas.push("jwt exp: " + new Date(d.payload.exp * 1000).toISOString());
-          }
-          lineas.push("refresh: " + (d.refreshOk ? "OK" : "fallback"));
-          diagEl.textContent = "Diagnóstico: " + lineas.join(" | ");
-          diagEl.style.display = "block";
-          // Vista del servidor (cookie nf_jwt): qué usuario ve Netlify.
-          fetch("/.netlify/functions/auth-debug", { credentials: "same-origin" })
-            .then(function (r) { return r.json(); })
-            .then(function (sd) {
-              diagEl.textContent += " | server(cookie): " + JSON.stringify(sd);
-            })
-            .catch(function () {});
-        } catch (e) {
-          diagEl.textContent = "Diagnóstico error: " + e.message;
-          diagEl.style.display = "block";
-        }
-      }
-
       function jwtRolesOf(session) {
         if (!session || !session.jwt) return [];
         var payload = decodeJwtPayload(session.jwt);
@@ -241,13 +221,7 @@
         var session = await getFreshSession(user);
         var jwtRoles = jwtRolesOf(session);
         var userRoles = rolesOf(session.user);
-        mostrarDiagnosticoTemporal({
-          email: (user && user.email) || (session.user && session.user.email),
-          userRoles: userRoles,
-          jwtRoles: jwtRoles,
-          payload: session.jwt ? decodeJwtPayload(session.jwt) : null,
-          refreshOk: !!session.jwt
-        });
+        showLogoutBtn();
 
         if (jwtRoles.length) {
           redirectByRoles(jwtRoles);
@@ -269,25 +243,18 @@
         var session = await getFreshSession(user);
         var jwtRoles = jwtRolesOf(session);
         var userRoles = rolesOf(session.user);
-        mostrarDiagnosticoTemporal({
-          email: (user && user.email) || (session.user && session.user.email),
-          userRoles: userRoles,
-          jwtRoles: jwtRoles,
-          payload: session.jwt ? decodeJwtPayload(session.jwt) : null,
-          refreshOk: !!session.jwt
-        });
+        showLogoutBtn();
 
         redirectByRoles(jwtRoles.length ? jwtRoles : userRoles);
       });
 
       // ----------------------------------------------------------------------
-      // logout: el widget ya llamó a netlifyIdentity.logout(). Aquí solo
-      // limpiamos la cookie legacy y volvemos a la tienda (sin re-logout).
+      // logout: el widget ya llamó a netlifyIdentity.logout() (limpia
+      // sesión y la cookie nf_jwt por servidor). Solo volvemos a acceso.
       // ----------------------------------------------------------------------
       window.netlifyIdentity.on("logout", function () {
-        document.cookie = "nf_jwt=; path=/; max-age=0";
         gate.style.display = "block";
-        location.replace("/");
+        location.replace("/acceso/");
       });
 
       window.netlifyIdentity.on("error", function (err) {
