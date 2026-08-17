@@ -2,6 +2,28 @@
 // Convención legacy por nombre de archivo (sigue soportada por Netlify).
 const { getStore } = require("@netlify/blobs");
 
+// Notifica por correo a la dueña usando un Form de Netlify (normalmente
+// el correo de la cuenta de Netlify). Sin servicios externos.
+async function notifyNewUser(user) {
+  try {
+    const siteUrl = (process.env.URL || "https://de-todo-catalogo.netlify.app").replace(/\/+$/, "");
+    const meta = user.user_metadata || {};
+    const body = new URLSearchParams({
+      "form-name": "nueva-cuenta",
+      nombre: meta.full_name || meta.name || "",
+      email: user.email || "",
+      hora: new Date().toLocaleString("es-PE", { dateStyle: "medium", timeStyle: "short" }),
+    }).toString();
+    await fetch(siteUrl + "/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+  } catch (err) {
+    console.error("notifyNewUser error", err);
+  }
+}
+
 exports.handler = async (event) => {
   try {
     const store = getStore({ name: "movimientos" });
@@ -18,6 +40,7 @@ exports.handler = async (event) => {
       at: new Date().toISOString(),
       roles,
     });
+    await notifyNewUser(user);
   } catch (err) {
     console.error("identity-signup error", err);
   }
