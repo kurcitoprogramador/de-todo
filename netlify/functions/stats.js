@@ -20,7 +20,16 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 403,
       headers: { "content-type": "application/json; charset=utf-8" },
-      body: JSON.stringify({ error: "No autorizado. Se requiere rol admin." }),
+      body: JSON.stringify({
+        error: "No autorizado. Se requiere rol admin.",
+        // TEMPORAL: diagnóstico de porqué falla la autorización.
+        debug: {
+          hasUser: !!me,
+          email: (me && me.email) || null,
+          roles,
+          hasAuthHeader: !!(event.headers && event.headers.authorization),
+        },
+      }),
     };
   }
 

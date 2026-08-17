@@ -226,7 +226,11 @@
       }
 
       function applyStats(res) {
-        if (!res.ok) throw new Error((res.j && res.j.error) || "HTTP " + res.j);
+        if (!res.ok) {
+          var debug = res.j && res.j.debug;
+          var extra = debug ? " | " + JSON.stringify(debug) : "";
+          throw new Error(((res.j && res.j.error) || ("HTTP " + res.j)) + extra);
+        }
         render(res.j);
       }
 
