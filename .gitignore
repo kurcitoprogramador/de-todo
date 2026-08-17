@@ -6,3 +6,6 @@ apple-design-skill-main/
 
 # Archivo legacy (marca anterior, reemplazado por index.html)
 osamu-dazai-catalogo.html
+
+# Dependencias de Node (se instalan en el build de Netlify)
+node_modules/
