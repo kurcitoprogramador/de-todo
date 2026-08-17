@@ -5,7 +5,7 @@ export default async (req) => {
   try {
     const { payload } = await req.json();
     const msg = (payload && (payload.commitMessage || payload.title)) || "";
-    const isEditorChange = /Agregar producto|Actualizar producto|Eliminar producto|Subir imagen/.test(msg);
+    const isEditorChange = true; // TEMPORAL verificación
     if (!isEditorChange) return;
 
     const siteUrl = (process.env.URL || "https://de-todo-catalogo.netlify.app").replace(/\/+$/, "");
