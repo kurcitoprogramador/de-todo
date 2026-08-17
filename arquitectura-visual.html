@@ -105,7 +105,7 @@ sequenceDiagram
   Nav->>CD: GET /products.json
   CD-->>Nav: lista de productos
   Nav->>Nav: pinta tarjetas (foto, precio S/, stock)
-  Nav->>WA: wa.me/51...?text=Hola, me interesa &lt;producto&gt;
+  Nav->>WA: wa.me 51...: Hola, me interesa el producto
   WA-->>Nav: conversación abierta ✓
 </pre>
   </div>
@@ -115,16 +115,17 @@ sequenceDiagram
     <p class="sub">Cuando alguien se registra: se guarda el movimiento, se envía correo de confirmación y Netlify avisa a la dueña.</p>
     <pre class="mermaid">
 flowchart TD
-  A[Persona entra a /acceso/] --> B[Identity: se registra]
-  B --> C[Correo de confirmación<br/>al usuario]
+  A[Persona entra a /acceso/] --> B[Identity: registra a la persona]
+  B --> C[Correo de confirmación para el usuario]
   B --> D{¿Es login o registro?}
   D -->|registro nuevo| E[Evento identity-signup]
-  E --> F[Blobs movimientos: signup]
+  E --> F[Blobs movimientos - signup]
   E --> G[Form nueva-cuenta]
-  G --> MAIL[Email a la dueña:<br/>"se registró ..."]
+  G --> MAIL[Email a la dueña: alguien se registró]
   D -->|login| H[Evento identity-login]
-  H --> F2[Blobs movimientos: login]
-  E --> J[JWT nuevo + cookie nf_jwt]
+  H --> F2[Blobs movimientos - login]
+  J[JWT nuevo + cookie nf_jwt]
+  E --> J
   H --> J
   J --> K[Acceso según rol]
 </pre>
@@ -136,7 +137,7 @@ flowchart TD
     <pre class="mermaid">
 sequenceDiagram
   participant Ed as Editora
-  participant Edge as Netlify Edge<br/>/admin/ por rol
+  participant Edge as Netlify Edge<br/>admin por rol
   participant CMS as Decap CMS
   participant GW as Git Gateway
   participant GH as GitHub main
