@@ -1,0 +1,45 @@
+{
+  "whatsapp": "51961841885",
+  "products": [
+    {
+      "name": "Bruma Festive Fizz",
+      "price": 45,
+      "description": "Bruma corporal fresca y ligera, perfecta para el día a día.",
+      "tag": "Nuevo",
+      "availability": "disponible",
+      "image": "products/Bruma festive fizz Vs.jpg"
+    },
+    {
+      "name": "Perfume Espirit D'Oscar",
+      "price": 120,
+      "description": "Fragancia elegante y duradera para ocasiones especiales.",
+      "tag": "Perfumes",
+      "availability": "disponible",
+      "image": "products/Perfume Espirit D’Oscar.jpg"
+    },
+    {
+      "name": "Shoulder Bag Náutica",
+      "price": 90,
+      "description": "Bolso casual con estilo náutico, ideal para salidas diarias.",
+      "tag": "Accesorios",
+      "availability": "disponible",
+      "image": "products/Shoulder bag Náutica.jpg"
+    },
+    {
+      "name": "Shoulder Bag Negra Juicy",
+      "price": 85,
+      "description": "Bolso negro versátil, combina con cualquier outfit.",
+      "tag": "Accesorios",
+      "availability": "disponible",
+      "image": "products/Shoulder bag negra Juicy.jpg"
+    },
+    {
+      "name": "Zapatillas Tommy Hilfiger",
+      "price": 180,
+      "description": "Zapatillas blancas para mujer, talla 7. Cómodas y clásicas.",
+      "tag": "Calzado",
+      "availability": "disponible",
+      "image": "products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
+    }
+  ]
+}

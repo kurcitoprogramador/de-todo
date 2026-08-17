@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Variantes de Isologo - De Todo</title>
+<style>
+  :root {
+    --bg: #fbf8f3;
+    --surface: #ffffff;
+    --ink: #3d3a47;
+    --ink-soft: #7d7887;
+    --accent: #c98fb2;
+    --lavender: #e7e0f2;
+    --peach: #fbe8dd;
+    --mint: #dceee4;
+    --line: #efe9e1;
+    --shadow: 0 10px 30px rgba(105, 92, 120, 0.10);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Outfit", system-ui, sans-serif;
+    background:
+      radial-gradient(circle at top, rgba(231, 224, 242, 0.7), transparent 28%),
+      linear-gradient(180deg, #fffdfb 0%, var(--bg) 100%);
+    color: var(--ink);
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 20px 56px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    line-height: 1.05;
+  }
+
+  p.lead {
+    max-width: 720px;
+    margin: 14px 0 0;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+  }
+
+  .preview {
+    border-radius: 22px;
+    padding: 16px;
+    background:
+      linear-gradient(135deg, rgba(251, 232, 221, 0.78), rgba(231, 224, 242, 0.88));
+    min-height: 280px;
+    display: grid;
+    place-items: center;
+  }
+
+  .preview.preview-mint {
+    background:
+      linear-gradient(135deg, rgba(220, 238, 228, 0.88), rgba(251, 232, 221, 0.78));
+  }
+
+  .preview img {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    display: block;
+  }
+
+  h2 {
+    margin: 16px 0 6px;
+    font-size: 1.05rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--lavender);
+    color: var(--ink);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .note {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  .path {
+    margin-top: 10px;
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    word-break: break-all;
+  }
+</style>
+</head>
+<body>
+  <main>
+    <h1>Variantes del isologo</h1>
+    <p class="lead">Estas versiones ya están aterrizadas a la paleta pastel de tu página actual. La portada quedó conectada con la versión <strong>Pastel Soft</strong>, que es la que mejor empata con el fondo, los botones y la sensación femenina del catálogo.</p>
+
+    <section class="grid">
+      <article class="card">
+        <span class="tag">Activa ahora</span>
+        <div class="preview">
+          <img src="isologo/isologo-pastel-soft.png" alt="Variante pastel soft" />
+        </div>
+        <h2>Pastel Soft</h2>
+        <p class="note">La más alineada con tu landing actual. Tiene lavanda, durazno y rosa suave, así que conversa muy bien con el `background`, el `hero` y los tonos de interfaz.</p>
+        <p class="path">isologo/isologo-pastel-soft.png</p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Boutique</span>
+        <div class="preview">
+          <img src="isologo/isologo-pastel-boutique.png" alt="Variante pastel boutique" />
+        </div>
+        <h2>Pastel Boutique</h2>
+        <p class="note">Más editorial y con un poco más de presencia. Funciona muy bien si quieres que la marca se sienta más curada y premium.</p>
+        <p class="path">isologo/isologo-pastel-boutique.png</p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Ligera</span>
+        <div class="preview preview-mint">
+          <img src="isologo/isologo-pastel-light.png" alt="Variante pastel light" />
+        </div>
+        <h2>Pastel Light</h2>
+        <p class="note">La más limpia y amable para móvil. Tiene menos peso visual y puede servir mejor en secciones pequeñas o banners compactos.</p>
+        <p class="path">isologo/isologo-pastel-light.png</p>
+      </article>
+
+      <article class="card">
+        <span class="tag">Luxe</span>
+        <div class="preview preview-mint">
+          <img src="isologo/isologo-pastel-luxe.png" alt="Variante pastel luxe" />
+        </div>
+        <h2>Pastel Luxe</h2>
+        <p class="note">Más llamativa y más boutique-glam. Puede servir para promos, historias o piezas donde quieras que el logo tenga más impacto visual.</p>
+        <p class="path">isologo/isologo-pastel-luxe.png</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

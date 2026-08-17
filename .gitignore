@@ -1,0 +1,8 @@
+# Local Netlify folder
+.netlify
+
+# Carpeta de skill de diseño (no es parte del proyecto)
+apple-design-skill-main/
+
+# Archivo legacy (marca anterior, reemplazado por index.html)
+osamu-dazai-catalogo.html

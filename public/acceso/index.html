@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Acceso · De Todo</title>
+<style>
+  :root {
+    --mint: #b7e4c7;
+    --pink: #f9d5e5;
+    --peach: #ffd8be;
+    --cream: #fdf6ee;
+    --ink: #4a4453;
+    --ink-soft: #8a8296;
+    --surface: #ffffff;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: linear-gradient(160deg, #fdeef4 0%, #eef7f1 45%, #fdf3ea 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: 0 14px 40px rgba(74, 68, 83, 0.12);
+    padding: 28px;
+  }
+  .logo {
+    display: block;
+    max-width: 160px;
+    margin: 0 auto 6px;
+  }
+  h1 {
+    font-size: 20px;
+    text-align: center;
+    margin: 8px 0 2px;
+  }
+  .sub {
+    color: var(--ink-soft);
+    font-size: 13px;
+    text-align: center;
+    margin: 0 0 22px;
+  }
+  .hint {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin: 18px 0 0;
+  }
+  .hint a { color: var(--ink); font-weight: 600; }
+  .err {
+    background: #ffe5e5;
+    color: #b3403a;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    margin: 0 0 14px;
+    display: none;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 13px 16px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--mint), var(--peach));
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn.secondary {
+    background: #f1ece6;
+    margin-top: 8px;
+  }
+  #identity-gate { display: none; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <img class="logo" src="/isologo/isologo-pastel-soft-144.png" alt="De Todo" />
+    <h1>Bienvenido a De Todo</h1>
+    <p class="sub">Inicia sesión o regístrate con tu correo.</p>
+
+    <div class="err" id="err"></div>
+
+    <div id="identity-gate">
+      <div data-netlify-identity-button>Entrar / Registrarse</div>
+    </div>
+
+    <noscript>
+      <p class="hint">Necesitas activar JavaScript para iniciar sesión.</p>
+    </noscript>
+
+    <p class="hint">
+      ¿Solo quieres ver el catálogo? <a href="/">Ir a la tienda</a>
+    </p>
+  </main>
+
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    (function () {
+      var errEl = document.getElementById("err");
+      var gate = document.getElementById("identity-gate");
+
+      function rolesOf(user) {
+        if (!user || !user.app_metadata) return [];
+        return (user.app_metadata.authorization && user.app_metadata.authorization.roles) || user.app_metadata.roles || [];
+      }
+
+      function redirectByRole(user) {
+        var roles = rolesOf(user);
+        if (roles.indexOf("admin") !== -1) {
+          location.href = "/dashboard/";
+        } else if (roles.indexOf("editor") !== -1) {
+          location.href = "/admin/";
+        } else {
+          location.href = "/";
+        }
+      }
+
+      window.netlifyIdentity.on("init", function (user) {
+        gate.style.display = "block";
+        if (user) redirectByRole(user);
+      });
+
+      window.netlifyIdentity.on("login", function (user) {
+        redirectByRole(user);
+      });
+
+      window.netlifyIdentity.on("error", function (err) {
+        var msg = (err && err.message) || "No se pudo completar el acceso.";
+        if (/already registered|exists|duplicate/i.test(msg)) {
+          msg = "Ese correo ya está registrado. Inicia sesión o elige otro.";
+        }
+        errEl.textContent = msg;
+        errEl.style.display = "block";
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "de-todo-catalogo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Catálogo De Todo — sitio estático + funciones Netlify (registro de actividad y estadísticas).",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0",
+    "@netlify/identity": "^1.2.0"
+  }
+}

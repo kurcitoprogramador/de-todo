@@ -1,0 +1,60 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+# ---------------------------------------------------------------------------
+# PANEL DE ADMINISTRACIÓN (Decap CMS) — solo roles editor y admin
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+  force = true
+  [redirects.conditions.Role]
+    values = ["editor", "admin"]
+
+# Si no tiene rol editor/admin, "/admin" devuelve la home (no se deja entrar)
+[[redirects]]
+  from = "/admin/*"
+  to = "/index.html"
+  status = 200
+  force = true
+
+# ---------------------------------------------------------------------------
+# PANEL DE ESTADÍSTICAS (dashboard) — solo rol admin (el dueño)
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/dashboard/*"
+  to = "/dashboard/index.html"
+  status = 200
+  force = true
+  [redirects.conditions.Role]
+    values = ["admin"]
+
+[[redirects]]
+  from = "/dashboard/*"
+  to = "/dashboard-negado.html"
+  status = 200
+  force = true
+
+# ---------------------------------------------------------------------------
+# API de estadísticas (usa el token del usuario logueado)
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/.netlify/functions/stats"
+  to = "/.netlify/functions/stats"
+  status = 200
+
+# ---------------------------------------------------------------------------
+# Login / registro público
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/acceso/*"
+  to = "/acceso/index.html"
+  status = 200
+
+# Resto del sitio: sirve index.html (SPA-friendly)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,881 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>De Todo - CatÃ¡logo</title>
+<meta name="description" content="CatÃ¡logo De Todo. Precios referenciales en soles. Compra escribiÃ©ndonos por WhatsApp." />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fbf8f3;
+    --surface: #ffffff;
+    --surface-soft: #f7f0ea;
+    --ink: #3d3a47;
+    --ink-soft: #7d7887;
+    --accent: #c98fb2;
+    --accent-deep: #a8698f;
+    --mint: #dceee4;
+    --lavender: #e7e0f2;
+    --peach: #fbe8dd;
+    --line: #efe9e1;
+    --radius: 22px;
+    --shadow: 0 10px 30px rgba(105, 92, 120, 0.10);
+    --shadow-soft: 0 4px 16px rgba(105, 92, 120, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Outfit", system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { display: block; max-width: 100%; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(251, 248, 243, 0.86);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+    transition: box-shadow 0.35s ease, background 0.35s ease;
+  }
+
+  header.scrolled {
+    background: rgba(251, 248, 243, 0.94);
+    box-shadow: 0 8px 24px rgba(105, 92, 120, 0.10);
+  }
+
+  .nav {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+
+  .brand-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 18px rgba(67, 62, 95, 0.16));
+    flex-shrink: 0;
+  }
+
+  .brand-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.02;
+  }
+
+  .brand-copy small {
+    font-family: "Outfit", system-ui, -apple-system, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-wa {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--accent-deep);
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .nav-wa:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .nav-wa:active { transform: translateY(0); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 44px 22px 20px;
+    text-align: center;
+  }
+
+  .hero-mark {
+    width: min(100%, 420px);
+    margin: 0 auto 18px;
+    padding: 16px;
+    border-radius: 32px;
+    background:
+      radial-gradient(circle at top, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.56)),
+      linear-gradient(135deg, rgba(231, 224, 242, 0.8), rgba(251, 232, 221, 0.72));
+    box-shadow: var(--shadow-soft);
+  }
+
+  .hero-mark img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .hero .eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    background: var(--lavender);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(2.2rem, 9vw, 3.4rem);
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+
+  .hero p {
+    max-width: 520px;
+    margin: 14px auto 0;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    margin-top: 26px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent-deep);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 15px 28px;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(168, 105, 143, 0.28);
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .hero-cta:hover { background: var(--accent); transform: translateY(-2px); }
+  .hero-cta:active { transform: translateY(0); }
+
+  /* ---------- Catalog ---------- */
+  .catalog {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 34px 22px 64px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .section-head h2 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .section-head .count {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-media {
+    position: relative;
+    background: var(--surface-soft);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-tags {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    z-index: 2;
+  }
+
+  .card-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.82);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+
+  .stock-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-left: auto;
+  }
+
+  .stock-badge.disponible {
+    color: #2f7d5a;
+    background: rgba(220, 238, 228, 0.92);
+  }
+
+  .stock-badge.pocas {
+    color: #9a5b2f;
+    background: rgba(251, 232, 221, 0.92);
+  }
+
+  .stock-badge.agotado {
+    color: #6b6773;
+    background: rgba(233, 233, 233, 0.9);
+  }
+
+  .btn-wa[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .loading-card { gap: 0; }
+
+  .skeleton {
+    border-radius: 10px;
+    background: linear-gradient(100deg, #eee9e2 40%, #f7f3ee 50%, #eee9e2 60%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+
+  .skeleton-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .skeleton-line {
+    width: 70%;
+    height: 16px;
+    margin-bottom: 10px;
+  }
+
+  .skeleton-line.short {
+    width: 45%;
+    height: 12px;
+    margin-bottom: 18px;
+  }
+
+  .skeleton-btn {
+    width: 110px;
+    height: 44px;
+    border-radius: 999px;
+  }
+
+  .grid:empty + .loading-card,
+  .loading-card { display: flex; }
+
+  .grid:not(:empty) .loading-card { display: none; }
+
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to   { background-position: -200% 0; }
+  }
+
+  .card-body {
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-body h3 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+
+  .card-body .desc {
+    margin-top: 6px;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    flex: 1;
+  }
+
+  .card-foot {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .price small {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+  }
+
+  .btn-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-deep);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 18px;
+    border-radius: 999px;
+    min-height: 44px;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .btn-wa:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-wa:active { transform: translateY(0); }
+
+  .btn-wa .wa-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ---------- Info strip ---------- */
+  .info {
+    background: var(--surface-soft);
+    border-top: 1px solid var(--line);
+    padding: 40px 22px;
+  }
+
+  .info-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    gap: 22px;
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .info-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .info-dot {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .dot-pink { background: var(--peach); }
+  .dot-mint { background: var(--mint); }
+  .dot-lav  { background: var(--lavender); }
+
+  .info-dot svg { width: 22px; height: 22px; }
+
+  .info-item h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .info-item p {
+    margin-top: 2px;
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.72);
+    padding: 30px 22px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 300;
+  }
+
+  footer .foot-brand {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  footer .foot-meta {
+    margin-top: 12px;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  footer .foot-meta a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  footer .foot-meta a:hover { color: #ffffff; }
+
+  /* ---------- Motion & reveal ---------- */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  .hero .eyebrow { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero h1       { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both; }
+  .hero p        { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both; }
+  .hero-cta      { animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both; }
+
+  .card {
+    transform: translateZ(0);
+    -webkit-tap-highlight-color: transparent;
+    will-change: transform, opacity;
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+  }
+
+  .reveal,
+  .info-item,
+  .section-head {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+  }
+
+  .reveal.is-visible,
+  .info-item.is-visible,
+  .section-head.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-stagger.is-visible,
+  .info-item.is-visible { transition-delay: 0.05s; }
+  .reveal-stagger.is-visible:nth-of-type(2n),
+  .info-item.is-visible:nth-of-type(2n) { transition-delay: 0.15s; }
+  .reveal-stagger.is-visible:nth-of-type(3n),
+  .info-item.is-visible:nth-of-type(3n) { transition-delay: 0.25s; }
+
+  .card.is-visible:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    transition-duration: 0.3s, 0.3s, 0.3s;
+    transition-delay: 0s;
+  }
+
+  .card.is-visible:active {
+    transform: translateY(-2px) scale(0.985);
+    transition-duration: 0.12s, 0.12s, 0.12s;
+    transition-delay: 0s;
+  }
+
+  .card-media img {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card.is-visible:hover .card-media img { transform: scale(1.04); }
+
+  .nav-wa,
+  .hero-cta,
+  .btn-wa {
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .nav-wa:active,
+  .hero-cta:active,
+  .btn-wa:active {
+    transform: scale(0.94);
+  }
+
+  .btn-wa .wa-icon {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .btn-wa:hover .wa-icon { transform: translateX(3px); }
+
+  /* ---------- Floating WhatsApp (mobile) ---------- */
+  .wa-float {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 30;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--accent-deep);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 12px 28px rgba(168, 105, 143, 0.42);
+    animation: fade-in 0.5s ease 0.8s both;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .wa-float:hover { background: var(--accent); }
+  .wa-float:active { transform: scale(0.9); }
+
+  .wa-float svg {
+    width: 30px;
+    height: 30px;
+    animation: float-slow 3s ease-in-out infinite;
+  }
+
+  /* ---------- Tablet / Desktop ---------- */
+  @media (min-width: 640px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .info-inner { grid-template-columns: repeat(3, 1fr); }
+    .nav { padding: 18px 32px; }
+    .hero { padding: 60px 32px 28px; }
+    .catalog { padding: 44px 32px 80px; }
+  }
+
+  @media (min-width: 1024px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <nav class="nav" aria-label="Principal">
+      <a href="#" class="brand" aria-label="De Todo, inicio">
+        <img class="brand-logo" src="isologo/isologo-pastel-soft-144.png" alt="Isologo De Todo" />
+        <span class="brand-copy">
+          De Todo
+          <small>CatÃ¡logo</small>
+        </span>
+      </a>
+      <div class="nav-actions">
+        <a class="nav-wa" href="https://wa.me/51961841885?text=Hola%2C%20me%20gustaria%20comprar%20un%20producto%20de%20De%20Todo">
+          Contactar
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-mark">
+        <img src="isologo/isologo-pastel-soft-600.png" alt="Isologo principal De Todo" />
+      </div>
+      <span class="eyebrow">CatÃ¡logo 2026</span>
+      <h1>De Todo</h1>
+      <p>Una selecciÃ³n de perfumes, bolsos y accesorios pensada para ti. Elige lo que te guste y escrÃ­benos por WhatsApp para coordinar tu compra.</p>
+      <a class="hero-cta" href="#catalogo">
+        Ver productos
+      </a>
+    </section>
+
+    <section class="catalog" id="catalogo">
+      <div class="section-head reveal">
+        <h2>Productos</h2>
+        <span class="count" id="product-count">Cargando...</span>
+      </div>
+
+      <div class="grid" id="product-grid">
+        <div class="card loading-card">
+          <div class="card-media"><div class="skeleton skeleton-img"></div></div>
+          <div class="card-body">
+            <div class="skeleton skeleton-line"></div>
+            <div class="skeleton skeleton-line short"></div>
+            <div class="skeleton skeleton-btn"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info" aria-label="InformaciÃ³n">
+      <div class="info-inner">
+        <div class="info-item reveal reveal-stagger">
+          <div class="info-dot dot-pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-4.6-9.3-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.3 12C19 16.4 12 21 12 21z"/></svg>
+          </div>
+          <div>
+            <h4>Compra por WhatsApp</h4>
+            <p>EscrÃ­benos y coordina tu pedido de forma directa y rÃ¡pida.</p>
+          </div>
+        </div>
+        <div class="info-item reveal reveal-stagger">
+          <div class="info-dot dot-mint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2l7 3v6c0 4.4-3 8.4-7 9-4-0.6-7-4.6-7-9V5l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div>
+            <h4>Calidad verificada</h4>
+            <p>Productos originales y seleccionados con cuidado para ti.</p>
+          </div>
+        </div>
+        <div class="info-item reveal reveal-stagger">
+          <div class="info-dot dot-lav">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-4.6 9.3-9A5.5 5.5 0 0 0 12 6.5 5.5 5.5 0 0 0 2.7 12C5 16.4 12 21 12 21z"/><path d="M12 8v5l3 3"/></svg>
+          </div>
+          <div>
+            <h4>Precios referenciales</h4>
+            <p>Valores en soles. Confirma el precio final al escribirnos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="foot-brand">De Todo</p>
+    <p>Actualizado: 16 de agosto de 2026</p>
+    <p>Owner Â· romis</p>
+    <p class="foot-meta"><a href="/acceso/">Acceso</a> · <a href="/dashboard/">Panel</a> · <a href="/admin/">Editar</a></p>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/51961841885?text=Hola%2C%20me%20gustaria%20comprar%20un%20producto%20de%20De%20Todo" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.7-1.3 1.3-1.8 1.3-.5.1-1 .2-3.2-.7-2.7-1.1-4.4-4-4.5-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5-.1.1-.1.2-.2.4l-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.1 1.4 2.5 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.4z"/></svg>
+  </a>
+
+  <script>
+    (function () {
+      var WA_NUMBER = "51961841885";
+      var STOCK_LABELS = {
+        disponible: "Disponible",
+        pocas: "Pocas unidades",
+        agotado: "Agotado"
+      };
+
+      function renderProducts(products) {
+        var grid = document.getElementById("product-grid");
+        if (!grid) return;
+        grid.innerHTML = "";
+        var count = document.getElementById("product-count");
+        if (count) count.textContent = products.length + (products.length === 1 ? " producto" : " productos");
+
+        products.forEach(function (p, i) {
+          var stock = p.availability || "disponible";
+          var label = STOCK_LABELS[stock] || STOCK_LABELS.disponible;
+          var agotado = stock === "agotado";
+
+          var msg = "Hola, me interesa " + p.name;
+          var wa = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+
+          var img = p.image || "";
+          var imgSrc = img ? img.replace(/^\/+/, "") : "";
+
+          var article = document.createElement("article");
+          article.className = "card reveal reveal-stagger";
+          article.innerHTML =
+            '<div class="card-media">' +
+              '<div class="card-tags">' +
+                (p.tag ? '<span class="card-tag"></span>' : "") +
+                '<span class="stock-badge ' + stock + '"></span>' +
+              "</div>" +
+              (imgSrc ? '<img src="' + encodeURI(imgSrc) + '" alt="' + p.name + '" loading="lazy" />' : '<div class="skeleton skeleton-img"></div>') +
+            "</div>" +
+            '<div class="card-body">' +
+              "<h3></h3>" +
+              '<p class="desc"></p>' +
+              '<div class="card-foot">' +
+                '<span class="price"></span>' +
+                '<a class="btn-wa" target="_blank" rel="noopener"></a>' +
+              "</div>" +
+            "</div>";
+
+          var tagEl = article.querySelector(".card-tag");
+          if (tagEl) tagEl.textContent = p.tag;
+          article.querySelector(".stock-badge").textContent = label;
+          article.querySelector("h3").textContent = p.name;
+          article.querySelector(".desc").textContent = p.description || "";
+          var priceEl = article.querySelector(".price");
+          priceEl.textContent = "";
+          priceEl.appendChild(document.createTextNode("S/ " + p.price));
+          var small = document.createElement("small");
+          small.textContent = "Precio referencial";
+          priceEl.appendChild(small);
+          var btn = article.querySelector(".btn-wa");
+          if (agotado) {
+            btn.setAttribute("aria-disabled", "true");
+            btn.style.pointerEvents = "none";
+            btn.style.opacity = "0.5";
+          }
+          btn.href = wa;
+          btn.textContent = agotado ? "Agotado" : "Comprar";
+          btn.appendChild(waIcon());
+          grid.appendChild(article);
+        });
+      }
+
+      function waIcon() {
+        var s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        s.setAttribute("class", "wa-icon");
+        s.setAttribute("viewBox", "0 0 24 24");
+        s.setAttribute("fill", "currentColor");
+        s.setAttribute("aria-hidden", "true");
+        s.innerHTML = '<path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.7-1.3 1.3-1.8 1.3-.5.1-1 .2-3.2-.7-2.7-1.1-4.4-4-4.5-4.2-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5s.8 1.9.8 2c.1.1.1.3 0 .5-.1.1-.1.2-.2.4l-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.1 1.4 2.5 1.5.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.4z"/>';
+        return s;
+      }
+
+      fetch("products.json", { cache: "no-store" })
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          var products = Array.isArray(data) ? data : (data.products || []);
+          renderProducts(products);
+          observeReveals();
+        })
+        .catch(function () {
+          var grid = document.getElementById("product-grid");
+          if (grid) grid.innerHTML = '<p style="grid-column:1/-1;color:var(--ink-soft);text-align:center;padding:20px;">No se pudo cargar el catálogo.</p>';
+          observeReveals();
+        });
+
+      function observeReveals() {
+        var revealEls = document.querySelectorAll(".reveal, .reveal-stagger, .info-item, .card");
+        if ("IntersectionObserver" in window) {
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  io.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+          );
+          revealEls.forEach(function (el) { io.observe(el); });
+        } else {
+          revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+        }
+      }
+
+      var header = document.querySelector("header");
+
+      function onScroll() {
+        if (window.scrollY > 8) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      observeReveals();
+    })();
+  </script>
+
+</body>
+</html>
