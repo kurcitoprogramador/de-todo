@@ -63,17 +63,19 @@
     margin: 0 0 14px;
     display: none;
   }
-#logout-btn {
+.session { text-align: center; padding: 4px 0; }
+  .session .email { font-weight: 700; color: var(--ink); margin: 0 0 4px; word-break: break-word; }
+  .session .role { font-size: 12px; color: var(--ink-soft); margin: 0 0 6px; }
+  .session button {
     width: 100%;
-    margin-top: 16px;
-    border: 1px solid #e3d9ef;
-    background: #f5f0f8;
-    color: #5a5563;
+    margin-top: 10px;
     border-radius: 10px;
     padding: 10px;
     font-size: 13px;
     cursor: pointer;
   }
+  #session-go { background: var(--ink); color: #fff; border: 1px solid var(--ink); }
+  #logout-btn { background: #f5f0f8; color: #5a5563; border: 1px solid #e3d9ef; }
   #identity-gate { display: none; }
 </style>
 </head>
@@ -89,7 +91,13 @@
     <div id="identity-gate">
       <div data-netlify-identity-button>Entrar / Registrarse</div>
     </div>
-    <button id="logout-btn" style="display:none">Cerrar sesión</button>
+
+    <div class="session" id="session-panel" style="display:none">
+      <p class="email" id="session-email"></p>
+      <p class="role" id="session-role"></p>
+      <button id="session-go" style="display:none">Ir al panel</button>
+      <button id="logout-btn">Cerrar sesión</button>
+    </div>
 
     <noscript>
       <p class="hint">Necesitas activar JavaScript para iniciar sesión.</p>
@@ -106,11 +114,31 @@
       var errEl  = document.getElementById("err");
       var infoEl = document.getElementById("info");
       var gate   = document.getElementById("identity-gate");
-      var logoutBtn = document.getElementById("logout-btn");
+      var sessionPanel  = document.getElementById("session-panel");
+      var sessionEmail  = document.getElementById("session-email");
+      var sessionRole   = document.getElementById("session-role");
+      var sessionGo     = document.getElementById("session-go");
+      var logoutBtn     = document.getElementById("logout-btn");
+      var sessionRoles  = [];
 
-      function showLogoutBtn() {
-        logoutBtn.style.display = "block";
+      function roleLabel(roles) {
+        if (roles.indexOf("admin") !== -1) return "admin";
+        if (roles.indexOf("editor") !== -1) return "editor";
+        return "sin rol (solo lectura)";
       }
+
+      function showSessionPanel(email) {
+        gate.style.display = "none";
+        infoEl.style.display = "none";
+        errEl.style.display = "none";
+        sessionEmail.textContent = "Sesión iniciada · " + email;
+        sessionRole.textContent = "Rol: " + roleLabel(sessionRoles);
+        var hasAccess = sessionRoles.indexOf("admin") !== -1 || sessionRoles.indexOf("editor") !== -1;
+        sessionGo.style.display = hasAccess ? "block" : "none";
+        sessionPanel.style.display = "block";
+      }
+
+      sessionGo.addEventListener("click", function () { redirectByRoles(sessionRoles); });
       logoutBtn.addEventListener("click", function () {
         window.netlifyIdentity.logout();
       });
@@ -219,20 +247,11 @@
           return;
         }
         var session = await getFreshSession(user);
-        var jwtRoles = jwtRolesOf(session);
-        var userRoles = rolesOf(session.user);
-        showLogoutBtn();
+        sessionRoles = jwtRolesOf(session).length ? jwtRolesOf(session) : rolesOf(session.user);
+        showSessionPanel((user && user.email) || (session.user && session.user.email));
 
-        if (jwtRoles.length) {
-          redirectByRoles(jwtRoles);
-          return;
-        }
-        if (userRoles.length) {
-          redirectByRoles(userRoles);
-          return;
-        }
-        // Sin roles: mostrar la puerta (permite cerrar sesión y reintentar).
-        gate.style.display = "block";
+        // No se redirige automáticamente: la persona elige "Ir al panel"
+        // o "Cerrar sesión" (permite entrar con otra cuenta).
       });
 
       // ----------------------------------------------------------------------
@@ -243,7 +262,6 @@
         var session = await getFreshSession(user);
         var jwtRoles = jwtRolesOf(session);
         var userRoles = rolesOf(session.user);
-        showLogoutBtn();
 
         redirectByRoles(jwtRoles.length ? jwtRoles : userRoles);
       });
