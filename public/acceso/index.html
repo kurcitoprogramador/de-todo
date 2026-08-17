@@ -199,6 +199,13 @@
           lineas.push("refresh: " + (d.refreshOk ? "OK" : "fallback"));
           diagEl.textContent = "Diagnóstico: " + lineas.join(" | ");
           diagEl.style.display = "block";
+          // Vista del servidor (cookie nf_jwt): qué usuario ve Netlify.
+          fetch("/.netlify/functions/auth-debug", { credentials: "same-origin" })
+            .then(function (r) { return r.json(); })
+            .then(function (sd) {
+              diagEl.textContent += " | server(cookie): " + JSON.stringify(sd);
+            })
+            .catch(function () {});
         } catch (e) {
           diagEl.textContent = "Diagnóstico error: " + e.message;
           diagEl.style.display = "block";
