@@ -211,6 +211,25 @@
         main.appendChild(mPanel);
       }
 
+      // Intenta leer stats. Estrategia doble:
+      //   A) Authorization: Bearer con token fresco (refresh()).
+      //   B) Sin header: la cookie HttpOnly nf_jwt (que el edge ya validó
+      //      para permitir abrir esta página) autentica la función.
+      function fetchStatsAttempt(token) {
+        var opts = token
+          ? { headers: { "Authorization": "Bearer " + token } }
+          : {};
+        return fetch("/.netlify/functions/stats", opts)
+          .then(function (r) {
+            return r.json().then(function (j) { return { ok: r.ok, j: j }; });
+          });
+      }
+
+      function applyStats(res) {
+        if (!res.ok) throw new Error((res.j && res.j.error) || "HTTP " + res.j);
+        render(res.j);
+      }
+
       function load() {
         var user = window.netlifyIdentity.currentUser();
         if (!user) {
@@ -224,35 +243,17 @@
           return;
         }
 
-        // JWT fresco: refresh() renueva el token y la cookie nf_jwt en el
-        // servidor. Nunca dependemos de user.token.access_token viejo.
+        // A) Token fresco del widget.
         window.netlifyIdentity.refresh()
-          .then(function (jwt) {
-            fetch("/.netlify/functions/stats", { headers: { "Authorization": "Bearer " + jwt } })
-              .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-              .then(function (res) {
-                if (!res.ok) throw new Error((res.j && res.j.error) || "HTTP " + res.j);
-                render(res.j);
-              })
-              .catch(function (e) {
-                showError("No se pudieron cargar las estadísticas: " + e.message);
-              });
-          })
-          .catch(function () {
-            // Fallback: token en caché.
-            var cached = user.token && user.token.access_token;
-            if (!cached) {
-              showError("No se pudo renovar la sesión. Vuelve a iniciar sesión.");
-              return;
-            }
-            fetch("/.netlify/functions/stats", { headers: { "Authorization": "Bearer " + cached } })
-              .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-              .then(function (res) {
-                if (!res.ok) throw new Error((res.j && res.j.error) || "HTTP " + res.j);
-                render(res.j);
-              })
-              .catch(function (e) {
-                showError("No se pudieron cargar las estadísticas: " + e.message);
+          .then(function (jwt) { return fetchStatsAttempt(jwt).then(applyStats); })
+          .catch(function (errA) {
+            var msgA = (errA && errA.message) || "error";
+            // B) Reintento autenticado por la cookie nf_jwt del navegador.
+            return fetchStatsAttempt(null)
+              .then(applyStats)
+              .catch(function (errB) {
+                var msgB = (errB && errB.message) || "error";
+                showError("No se pudieron cargar las estadísticas: " + msgB + (msgA !== msgB ? " (intento con token: " + msgA + ")" : ""));
               });
           });
       }
