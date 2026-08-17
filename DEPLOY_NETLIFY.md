@@ -69,11 +69,19 @@ automáticamente.
 
 ### 4. Crear la cuenta del dueño
 
-1. Identity → Add user → correo: `admin@de-todo-catalogo.netlify.app`
+1. Identity → Add user → correo: `kurtnarra17@gmail.com`
 2. Configurar la contraseña (primera vez o invitación).
 3. Ir a ese usuario → asignar rol **admin**.
 
 Los editores se crean igual y se les asigna rol **editor**.
+
+**Formato de roles:** en Netlify Identity los roles viven en
+`app_metadata.roles` (fuente canónica). NO usar `app_metadata.authorization.roles`
+(ese formato es de proveedores JWT externos).
+
+**Ojo:** cambiar un rol no invalida el JWT ya emitido. Tras asignar un rol hay
+que cerrar sesión y volver a entrar (o forzar `netlifyIdentity.refresh()`) para
+que el token y la cookie `nf_jwt` incluyan el rol nuevo.
 
 ### 5. Probar
 
@@ -83,15 +91,16 @@ Los editores se crean igual y se les asigna rol **editor**.
 
 ---
 
-### 6. Activar los correos de verificación personalizados
+### 6. Correos personalizados (opcional, requiere plan Pro)
 
-1. Site configuration → Identity → **Emails**.
-2. Pegar las plantillas de la carpeta `emails/`:
-   - **Confirmation** → `emails/mensaje-registro.html`
-   - **Invitation** → `emails/mensaje-invitacion.html`
-   - **Password recovery** → `emails/mensaje-recuperacion.html`
-3. Cada correo llega con el logo de la página y el aviso de
-   "verificación encriptada". Ver `emails/README_EMAILS.md`.
+El plan gratuito usa los correos estándar de Netlify. Solo si se contrata el
+plan Pro se pueden pegar las plantillas de la carpeta `emails/`:
+- Site configuration → Identity → **Emails**.
+- **Confirmation** → `emails/mensaje-registro.html`
+- **Invitation** → `emails/mensaje-invitacion.html`
+- **Password recovery** → `emails/mensaje-recuperacion.html`
+
+Ver `emails/README_EMAILS.md`.
 
 ---
 

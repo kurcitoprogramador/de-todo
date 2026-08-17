@@ -27,13 +27,24 @@ Un catálogo de productos ("De Todo") publicado en Netlify con:
 
 | Rol | Qué puede hacer | Cómo se obtiene |
 |---|---|---|
-| `admin` (dueño) | Editar catálogo + ver estadísticas | Cuenta principal `admin@de-todo-catalogo.netlify.app` |
+| `admin` (dueño) | Editar catálogo + ver estadísticas | Cuenta principal `kurtnarra17@gmail.com` |
 | `editor` | Editar catálogo (agregar/quitar/editar productos) | El dueño asigna el rol |
 | sin rol | Ver la tienda únicamente | Registro libre en `/acceso` |
 
 El registro está **abierto**: cualquier persona puede inscribirse en
 `/acceso` con su correo. El dueño asigna roles desde el panel de Identity de
 Netlify (Site settings → Identity → usuarios).
+
+**Formato de roles (Netlify Identity):** la fuente canónica es
+`app_metadata.roles` (por ejemplo `{ "roles": ["admin"] }`).
+`app_metadata.authorization.roles` es el formato por defecto de proveedores
+JWT externos y no debe usarse como fuente de escritura en este proyecto; solo
+se admite como lectura de compatibilidad.
+
+**Importante:** los cambios de rol NO invalidan un JWT ya emitido. Después de
+asignar/cambiar roles hay que cerrar sesión e iniciarla de nuevo (o forzar un
+`netlifyIdentity.refresh()`) para que el token y la cookie `nf_jwt` reflejen
+el rol nuevo.
 
 ---
 
@@ -125,12 +136,19 @@ usuarios, borrado), consultar "Identity event functions" en la doc de Netlify.
 ## 7. Seguridad
 
 - `/admin` está protegido por redirects con condición de rol
-  (`editor`, `admin`) en `netlify.toml`.
-- `/dashboard` exige rol `admin` (redirect + verificación en `stats.js`).
+  (`conditions = { Role = ["editor", "admin"] }`) en `netlify.toml`; sin el
+  rol, el fallback sirve la home.
+- `/dashboard` exige rol `admin` en el edge (redirect condicional; fallback
+  `dashboard-negado.html`) Y en la función `stats.js` (defensa en profundidad).
 - `stats.js` valida el token JWT del usuario y rechaza con 403 si no es
   `admin`. Nunca expone el token de Netlify ni datos sensibles.
+- La cookie `nf_jwt` la gestiona Netlify Identity (es HttpOnly, no visible ni
+  manipulable desde JavaScript); el frontend no la escribe manualmente.
 - La página del dashboard no publica ningún dato en el HTML; todo se carga
   vía API con autenticación.
+- La sesión se refresca con `netlifyIdentity.refresh()` (una vez al iniciar /
+  restaurar sesión); `user.getUserData()` obtiene el perfil fresco del
+  servidor para no trabajar con `localStorage` desactualizado.
 
 ---
 

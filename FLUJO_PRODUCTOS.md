@@ -50,7 +50,7 @@ El dato se guarda en `public/products.json` en el campo `availability`
 ## 4. Cómo ve el dueño quién se registró y sus movimientos
 
 1. Entra a `/acceso` con la cuenta del dueño
-   (`admin@de-todo-catalogo.netlify.app`).
+   (`kurtnarra17@gmail.com`).
 2. Entra a `/dashboard`.
 3. Ve:
    - Cantidad de usuarios registrados y movimientos.
@@ -62,6 +62,11 @@ El dato se guarda en `public/products.json` en el campo `availability`
 Los movimientos se guardan automáticamente (funciones `identity-signup.js`
 y `identity-login.js` en `netlify/functions/`), sin que nadie tenga que
 configurar nada.
+
+> Nota: si el dueño (o un editor) ve "Acceso restringido" justo después de que
+> se le asigne un rol, es porque el JWT antiguo aún no lo trae. Hay que cerrar
+> sesión y volver a entrar (el sitio renueva el token automáticamente). Los
+> roles canónicos de Netlify Identity viven en `app_metadata.roles`.
 
 ---
 
