@@ -5,7 +5,7 @@
       "name": "Bruma Festive Fizz",
       "price": 60,
       "description": "Bruma corporal fresca y ligera, perfecta para el día a día.",
-      "tag": "Nuevo",
+      "tag": "Perfumes",
       "availability": "disponible",
       "image": "products/Bruma festive fizz Vs.jpg"
     },
@@ -21,7 +21,7 @@
       "name": "Baguette Náutica",
       "price": 180,
       "description": "Bolso casual con estilo náutico, ideal para salidas diarias.",
-      "tag": "Accesorios",
+      "tag": "Bolso",
       "availability": "disponible",
       "image": "products/Shoulder bag Náutica.jpg"
     },
@@ -29,7 +29,7 @@
       "name": "Baguette Negra Juicy",
       "price": 185,
       "description": "Bolso negro versátil, combina con cualquier outfit.",
-      "tag": "Accesorios",
+      "tag": "Bolso ",
       "availability": "disponible",
       "image": "products/Shoulder bag negra Juicy.jpg"
     },
@@ -40,6 +40,30 @@
       "tag": "Calzado",
       "availability": "disponible",
       "image": "products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
+    },
+    {
+      "name": "Totte bag TH",
+      "price": 240,
+      "description": "Totte bag azul marino TH, ingresa una laptop",
+      "tag": "Bolso",
+      "availability": "disponible",
+      "image": "/products/10598b80-ce01-4cce-ba3d-3ba23a8b1e63.jpeg"
+    },
+    {
+      "name": "Totte bag TH + bolso de mano",
+      "price": 275,
+      "description": "Totte bag azul marino amplia, ideal para llevar laptop. Adicional viene con un bolso de mano monogramiado",
+      "tag": "Bolso",
+      "availability": "disponible",
+      "image": "/products/img_8273.jpeg"
+    },
+    {
+      "name": "Totte bag monogramiado TH",
+      "price": 250,
+      "description": "Totte bag monogramiada color beige con asas blancas. Amplio espacio, ideal para llevar laptop",
+      "tag": "Bolso",
+      "availability": "disponible",
+      "image": "/products/93fa4583-7c10-44a1-ac01-e5b2e7a94045.jpeg"
     }
   ]
 }
