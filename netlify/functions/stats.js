@@ -71,10 +71,11 @@ exports.handler = async (event, context) => {
       }),
     };
   } catch (err) {
+    console.error("stats error:", err);
     return {
       statusCode: 500,
       headers: { "content-type": "application/json; charset=utf-8" },
-      body: JSON.stringify({ error: "No se pudieron leer las estadísticas.", detail: String(err && err.message || err) }),
+      body: JSON.stringify({ error: "No se pudieron leer las estadísticas." }),
     };
   }
 };

@@ -45,6 +45,13 @@ collections:
                   - { label: "Disponible", value: "disponible" }
                   - { label: "Pocas unidades", value: "pocas" }
                   - { label: "Agotado", value: "agotado" }
-              - { label: "Foto del producto", name: "image", widget: "image", hint: "Arrastra la imagen aquí o elige una." }
+              - label: "Fotos del producto"
+                name: "images"
+                widget: "list"
+                hint: "Sube una o más fotos. La primera será la principal."
+                allow_add: true
+                field:
+                  label: "Foto"
+                  widget: "image"
 
 publish_mode: editorial_workflow

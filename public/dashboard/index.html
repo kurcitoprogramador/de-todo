@@ -189,11 +189,18 @@
         uPanel.className = "panel";
         uPanel.innerHTML = '<h2>Usuarios registrados</h2>';
         var uTable = document.createElement("table");
-        uTable.innerHTML =
-          '<thead><tr><th>Correo</th><th>Rol</th><th>Ingresos</th><th>Última actividad</th></tr></thead><tbody>' +
-          data.users.map(function (u) {
-            return '<tr><td>' + u.email + '</td><td>' + pill(u.roles) + '</td><td>' + (u.logins || 0) + '</td><td>' + fmtDate(u.lastActivity) + '</td></tr>';
-          }).join("") + '</tbody>';
+        uTable.innerHTML = '<thead><tr><th>Correo</th><th>Rol</th><th>Ingresos</th><th>Última actividad</th></tr></thead><tbody></tbody>';
+        var uTbody = uTable.querySelector("tbody");
+        data.users.forEach(function (u) {
+          var tr = document.createElement("tr");
+          // textContent en lugar de innerHTML — evita XSS con emails maliciosos
+          var tdEmail = document.createElement("td"); tdEmail.textContent = u.email;
+          var tdRol   = document.createElement("td"); tdRol.innerHTML = pill(u.roles);
+          var tdLogins = document.createElement("td"); tdLogins.textContent = u.logins || 0;
+          var tdFecha  = document.createElement("td"); tdFecha.textContent = fmtDate(u.lastActivity);
+          tr.appendChild(tdEmail); tr.appendChild(tdRol); tr.appendChild(tdLogins); tr.appendChild(tdFecha);
+          uTbody.appendChild(tr);
+        });
         uPanel.appendChild(uTable);
         main.appendChild(uPanel);
 
@@ -202,11 +209,16 @@
         mPanel.className = "panel";
         mPanel.innerHTML = '<h2>Movimientos recientes</h2>';
         var mTable = document.createElement("table");
-        mTable.innerHTML =
-          '<thead><tr><th>Tipo</th><th>Correo</th><th>Fecha</th></tr></thead><tbody>' +
-          data.recent.map(function (e) {
-            return '<tr><td>' + typePill(e.type) + '</td><td>' + e.email + '</td><td>' + fmtDate(e.at) + '</td></tr>';
-          }).join("") + '</tbody>';
+        mTable.innerHTML = '<thead><tr><th>Tipo</th><th>Correo</th><th>Fecha</th></tr></thead><tbody></tbody>';
+        var mTbody = mTable.querySelector("tbody");
+        data.recent.forEach(function (e) {
+          var tr = document.createElement("tr");
+          var tdTipo  = document.createElement("td"); tdTipo.innerHTML = typePill(e.type);
+          var tdEmail = document.createElement("td"); tdEmail.textContent = e.email;
+          var tdFecha = document.createElement("td"); tdFecha.textContent = fmtDate(e.at);
+          tr.appendChild(tdTipo); tr.appendChild(tdEmail); tr.appendChild(tdFecha);
+          mTbody.appendChild(tr);
+        });
         mPanel.appendChild(mTable);
         main.appendChild(mPanel);
       }
