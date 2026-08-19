@@ -314,8 +314,8 @@
   }
 
   .stock-badge.agotado {
-    color: #6b6773;
-    background: rgba(233, 233, 233, 0.9);
+    color: #555;
+    background: rgba(220, 220, 220, 0.92);
   }
 
   .btn-wa[disabled] {
@@ -594,13 +594,14 @@
 
   .card.is-visible:hover .card-media img { transform: scale(1.04); }
 
-  .card.agotado { opacity: 0.62; }
-  .card.agotado .card-media img { filter: grayscale(0.7) brightness(0.88); }
-  .card.agotado .card-body h3 { color: var(--ink-soft); }
-  .card.agotado .card-body .desc { color: var(--ink-soft); opacity: 0.7; }
-  .card.agotado .price { color: var(--ink-soft); }
+  .card.agotado .card-media img { filter: grayscale(0.6) brightness(0.92); }
+  .card.agotado .card-body h3 { color: #555; }
+  .card.agotado .card-body .desc { color: #666; }
+  .card.agotado .price { color: #555; }
+  .card.agotado .price small { color: #888; }
   .card.agotado .btn-wa {
-    background: #999;
+    background: #b0a8b4;
+    color: #fff;
     pointer-events: none;
     cursor: default;
   }
