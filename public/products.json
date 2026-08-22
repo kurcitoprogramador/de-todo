@@ -9,7 +9,8 @@
       "availability": "disponible",
       "images": [
         "products/Bruma festive fizz Vs.jpg"
-      ]
+      ],
+      "image": "/products/Bruma festive fizz Vs.jpg"
     },
     {
       "name": "Perfume Espirit D'Oscar",
@@ -19,17 +20,19 @@
       "availability": "agotado",
       "images": [
         "https://rimage.ripley.com.pe/home.ripley/Attachment/MKP/1736/PMP20000695876/thumbnail-1.jpeg"
-      ]
+      ],
+      "image": "/products/Perfume Espirit D’Oscar.jpg"
     },
     {
       "name": "Baguette Náutica",
       "price": 180,
       "description": "Bolso casual con estilo náutico, ideal para salidas diarias.",
       "tag": "Bolso",
-      "availability": "disponible",
+      "availability": "agotado",
       "images": [
         "products/Shoulder bag Náutica.jpg"
-      ]
+      ],
+      "image": "/products/Shoulder bag Náutica.jpg"
     },
     {
       "name": "Baguette Negra Juicy",
@@ -39,7 +42,8 @@
       "availability": "disponible",
       "images": [
         "products/Shoulder bag negra Juicy.jpg"
-      ]
+      ],
+      "image": "/products/Shoulder bag negra Juicy.jpg"
     },
     {
       "name": "Zapatillas Tommy Hilfiger",
@@ -49,7 +53,8 @@
       "availability": "disponible",
       "images": [
         "products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
-      ]
+      ],
+      "image": "/products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
     },
     {
       "name": "Totte bag TH",
@@ -59,7 +64,8 @@
       "availability": "disponible",
       "images": [
         "/products/10598b80-ce01-4cce-ba3d-3ba23a8b1e63.jpeg"
-      ]
+      ],
+      "image": "/products/10598b80-ce01-4cce-ba3d-3ba23a8b1e63.jpeg"
     },
     {
       "name": "Totte bag TH + bolso de mano",
@@ -69,7 +75,8 @@
       "availability": "disponible",
       "images": [
         "/products/img_8273.jpeg"
-      ]
+      ],
+      "image": "/products/img_8273.jpeg"
     },
     {
       "name": "Totte bag monogramiado TH",
@@ -79,7 +86,16 @@
       "availability": "disponible",
       "images": [
         "/products/93fa4583-7c10-44a1-ac01-e5b2e7a94045.jpeg"
-      ]
+      ],
+      "image": "/products/93fa4583-7c10-44a1-ac01-e5b2e7a94045.jpeg"
+    },
+    {
+      "image": "/products/img_7038.jpeg",
+      "name": "Billetera tarjetero Steve Madden",
+      "price": 100,
+      "description": "Billetera Tarjetero Steve Madde en verde militar, un tono versátil y elegante que combina con todo. Compacto, práctico y perfecto para el día a día.",
+      "tag": "Billetera",
+      "availability": "disponible"
     }
   ]
 }
