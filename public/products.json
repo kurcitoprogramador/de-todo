@@ -95,7 +95,11 @@
       "price": 100,
       "description": "Billetera Tarjetero Steve Madde en verde militar, un tono versátil y elegante que combina con todo. Compacto, práctico y perfecto para el día a día.",
       "tag": "Billetera",
-      "availability": "disponible"
+      "availability": "disponible",
+      "images": [
+        "/products/img_7038.jpeg",
+        "/products/img_7039.jpeg"
+      ]
     }
   ]
 }
