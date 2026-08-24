@@ -157,11 +157,11 @@ romis/
 │   ├── index.html                 # Tienda (render, WhatsApp, forms ocultos)
 │   ├── products.json              # Catálogo (fuente de verdad de contenido)
 │   ├── products/                  # Fotografías (media_folder del CMS)
-│   ├── isologo/                   # Logotipos y variantes
+│   ├── isologo/                   # Logotipos activos
 │   ├── favicon.ico
 │   ├── admin/                     # Decap CMS
-│   │   ├── index.html             #   bootstrap + CSS táctil (iPhone/Android)
-│   │   └── config.yml             #   backend git-gateway + collections
+│   │   └── index.html             #   bootstrap + CSS táctil (iPhone/Android)
+│   ├── admin_config.yml           # Config Decap CMS (servido como /admin/config.yml)
 │   ├── acceso/                    # Gate de autenticación
 │   │   └── index.html
 │   ├── dashboard/                 # Estadísticas (Kurt)
@@ -178,13 +178,12 @@ romis/
 ├── package.json                   # Dependencias de funciones
 ├── DEPLOY_NETLIFY.md              # Guía de puesta en marcha
 ├── FLUJO_PRODUCTOS.md             # Guía operativa del negocio
+├── GUIA_EDITOR_PRODUCTOS.md       # Guía rápida para editoras
 ├── arquitectura-visual.html       # Mapa visual Mermaid (imprime/mira en navegador)
-├── ARCHITECTURE.md                # Este documento
-└── instrucs.txt                   # Apuntes internos (no forma parte del sitio)
+└── ARCHITECTURE.md                # Este documento
 ```
 
-> `node_modules/`, `.netlify/`, `apple-design-skill-main/` y
-> `osamu-dazai-catalogo.html` son recursos locales de trabajo, no artefactos
+> `node_modules/` y `.netlify/` son recursos locales de trabajo, no artefactos
 > del sitio.
 
 ---
