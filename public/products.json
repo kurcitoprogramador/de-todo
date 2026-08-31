@@ -70,7 +70,7 @@
     {
       "name": "Totte bag TH + bolso de mano",
       "price": 275,
-      "description": "Totte bag azul marino amplia, ideal para llevar laptop. Adicional viene con un bolso de mano monogramiado",
+      "description": "Totte bag azul marino amplia, su amplio compartimiento es perfecto para el uso diario, combinando funcionalidad y estilo clásico, ideas para llevar una laptop. Adicional viene con un bolso de mano monogramiado extraíble.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -110,6 +110,17 @@
       "images": [
         "/products/img_7739.jpeg",
         "/products/img_7994.webp"
+      ]
+    },
+    {
+      "name": "Clutch negra Aldo",
+      "price": 225,
+      "description": "Bolso clutch negro el accesorio perfecto para tus eventos y salidas de noche. Destaca por su diseño minimalista con una cadena dorada removible. Tiene doble uso, como bolso tipo sobre y como bolso de hombro con cadena",
+      "tag": "Bolso",
+      "availability": "disponible",
+      "images": [
+        "/products/img_8040.webp",
+        "/products/img_8041.webp"
       ]
     }
   ]
