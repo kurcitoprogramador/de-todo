@@ -122,6 +122,17 @@
         "/products/img_8040.webp",
         "/products/img_8041.webp"
       ]
+    },
+    {
+      "images": [
+        "/products/img_8441.jpeg",
+        "/products/img_7993.webp"
+      ],
+      "price": 220,
+      "availability": "disponible",
+      "tag": "Bolso",
+      "name": "Clutch Blingita Rose Gold",
+      "description": "Bolso modelo Blingita marca Aldo, de tono oro rosa, muy versátil, complementado con una delicada correa de cadena metálica dorada extraíble. Se puede usar cruzada o como bolso tipo sobre."
     }
   ]
 }
