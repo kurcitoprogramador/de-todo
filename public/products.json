@@ -153,6 +153,16 @@
       "description": "Bolso tote acolchado Reebok Beatrice de color nude es el accesorio perfecto para combinar funcionalidad con estilo, ideal para ir al gimnasio, universidad o trabajo.",
       "tag": "Bolso",
       "availability": "disponible"
+    },
+    {
+      "images": [
+        "/products/47976612-c5d6-4681-a057-4d4f1f4b70f9.jpeg"
+      ],
+      "availability": "disponible",
+      "tag": "Bolso",
+      "price": 170,
+      "name": "Crossbody TH Beige monogramiado  ",
+      "description": "Crossbody con un estampado de monograma en tono beige. Incluye una correa corta para poder llevarlo en el hombro o en la mano y una correa larga para llevarlo cruzado"
     }
   ]
 }
