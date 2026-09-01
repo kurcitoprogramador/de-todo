@@ -143,6 +143,16 @@
       "tag": "Body lotion",
       "description": "¡Energiza tu piel con esta loción corporal hidratante Victoria's Secret Clementine & Hibiscus! Su fórmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentación de 296 mL con dispensador.",
       "price": 65
+    },
+    {
+      "images": [
+        "/products/34391aed-06e0-48ee-9608-53c3d3faaeab.jpeg"
+      ],
+      "name": "Bolso Puffer Reebok Beatrice ",
+      "price": 140,
+      "description": "Bolso tote acolchado Reebok Beatrice de color nude es el accesorio perfecto para combinar funcionalidad con estilo, ideal para ir al gimnasio, universidad o trabajo.",
+      "tag": "Bolso",
+      "availability": "disponible"
     }
   ]
 }
