@@ -133,6 +133,16 @@
       "tag": "Bolso",
       "name": "Clutch Blingita Rose Gold",
       "description": "Bolso modelo Blingita marca Aldo, de tono oro rosa, muy versátil, complementado con una delicada correa de cadena metálica dorada extraíble. Se puede usar cruzada o como bolso tipo sobre."
+    },
+    {
+      "images": [
+        "/products/img_7979.jpeg"
+      ],
+      "name": "Loción Hidratante Clementine Hibiscus",
+      "availability": "disponible",
+      "tag": "Body lotion",
+      "description": "¡Energiza tu piel con esta loción corporal hidratante Victoria's Secret Clementine & Hibiscus! Su fórmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentación de 296 mL con dispensador.",
+      "price": 65
     }
   ]
 }
