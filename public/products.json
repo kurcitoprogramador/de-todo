@@ -30,7 +30,7 @@
       "name": "Aceite Corporal Iluminador Pink Pineapple",
       "price": 50,
       "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de piña dulce y tropical",
-      "tag": "Cuidado corporal",
+      "tag": "Belleza y Cuidado de la Piel",
       "availability": "disponible"
     },
     {
@@ -39,7 +39,7 @@
       ],
       "name": "Loción Hidratante Clementine Hibiscus",
       "availability": "disponible",
-      "tag": "Cuidado corporal",
+      "tag": "Belleza y Cuidado de la Piel",
       "description": "¡Energiza tu piel con esta loción corporal hidratante Victoria's Secret Clementine & Hibiscus! Su fórmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentación de 296 mL con dispensador.",
       "price": 65
     },
@@ -49,7 +49,7 @@
         "/products/img_7740.jpeg"
       ],
       "availability": "disponible",
-      "tag": "Cuidado corporal",
+      "tag": "Belleza y Cuidado de la Piel",
       "price": 50,
       "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a piña tropical. Su fórmula de rápida absorción aporta un acabado luminoso y satinado con destellos sutiles (shimmer)."
     },
@@ -234,6 +234,16 @@
         "products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
       ],
       "image": "/products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
+    },
+    {
+      "images": [
+        "/products/122d07ce-575c-47b0-a8ca-7e3ee866a552.jpeg"
+      ],
+      "name": "Baby liss pro mini rosada ",
+      "description": "La BaBylissPRO Ceramix Xtreme 3/4\" Mini Straightener es una plancha alisadora compacta y ligera, ideal para retoques rápidos. Gracias a sus placas de cerámica, distribuye el calor de forma uniforme para proteger el cabello, eliminar el frizz y dejar un acabado suave y brillante en un formato perfecto para viajar.",
+      "tag": "Belleza y Cuidado de la Piel",
+      "availability": "disponible",
+      "price": 155
     }
   ]
 }
