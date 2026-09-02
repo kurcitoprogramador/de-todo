@@ -140,7 +140,7 @@
       ],
       "name": "Loción Hidratante Clementine Hibiscus",
       "availability": "disponible",
-      "tag": "Cuidado de la piel ",
+      "tag": "Cuidado corporal",
       "description": "¡Energiza tu piel con esta loción corporal hidratante Victoria's Secret Clementine & Hibiscus! Su fórmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentación de 296 mL con dispensador.",
       "price": 65
     },
@@ -171,7 +171,7 @@
       "name": "Aceite Corporal Iluminador Pink Pineapple",
       "price": 50,
       "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de piña dulce y tropical",
-      "tag": "Cuidado de la piel",
+      "tag": "Cuidado corporal",
       "availability": "disponible"
     },
     {
@@ -193,6 +193,16 @@
       "tag": "Perfumes ",
       "availability": "disponible",
       "description": "¡Llévate una fragancia exclusiva y difícil de conseguir! Está bruma corporal Sheer Love de la Archives Colletion de Victoria’s Secret tiene una combinación de aromas, entre floral fresco, limpio y romántico."
+    },
+    {
+      "name": "Pink Shimmer Jelly",
+      "images": [
+        "/products/img_7740.jpeg"
+      ],
+      "availability": "disponible",
+      "tag": "Cuidado corporal",
+      "price": 50,
+      "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a piña tropical. Su fórmula de rápida absorción aporta un acabado luminoso y satinado con destellos sutiles (shimmer)."
     }
   ]
 }
