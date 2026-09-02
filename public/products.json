@@ -183,6 +183,16 @@
       "tag": "Perfumes",
       "availability": "disponible",
       "description": "¡Lleva el verano contigo con la bruma corporal Piña Coco Swirl de Victoria’s Secret! Esta bruma combina notas dulces de piña, coco y un toque de vainilla, dejando un aroma tropical y de larga duración."
+    },
+    {
+      "images": [
+        "/products/img_7748.jpeg"
+      ],
+      "name": "Sheer Love Edición Especial - Victoria’s Secret",
+      "price": 65,
+      "tag": "Perfumes ",
+      "availability": "disponible",
+      "description": "¡Llévate una fragancia exclusiva y difícil de conseguir! Está bruma corporal Sheer Love de la Archives Colletion de Victoria’s Secret tiene una combinación de aromas, entre floral fresco, limpio y romántico."
     }
   ]
 }
