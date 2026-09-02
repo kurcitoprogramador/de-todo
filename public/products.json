@@ -24,37 +24,54 @@
       "image": "/products/Perfume Espirit D’Oscar.jpg"
     },
     {
-      "name": "Baguette Náutica",
-      "price": 180,
-      "description": "Bolso casual con estilo náutico, ideal para salidas diarias.",
-      "tag": "Bolso",
-      "availability": "agotado",
       "images": [
-        "products/Shoulder bag Náutica.jpg"
+        "/products/img_7977.jpeg"
       ],
-      "image": "/products/Shoulder bag Náutica.jpg"
+      "name": "Aceite Corporal Iluminador Pink Pineapple",
+      "price": 50,
+      "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de piña dulce y tropical",
+      "tag": "Cuidado corporal",
+      "availability": "disponible"
     },
     {
-      "name": "Baguette Negra Juicy",
-      "price": 185,
-      "description": "Shoulder bag con o cónicas cadenas doradas frontales con dijes removibles marca Juicy Couture.",
-      "tag": "Bolso ",
-      "availability": "disponible",
       "images": [
-        "products/Shoulder bag negra Juicy.jpg"
+        "/products/img_7979.jpeg"
       ],
-      "image": "/products/Shoulder bag negra Juicy.jpg"
+      "name": "Loción Hidratante Clementine Hibiscus",
+      "availability": "disponible",
+      "tag": "Cuidado corporal",
+      "description": "¡Energiza tu piel con esta loción corporal hidratante Victoria's Secret Clementine & Hibiscus! Su fórmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentación de 296 mL con dispensador.",
+      "price": 65
     },
     {
-      "name": "Zapatillas Tommy Hilfiger",
-      "price": 280,
-      "description": "Zapatillas blancas con diseño monogramiado en alto relieve para mujer. Cómodas, modernas y clásicas.\nTalla 37.",
-      "tag": "Calzado",
-      "availability": "disponible",
+      "name": "Pink Shimmer Jelly",
       "images": [
-        "products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
+        "/products/img_7740.jpeg"
       ],
-      "image": "/products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
+      "availability": "disponible",
+      "tag": "Cuidado corporal",
+      "price": 50,
+      "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a piña tropical. Su fórmula de rápida absorción aporta un acabado luminoso y satinado con destellos sutiles (shimmer)."
+    },
+    {
+      "images": [
+        "/products/img_7741.jpeg"
+      ],
+      "name": "Piña Coco Swirl - Victoria Secret",
+      "price": 60,
+      "tag": "Perfumes",
+      "availability": "disponible",
+      "description": "¡Lleva el verano contigo con la bruma corporal Piña Coco Swirl de Victoria’s Secret! Esta bruma combina notas dulces de piña, coco y un toque de vainilla, dejando un aroma tropical y de larga duración."
+    },
+    {
+      "images": [
+        "/products/img_7748.jpeg"
+      ],
+      "name": "Sheer Love Edición Especial - Victoria’s Secret",
+      "price": 65,
+      "tag": "Perfumes ",
+      "availability": "disponible",
+      "description": "¡Llévate una fragancia exclusiva y difícil de conseguir! Está bruma corporal Sheer Love de la Archives Colletion de Victoria’s Secret tiene una combinación de aromas, entre floral fresco, limpio y romántico."
     },
     {
       "name": "Totte bag TH azul ",
@@ -90,15 +107,35 @@
       "image": "/products/93fa4583-7c10-44a1-ac01-e5b2e7a94045.jpeg"
     },
     {
-      "image": "/products/img_7038.jpeg",
-      "name": "Billetera tarjetero Steve Madden",
-      "price": 100,
-      "description": "Billetera Tarjetero Steve Madde en verde militar, un tono versátil y elegante que combina con todo. Compacto, práctico y perfecto para el día a día.",
-      "tag": "Billetera",
+      "images": [
+        "/products/34391aed-06e0-48ee-9608-53c3d3faaeab.jpeg"
+      ],
+      "name": "Bolso Puffer Reebok Beatrice ",
+      "price": 140,
+      "description": "Bolso tote acolchado Reebok Beatrice de color nude es el accesorio perfecto para combinar funcionalidad con estilo, ideal para ir al gimnasio, universidad o trabajo.",
+      "tag": "Bolso",
+      "availability": "disponible"
+    },
+    {
+      "images": [
+        "/products/img_8441.jpeg",
+        "/products/img_7993.webp"
+      ],
+      "price": 210,
+      "availability": "disponible",
+      "tag": "Bolso",
+      "name": "Clutch Blingita Rose Gold",
+      "description": "Bolso modelo Blingita marca Aldo, de tono oro rosa, muy versátil, complementado con una delicada correa de cadena metálica dorada extraíble. Se puede usar cruzada o como bolso tipo sobre."
+    },
+    {
+      "name": "Clutch negra Aldo",
+      "price": 225,
+      "description": "Bolso clutch negro el accesorio perfecto para tus eventos y salidas de noche. Destaca por su diseño minimalista con una cadena dorada removible. Tiene doble uso, como bolso tipo sobre y como bolso de hombro con cadena",
+      "tag": "Bolso",
       "availability": "disponible",
       "images": [
-        "/products/img_7039.jpeg",
-        "/products/img_7038.jpeg"
+        "/products/img_8040.webp",
+        "/products/img_8041.webp"
       ]
     },
     {
@@ -113,46 +150,38 @@
       ]
     },
     {
-      "name": "Clutch negra Aldo",
-      "price": 225,
-      "description": "Bolso clutch negro el accesorio perfecto para tus eventos y salidas de noche. Destaca por su diseño minimalista con una cadena dorada removible. Tiene doble uso, como bolso tipo sobre y como bolso de hombro con cadena",
-      "tag": "Bolso",
+      "image": "/products/img_7038.jpeg",
+      "name": "Billetera tarjetero Steve Madden",
+      "price": 100,
+      "description": "Billetera Tarjetero Steve Madde en verde militar, un tono versátil y elegante que combina con todo. Compacto, práctico y perfecto para el día a día.",
+      "tag": "Billetera",
       "availability": "disponible",
       "images": [
-        "/products/img_8040.webp",
-        "/products/img_8041.webp"
+        "/products/img_7039.jpeg",
+        "/products/img_7038.jpeg"
       ]
     },
     {
-      "images": [
-        "/products/img_8441.jpeg",
-        "/products/img_7993.webp"
-      ],
-      "price": 210,
-      "availability": "disponible",
+      "name": "Baguette Náutica",
+      "price": 180,
+      "description": "Bolso casual con estilo náutico, ideal para salidas diarias.",
       "tag": "Bolso",
-      "name": "Clutch Blingita Rose Gold",
-      "description": "Bolso modelo Blingita marca Aldo, de tono oro rosa, muy versátil, complementado con una delicada correa de cadena metálica dorada extraíble. Se puede usar cruzada o como bolso tipo sobre."
+      "availability": "agotado",
+      "images": [
+        "products/Shoulder bag Náutica.jpg"
+      ],
+      "image": "/products/Shoulder bag Náutica.jpg"
     },
     {
-      "images": [
-        "/products/img_7979.jpeg"
-      ],
-      "name": "Loción Hidratante Clementine Hibiscus",
+      "name": "Baguette Negra Juicy",
+      "price": 185,
+      "description": "Shoulder bag con o cónicas cadenas doradas frontales con dijes removibles marca Juicy Couture.",
+      "tag": "Bolso ",
       "availability": "disponible",
-      "tag": "Cuidado corporal",
-      "description": "¡Energiza tu piel con esta loción corporal hidratante Victoria's Secret Clementine & Hibiscus! Su fórmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentación de 296 mL con dispensador.",
-      "price": 65
-    },
-    {
       "images": [
-        "/products/34391aed-06e0-48ee-9608-53c3d3faaeab.jpeg"
+        "products/Shoulder bag negra Juicy.jpg"
       ],
-      "name": "Bolso Puffer Reebok Beatrice ",
-      "price": 140,
-      "description": "Bolso tote acolchado Reebok Beatrice de color nude es el accesorio perfecto para combinar funcionalidad con estilo, ideal para ir al gimnasio, universidad o trabajo.",
-      "tag": "Bolso",
-      "availability": "disponible"
+      "image": "/products/Shoulder bag negra Juicy.jpg"
     },
     {
       "images": [
@@ -166,46 +195,6 @@
     },
     {
       "images": [
-        "/products/img_7977.jpeg"
-      ],
-      "name": "Aceite Corporal Iluminador Pink Pineapple",
-      "price": 50,
-      "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de piña dulce y tropical",
-      "tag": "Cuidado corporal",
-      "availability": "disponible"
-    },
-    {
-      "images": [
-        "/products/img_7741.jpeg"
-      ],
-      "name": "Piña Coco Swirl - Victoria Secret",
-      "price": 60,
-      "tag": "Perfumes",
-      "availability": "disponible",
-      "description": "¡Lleva el verano contigo con la bruma corporal Piña Coco Swirl de Victoria’s Secret! Esta bruma combina notas dulces de piña, coco y un toque de vainilla, dejando un aroma tropical y de larga duración."
-    },
-    {
-      "images": [
-        "/products/img_7748.jpeg"
-      ],
-      "name": "Sheer Love Edición Especial - Victoria’s Secret",
-      "price": 65,
-      "tag": "Perfumes ",
-      "availability": "disponible",
-      "description": "¡Llévate una fragancia exclusiva y difícil de conseguir! Está bruma corporal Sheer Love de la Archives Colletion de Victoria’s Secret tiene una combinación de aromas, entre floral fresco, limpio y romántico."
-    },
-    {
-      "name": "Pink Shimmer Jelly",
-      "images": [
-        "/products/img_7740.jpeg"
-      ],
-      "availability": "disponible",
-      "tag": "Cuidado corporal",
-      "price": 50,
-      "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a piña tropical. Su fórmula de rápida absorción aporta un acabado luminoso y satinado con destellos sutiles (shimmer)."
-    },
-    {
-      "images": [
         "/products/b73ba285-7c49-4bdf-a914-96fc5c9a64de.jpeg",
         "/products/a8148c7a-1145-4162-b216-2584cdccdc31.jpeg"
       ],
@@ -214,6 +203,17 @@
       "tag": "Bolso",
       "availability": "disponible",
       "description": "Bandolera Nautica en color negro, combina el diseño curvo minimalista con su icono detalle metálico plateado en el frente."
+    },
+    {
+      "name": "Zapatillas Tommy Hilfiger",
+      "price": 280,
+      "description": "Zapatillas blancas con diseño monogramiado en alto relieve para mujer. Cómodas, modernas y clásicas.\nTalla 37.",
+      "tag": "Calzado",
+      "availability": "disponible",
+      "images": [
+        "products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
+      ],
+      "image": "/products/Zapatillas Tommy Hilfiger blancas mujer - Talla 7.jpg"
     }
   ]
 }
