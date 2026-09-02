@@ -140,7 +140,7 @@
       ],
       "name": "Loción Hidratante Clementine Hibiscus",
       "availability": "disponible",
-      "tag": "Body lotion",
+      "tag": "Cuidado de la piel ",
       "description": "¡Energiza tu piel con esta loción corporal hidratante Victoria's Secret Clementine & Hibiscus! Su fórmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentación de 296 mL con dispensador.",
       "price": 65
     },
@@ -163,6 +163,16 @@
       "price": 170,
       "name": "Crossbody TH Beige monogramiado  ",
       "description": "Crossbody con un estampado de monograma en tono beige. Incluye una correa corta para poder llevarlo en el hombro o en la mano y una correa larga para llevarlo cruzado"
+    },
+    {
+      "images": [
+        "/products/img_7977.jpeg"
+      ],
+      "name": "Aceite Corporal Iluminador Pink Pineapple",
+      "price": 50,
+      "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de piña dulce y tropical",
+      "tag": "Cuidado de la piel",
+      "availability": "disponible"
     }
   ]
 }
