@@ -2,7 +2,7 @@
   "whatsapp": "51961841885",
   "products": [
     {
-      "name": "Bruma Festive Fizz",
+      "name": "Festive Fizz - Victoria Secret",
       "price": 60,
       "description": "¡ Lleva la fiesta en tu piel con Victoria’s Secret Festive Fizz ! Bruma corporal dulce y afrutado que combina arándano y mora silvestre con un fondo cálido de ámbar",
       "tag": "Perfumes",
@@ -173,6 +173,16 @@
       "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de piña dulce y tropical",
       "tag": "Cuidado de la piel",
       "availability": "disponible"
+    },
+    {
+      "images": [
+        "/products/img_7741.jpeg"
+      ],
+      "name": "Piña Coco Swirl - Victoria Secret",
+      "price": 60,
+      "tag": "Perfumes",
+      "availability": "disponible",
+      "description": "¡Lleva el verano contigo con la bruma corporal Piña Coco Swirl de Victoria’s Secret! Esta bruma combina notas dulces de piña, coco y un toque de vainilla, dejando un aroma tropical y de larga duración."
     }
   ]
 }
