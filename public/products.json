@@ -160,7 +160,7 @@
       ],
       "availability": "disponible",
       "tag": "Bolso",
-      "price": 170,
+      "price": 180,
       "name": "Crossbody TH Beige monogramiado  ",
       "description": "Crossbody con un estampado de monograma en tono beige. Incluye una correa corta para poder llevarlo en el hombro o en la mano y una correa larga para llevarlo cruzado"
     },
@@ -203,6 +203,17 @@
       "tag": "Cuidado corporal",
       "price": 50,
       "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a piña tropical. Su fórmula de rápida absorción aporta un acabado luminoso y satinado con destellos sutiles (shimmer)."
+    },
+    {
+      "images": [
+        "/products/b73ba285-7c49-4bdf-a914-96fc5c9a64de.jpeg",
+        "/products/a8148c7a-1145-4162-b216-2584cdccdc31.jpeg"
+      ],
+      "name": "Crossbody Nautica negra ",
+      "price": 160,
+      "tag": "Bolso",
+      "availability": "disponible",
+      "description": "Bandolera Nautica en color negro, combina el diseño curvo minimalista con su icono detalle metálico plateado en el frente."
     }
   ]
 }
