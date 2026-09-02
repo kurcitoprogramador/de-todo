@@ -223,6 +223,17 @@
       "tag": "Perfumes",
       "name": "Set de perfumes True Religion ",
       "description": "Set de perfume True Religion, hermosa presentación que incluye 3 fragancias femeninas en diferentes aromas cada una de 15ml, ideal para variar según la ocasión o llevar siempre contigo. "
+    },
+    {
+      "images": [
+        "/products/img_7902.jpeg",
+        "/products/img_7901.jpeg"
+      ],
+      "name": "Lattafa Qaed Al Fursan ",
+      "price": 140,
+      "tag": "Perfumes",
+      "availability": "disponible",
+      "description": "Déjate envolver por la intensidad y elegancia de Qaed Al Fursan de Lattafa. Su presentación de 90ml es ideal para quienes buscan un perfume con presencia y personalidad con aroma frutal, dulce y amaderado."
     }
   ]
 }
