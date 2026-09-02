@@ -244,6 +244,16 @@
       "tag": "Belleza y Cuidado de la Piel",
       "availability": "disponible",
       "price": 155
+    },
+    {
+      "images": [
+        "/products/67049ad6-0fe4-4e39-8f5d-034ac24841f2.jpeg"
+      ],
+      "name": "Baguette Juicy Courier Denim ",
+      "availability": "disponible",
+      "tag": "Bolso ",
+      "price": 175,
+      "description": "Bolso confeccionado en Denim azul con un hermoso acolchado. Destaca por su brillante logo JC de pedrería en el frente "
     }
   ]
 }
