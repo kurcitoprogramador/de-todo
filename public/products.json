@@ -255,6 +255,17 @@
       "tag": "Belleza y Cuidado de la Piel",
       "availability": "disponible",
       "price": 155
+    },
+    {
+      "images": [
+        "/products/3d95fd2c-768a-4d12-8afc-ffbf09651840.jpeg",
+        "/products/809405d6-b389-40c3-b9c5-e18533f3e4cb.jpeg"
+      ],
+      "name": "Lentes de Sol Mujer - JS",
+      "price": 110,
+      "description": "Lentes de sol estilo aviador con un diseño moderno, ideal para complementar cualquier look.\nCuenta con lunas en degradado azul y tonalidades cálidas.\nMontura en tonos dorados con varillas en color beige y detalles delicados.",
+      "tag": "Accesorios",
+      "availability": "disponible"
     }
   ]
 }
