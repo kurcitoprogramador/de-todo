@@ -267,6 +267,16 @@
       "availability": "disponible"
     },
     {
+      "images": [
+        "/products/2fbde626-f551-4386-a31d-1469111c7ff3.jpeg"
+      ],
+      "name": "Mini bolso Cruzado Steve Madden",
+      "price": 140,
+      "tag": "Bolso",
+      "availability": "disponible",
+      "description": "¡El accesorio perfecto para tus días y noches! Este mini bolso cruzado de Steve Madden combina un diseño compacto en color negro con el icónico logotipo metálico \"SM\". Es ideal para llevar lo esencial con total comodidad y un toque sofisticado de estilo urbano."
+    },
+    {
       "name": "Zapatillas Tommy Hilfiger",
       "price": 280,
       "description": "Zapatillas blancas con diseño monogramiado en alto relieve para mujer. Cómodas, modernas y clásicas.\nTalla 37.",
@@ -308,16 +318,6 @@
       "price": 145,
       "tag": "Accesorios",
       "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!"
-    },
-    {
-      "images": [
-        "/products/2fbde626-f551-4386-a31d-1469111c7ff3.jpeg"
-      ],
-      "name": "Mini bolso Cruzado Steve Madden",
-      "price": 140,
-      "tag": "Bolso",
-      "availability": "disponible",
-      "description": "¡El accesorio perfecto para tus días y noches! Este mini bolso cruzado de Steve Madden combina un diseño compacto en color negro con el icónico logotipo metálico \"SM\". Es ideal para llevar lo esencial con total comodidad y un toque sofisticado de estilo urbano."
     }
   ]
 }
