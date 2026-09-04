@@ -338,6 +338,16 @@
       "price": 145,
       "tag": "Accesorios",
       "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!"
+    },
+    {
+      "name": "Correa Marrón TH ",
+      "price": 100,
+      "tag": "Accesorios",
+      "availability": "disponible",
+      "images": [
+        "/products/img_7129.jpeg"
+      ],
+      "description": "Eleva tu estilo diario con este cinturón en color marrón. Diseñado con una sofisticada hebilla dorada y un dije con el icónico monograma de la marca, talla M.\nEs el accesorio perfecto para aportar un toque de lujo clásico y distinción a cualquier atuendo."
     }
   ]
 }
