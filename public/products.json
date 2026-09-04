@@ -328,6 +328,16 @@
       "price": 145,
       "tag": "Accesorios",
       "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!"
+    },
+    {
+      "images": [
+        "/products/2a5343cc-f4ed-4dce-88d7-d9ab2688a131.jpeg"
+      ],
+      "name": "Muñequera Steve Madden Marrón ",
+      "tag": "Bolso",
+      "availability": "disponible",
+      "description": "Elegante cartera de mano Steve Madden en color marrón chocolate con textura granulada. Cuenta con una práctica correa de muñeca, detalles y herrajes dorados, y un diseño compacto con doble cremallera ideal para llevar tus esenciales con estilo. ¡Perfecta para el día a día o una salida casual!",
+      "price": 130
     }
   ]
 }
