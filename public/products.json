@@ -237,6 +237,16 @@
     },
     {
       "images": [
+        "/products/43993706-5423-4281-9fca-5ba7381d7cab.jpeg"
+      ],
+      "name": "Crossbody Nine West Monogramiado Negro",
+      "price": 165,
+      "description": "Elegante bolso tipo crossbody en color negro con sutil estampado de monograma. Cuenta con un bolsillo frontal liso, correa ajustable y el clásico logotipo metálico de la marca. Es compacto y versátil, ideal para llevar tus esenciales con estilo en el día a día.",
+      "tag": "Bolso",
+      "availability": "disponible"
+    },
+    {
+      "images": [
         "/products/b73ba285-7c49-4bdf-a914-96fc5c9a64de.jpeg",
         "/products/a8148c7a-1145-4162-b216-2584cdccdc31.jpeg"
       ],
@@ -298,16 +308,6 @@
       "price": 145,
       "tag": "Accesorios",
       "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!"
-    },
-    {
-      "images": [
-        "/products/43993706-5423-4281-9fca-5ba7381d7cab.jpeg"
-      ],
-      "name": "Crossbody Nine West Monogramiado Negro",
-      "price": 165,
-      "description": "Elegante bolso tipo crossbody en color negro con sutil estampado de monograma. Cuenta con un bolsillo frontal liso, correa ajustable y el clásico logotipo metálico de la marca. Es compacto y versátil, ideal para llevar tus esenciales con estilo en el día a día.",
-      "tag": "Bolso",
-      "availability": "disponible"
     }
   ]
 }
