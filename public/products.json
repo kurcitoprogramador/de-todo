@@ -277,6 +277,16 @@
       "description": "¡El accesorio perfecto para tus días y noches! Este mini bolso cruzado de Steve Madden combina un diseño compacto en color negro con el icónico logotipo metálico \"SM\". Es ideal para llevar lo esencial con total comodidad y un toque sofisticado de estilo urbano."
     },
     {
+      "images": [
+        "/products/f8a410b6-edac-47b4-9745-5391dc812aad.jpeg"
+      ],
+      "availability": "disponible",
+      "tag": "Bolso",
+      "name": "Mini bolso Crossbody Bebe",
+      "description": "Eleva cualquier look con este hermoso mini bolso crossbody de la marca Bebe en color negro. Cuenta con un elegante diseño capitonado acolchado, un broche con el logotipo metálico en tono dorado y una sofisticada correa de cadena entrelazada.",
+      "price": 140
+    },
+    {
       "name": "Zapatillas Tommy Hilfiger",
       "price": 280,
       "description": "Zapatillas blancas con diseño monogramiado en alto relieve para mujer. Cómodas, modernas y clásicas.\nTalla 37.",
@@ -318,16 +328,6 @@
       "price": 145,
       "tag": "Accesorios",
       "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!"
-    },
-    {
-      "images": [
-        "/products/f8a410b6-edac-47b4-9745-5391dc812aad.jpeg"
-      ],
-      "availability": "disponible",
-      "tag": "Bolso",
-      "name": "Mini bolso Crossbody Bebe",
-      "description": "Eleva cualquier look con este hermoso mini bolso crossbody de la marca Bebe en color negro. Cuenta con un elegante diseño capitonado acolchado, un broche con el logotipo metálico en tono dorado y una sofisticada correa de cadena entrelazada.",
-      "price": 140
     }
   ]
 }
