@@ -318,6 +318,16 @@
       "price": 145,
       "tag": "Accesorios",
       "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!"
+    },
+    {
+      "images": [
+        "/products/f8a410b6-edac-47b4-9745-5391dc812aad.jpeg"
+      ],
+      "availability": "disponible",
+      "tag": "Bolso",
+      "name": "Mini bolso Crossbody Bebe",
+      "description": "Eleva cualquier look con este hermoso mini bolso crossbody de la marca Bebe en color negro. Cuenta con un elegante diseño capitonado acolchado, un broche con el logotipo metálico en tono dorado y una sofisticada correa de cadena entrelazada.",
+      "price": 140
     }
   ]
 }
