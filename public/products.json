@@ -284,10 +284,20 @@
         "/products/d6b6462b-f94c-453a-8a95-572d6767fd75.jpeg",
         "/products/a7d283b3-876e-48c8-84dd-d9b06e2b32e5.jpeg"
       ],
-      "name": "Lentes de Sol Mujer - TR",
+      "name": "Lentes de Sol Mujer - True religion",
       "price": 145,
       "tag": "Accesorios",
       "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!"
+    },
+    {
+      "images": [
+        "/products/c44047c0-9379-4a91-a90d-e72c3b24a983.jpeg"
+      ],
+      "name": "Bolso Hobo - Nine West",
+      "price": 160,
+      "description": "Hermoso bolso estilo hobo de paja tejida con asa marrón. Diseño original, cómodo y con el tamaño perfecto para llevar todo lo que necesitas con estilo.",
+      "tag": "Bolso",
+      "availability": "disponible"
     }
   ]
 }
