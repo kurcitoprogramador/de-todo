@@ -273,10 +273,21 @@
         "/products/809405d6-b389-40c3-b9c5-e18533f3e4cb.jpeg"
       ],
       "name": "Lentes de Sol Mujer - JS",
-      "price": 110,
+      "price": 105,
       "description": "Lentes de sol estilo aviador con un diseño moderno, ideal para complementar cualquier look.\nCuenta con lunas en degradado azul y tonalidades cálidas.\nMontura en tonos dorados con varillas en color beige y detalles delicados.",
       "tag": "Accesorios",
       "availability": "disponible"
+    },
+    {
+      "availability": "disponible",
+      "images": [
+        "/products/d6b6462b-f94c-453a-8a95-572d6767fd75.jpeg",
+        "/products/a7d283b3-876e-48c8-84dd-d9b06e2b32e5.jpeg"
+      ],
+      "name": "Lentes de Sol Mujer - TR",
+      "price": 145,
+      "tag": "Accesorios",
+      "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!"
     }
   ]
 }
