@@ -171,6 +171,17 @@
       ]
     },
     {
+      "images": [
+        "/products/img_7041.jpeg",
+        "/products/img_7042.jpeg"
+      ],
+      "name": "Tarjetero beige TH",
+      "price": 125,
+      "tag": "Billetera",
+      "availability": "disponible",
+      "description": "Tarjetero beige destaca por su diseño texturizado con el monograma grabado y un refinado logotipo metálico \"TH\" en dorado. Cuenta con compartimentos para tarjetas, un práctico cierre de seguridad y una cómoda correa de mano para llevar lo esencial con estilo."
+    },
+    {
       "image": "/products/img_7038.jpeg",
       "name": "Billetera tarjetero Steve Madden",
       "price": 100,
@@ -266,17 +277,6 @@
       "description": "Lentes de sol estilo aviador con un diseño moderno, ideal para complementar cualquier look.\nCuenta con lunas en degradado azul y tonalidades cálidas.\nMontura en tonos dorados con varillas en color beige y detalles delicados.",
       "tag": "Accesorios",
       "availability": "disponible"
-    },
-    {
-      "images": [
-        "/products/img_7041.jpeg",
-        "/products/img_7042.jpeg"
-      ],
-      "name": "Tarjetero beige TH",
-      "price": 125,
-      "tag": "Billetera",
-      "availability": "disponible",
-      "description": "Tarjetero beige destaca por su diseño texturizado con el monograma grabado y un refinado logotipo metálico \"TH\" en dorado. Cuenta con compartimentos para tarjetas, un práctico cierre de seguridad y una cómoda correa de mano para llevar lo esencial con estilo."
     }
   ]
 }
