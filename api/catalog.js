@@ -22,6 +22,9 @@ async function github(path, options = {}) {
     },
   });
   const json = await res.json().catch(() => ({}));
+  if (res.status === 403 && /Resource not accessible by personal access token/i.test(json.message || "")) {
+    throw new Error("El GITHUB_TOKEN no tiene permiso de escritura. En GitHub debe tener Contents: Read and write para kurcitoprogramador/de-todo.");
+  }
   if (!res.ok) throw new Error(json.message || `GitHub HTTP ${res.status}`);
   return json;
 }
