@@ -201,7 +201,7 @@
     div.innerHTML = '<div class="product-head"><strong>Producto ' + (i + 1) + '</strong><button type="button" class="danger">Eliminar</button></div>' +
       '<div class="grid cols"><label>Nombre<input name="name"></label><label>Precio<input name="price" type="number" min="0"></label><label>Etiqueta<input name="tag"></label><label>Disponibilidad<select name="availability"><option value="disponible">Disponible</option><option value="pocas">Pocas unidades</option><option value="agotado">Agotado</option></select></label></div>' +
       '<div class="grid" style="margin-top:12px"><label>Descripcion<textarea name="description"></textarea></label></div>' +
-      '<div class="image-block"><strong>Imagenes</strong><p class="hint">Puedes subir varias desde tu galeria. La primera sera la foto principal del catalogo.</p><div class="images"></div><div class="image-tools"><label class="upload-label">Subir desde galeria<input class="upload-image" type="file" accept="image/*" multiple></label><button type="button" class="secondary add-image">Agregar por ruta</button></div></div>';
+      '<div class="image-block"><strong>Imagenes</strong><p class="hint">Puedes subir varias desde tu galeria. La primera sera la foto principal del catalogo.</p><div class="images"></div><div class="image-tools"><label class="upload-label">Subir desde galeria<input class="upload-image" type="file" accept="image/*" multiple></label><button type="button" class="save-near-images">Guardar cambios</button><button type="button" class="secondary add-image">Agregar por ruta</button></div></div>';
     div.querySelector("[name=name]").value = p.name || "";
     div.querySelector("[name=price]").value = p.price || 0;
     div.querySelector("[name=tag]").value = p.tag || "";
@@ -210,6 +210,7 @@
     normalizeImages(p.images || p.image).forEach(function (src) { addImage(div, src); });
     if (!div.querySelector(".image-row")) addImage(div, "");
     div.querySelector(".add-image").addEventListener("click", function () { addImage(div, ""); });
+    div.querySelector(".save-near-images").addEventListener("click", function () { saveCatalog().catch(function (e) { show(els.err, e.message); }); });
     div.querySelector(".upload-image").addEventListener("change", function (e) {
       var files = Array.prototype.slice.call(e.target.files || []);
       if (!files.length) return;
