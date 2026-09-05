@@ -189,6 +189,12 @@
       };
     }).filter(function (p) { return p.name; });
   }
+  function saveCatalog() {
+    syncFromDom();
+    return api("PUT", { data: state }).then(function () {
+      show(els.ok, "Guardado. Vercel publicara el cambio en unos segundos.");
+    });
+  }
   function productCard(p, i) {
     var div = document.createElement("div");
     div.className = "card product";
@@ -211,8 +217,9 @@
       show(els.ok, "Subiendo " + files.length + " imagen(es)...");
       Promise.all(files.map(uploadImage)).then(function (items) {
         items.forEach(function (item) { addImage(div, item.path); });
-        show(els.ok, "Imagen(es) subida(s). Ahora guarda los cambios del catalogo.");
+        show(els.ok, "Imagen(es) subida(s). Guardando catalogo...");
         e.target.value = "";
+        return saveCatalog();
       }).catch(function (err) {
         show(els.err, err.message);
         e.target.value = "";
@@ -237,7 +244,7 @@
   }
   els.enter.addEventListener("click", function () { password = els.password.value; sessionStorage.setItem("editorPassword", password); load(); });
   els.add.addEventListener("click", function () { els.products.appendChild(productCard({ availability: "disponible", images: [] }, els.products.children.length)); });
-  els.save.addEventListener("click", function () { syncFromDom(); api("PUT", { data: state }).then(function () { show(els.ok, "Guardado. Vercel publicara el cambio en unos segundos."); }).catch(function (e) { show(els.err, e.message); }); });
+  els.save.addEventListener("click", function () { saveCatalog().catch(function (e) { show(els.err, e.message); }); });
   if (password) load();
 })();
 </script>
