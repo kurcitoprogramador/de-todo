@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Editar catalogo - De Todo</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #fbf8f3; color: #3d3a47; }
+  header { position: sticky; top: 0; z-index: 2; background: #fff; border-bottom: 1px solid #efe9e1; padding: 14px 18px; display: flex; gap: 12px; align-items: center; }
+  header h1 { font-size: 18px; margin: 0; flex: 1; }
+  main { max-width: 920px; margin: 0 auto; padding: 22px 16px 60px; }
+  a { color: inherit; font-weight: 700; }
+  input, textarea, select, button { width: 100%; min-height: 44px; border: 1px solid #e6ded4; border-radius: 12px; padding: 10px 12px; font: inherit; background: #fff; }
+  textarea { min-height: 82px; resize: vertical; }
+  button { border: 0; cursor: pointer; font-weight: 800; background: #a8698f; color: #fff; }
+  button.secondary { background: #efe9e1; color: #3d3a47; }
+  button.danger { background: #b3403a; }
+  label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; color: #6f6878; }
+  .card { background: #fff; border: 1px solid #efe9e1; border-radius: 18px; padding: 16px; box-shadow: 0 8px 24px rgba(105,92,120,.08); margin-bottom: 16px; }
+  .grid { display: grid; gap: 12px; }
+  .cols { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+  .actions button { width: auto; padding-inline: 18px; }
+  .product-head { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+  .product-head strong { flex: 1; }
+  .status { display: none; padding: 12px; border-radius: 12px; margin-bottom: 16px; font-weight: 700; }
+  .ok { background: #e7f5ed; color: #2f7d5a; }
+  .err { background: #ffe5e5; color: #b3403a; }
+  #editor { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Editar catalogo</h1>
+  <a href="/" target="_blank" rel="noopener">Ver tienda</a>
+</header>
+<main>
+  <section class="card" id="gate">
+    <h2>Entrar</h2>
+    <p>Pagina privada por enlace y clave. Sin cuentas ni registros.</p>
+    <label>Clave del editor<input id="password" type="password" autocomplete="current-password" /></label>
+    <div class="actions"><button id="enter">Entrar</button></div>
+  </section>
+
+  <div class="status ok" id="ok"></div>
+  <div class="status err" id="err"></div>
+
+  <section id="editor">
+    <div class="card grid cols">
+      <label>WhatsApp<input id="whatsapp" inputmode="numeric" /></label>
+    </div>
+    <div id="products"></div>
+    <div class="actions">
+      <button id="add" class="secondary">Agregar producto</button>
+      <button id="save">Guardar cambios</button>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var state = { whatsapp: "", products: [] };
+  var password = sessionStorage.getItem("editorPassword") || "";
+  var els = {
+    gate: document.getElementById("gate"), editor: document.getElementById("editor"), password: document.getElementById("password"),
+    enter: document.getElementById("enter"), ok: document.getElementById("ok"), err: document.getElementById("err"),
+    whatsapp: document.getElementById("whatsapp"), products: document.getElementById("products"), add: document.getElementById("add"), save: document.getElementById("save")
+  };
+  els.password.value = password;
+
+  function show(el, msg) { el.textContent = msg; el.style.display = "block"; setTimeout(function(){ el.style.display = "none"; }, 4200); }
+  function api(method, body) {
+    return fetch("/api/catalog", { method: method, headers: { "Content-Type": "application/json", "x-editor-password": password }, body: body ? JSON.stringify(body) : undefined })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "Error"); return j; }); });
+  }
+  function syncFromDom() {
+    state.whatsapp = els.whatsapp.value.trim();
+    state.products = Array.prototype.map.call(els.products.querySelectorAll(".product"), function (card) {
+      return {
+        name: card.querySelector("[name=name]").value.trim(),
+        price: Number(card.querySelector("[name=price]").value || 0),
+        description: card.querySelector("[name=description]").value.trim(),
+        tag: card.querySelector("[name=tag]").value.trim(),
+        availability: card.querySelector("[name=availability]").value,
+        images: card.querySelector("[name=images]").value.split("\n").map(function (s) { return s.trim(); }).filter(Boolean)
+      };
+    }).filter(function (p) { return p.name; });
+  }
+  function productCard(p, i) {
+    var div = document.createElement("div");
+    div.className = "card product";
+    div.innerHTML = '<div class="product-head"><strong>Producto ' + (i + 1) + '</strong><button type="button" class="danger">Eliminar</button></div>' +
+      '<div class="grid cols"><label>Nombre<input name="name"></label><label>Precio<input name="price" type="number" min="0"></label><label>Etiqueta<input name="tag"></label><label>Disponibilidad<select name="availability"><option value="disponible">Disponible</option><option value="pocas">Pocas unidades</option><option value="agotado">Agotado</option></select></label></div>' +
+      '<div class="grid" style="margin-top:12px"><label>Descripcion<textarea name="description"></textarea></label><label>Imagenes (una ruta o URL por linea)<textarea name="images"></textarea></label></div>';
+    div.querySelector("[name=name]").value = p.name || "";
+    div.querySelector("[name=price]").value = p.price || 0;
+    div.querySelector("[name=tag]").value = p.tag || "";
+    div.querySelector("[name=availability]").value = p.availability || "disponible";
+    div.querySelector("[name=description]").value = p.description || "";
+    div.querySelector("[name=images]").value = (p.images || (p.image ? [p.image] : [])).join("\n");
+    div.querySelector("button.danger").addEventListener("click", function () { div.remove(); renumber(); });
+    return div;
+  }
+  function renumber() { Array.prototype.forEach.call(els.products.querySelectorAll(".product-head strong"), function (el, i) { el.textContent = "Producto " + (i + 1); }); }
+  function render() {
+    els.whatsapp.value = state.whatsapp || "";
+    els.products.innerHTML = "";
+    state.products.forEach(function (p, i) { els.products.appendChild(productCard(p, i)); });
+  }
+  function load() {
+    api("GET").then(function (j) {
+      state = j.data || { whatsapp: "", products: [] };
+      els.gate.style.display = "none";
+      els.editor.style.display = "block";
+      render();
+    }).catch(function (e) { show(els.err, e.message); });
+  }
+  els.enter.addEventListener("click", function () { password = els.password.value; sessionStorage.setItem("editorPassword", password); load(); });
+  els.add.addEventListener("click", function () { els.products.appendChild(productCard({ availability: "disponible", images: [] }, els.products.children.length)); });
+  els.save.addEventListener("click", function () { syncFromDom(); api("PUT", { data: state }).then(function () { show(els.ok, "Guardado. Vercel publicara el cambio en unos segundos."); }).catch(function (e) { show(els.err, e.message); }); });
+  if (password) load();
+})();
+</script>
+</body>
+</html>
