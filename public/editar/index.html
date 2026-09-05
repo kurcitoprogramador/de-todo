@@ -25,6 +25,13 @@
   .actions button { width: auto; padding-inline: 18px; }
   .product-head { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
   .product-head strong { flex: 1; }
+  .images { display: grid; gap: 10px; margin-top: 12px; }
+  .image-row { display: grid; grid-template-columns: 86px 1fr auto; gap: 10px; align-items: center; background: #fbf8f3; border: 1px solid #efe9e1; border-radius: 14px; padding: 10px; }
+  .image-row img { width: 86px; height: 86px; object-fit: cover; border-radius: 10px; background: #efe9e1; }
+  .image-row button { width: auto; min-width: 44px; padding-inline: 12px; }
+  .image-tools { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+  .image-tools button { width: auto; padding-inline: 14px; }
+  .hint { color: #8a8296; font-size: 12px; margin: 6px 0 0; }
   .status { display: none; padding: 12px; border-radius: 12px; margin-bottom: 16px; font-weight: 700; }
   .ok { background: #e7f5ed; color: #2f7d5a; }
   .err { background: #ffe5e5; color: #b3403a; }
@@ -75,6 +82,33 @@
     return fetch("/api/catalog", { method: method, headers: { "Content-Type": "application/json", "x-editor-password": password }, body: body ? JSON.stringify(body) : undefined })
       .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "Error"); return j; }); });
   }
+  function normalizeImages(value) {
+    if (Array.isArray(value)) return value.map(function (item) {
+      return typeof item === "string" ? item : (item && item.src) || "";
+    }).filter(Boolean);
+    if (typeof value === "string") return value.split(/\s+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    return [];
+  }
+  function refreshPreview(input) {
+    var row = input.closest(".image-row");
+    var img = row && row.querySelector("img");
+    if (!img) return;
+    img.src = input.value.trim() || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+  }
+  function imageRow(src) {
+    var row = document.createElement("div");
+    row.className = "image-row";
+    row.innerHTML = '<img alt="Vista previa" loading="lazy"><input name="image" placeholder="/products/foto.jpeg o https://..."><button type="button" class="danger">Quitar</button>';
+    var input = row.querySelector("input");
+    input.value = src || "";
+    input.addEventListener("input", function () { refreshPreview(input); });
+    row.querySelector("button").addEventListener("click", function () { row.remove(); });
+    refreshPreview(input);
+    return row;
+  }
+  function addImage(card, src) {
+    card.querySelector(".images").appendChild(imageRow(src || ""));
+  }
   function syncFromDom() {
     state.whatsapp = els.whatsapp.value.trim();
     state.products = Array.prototype.map.call(els.products.querySelectorAll(".product"), function (card) {
@@ -84,7 +118,7 @@
         description: card.querySelector("[name=description]").value.trim(),
         tag: card.querySelector("[name=tag]").value.trim(),
         availability: card.querySelector("[name=availability]").value,
-        images: card.querySelector("[name=images]").value.split("\n").map(function (s) { return s.trim(); }).filter(Boolean)
+        images: Array.prototype.map.call(card.querySelectorAll("[name=image]"), function (input) { return input.value.trim(); }).filter(Boolean)
       };
     }).filter(function (p) { return p.name; });
   }
@@ -93,13 +127,16 @@
     div.className = "card product";
     div.innerHTML = '<div class="product-head"><strong>Producto ' + (i + 1) + '</strong><button type="button" class="danger">Eliminar</button></div>' +
       '<div class="grid cols"><label>Nombre<input name="name"></label><label>Precio<input name="price" type="number" min="0"></label><label>Etiqueta<input name="tag"></label><label>Disponibilidad<select name="availability"><option value="disponible">Disponible</option><option value="pocas">Pocas unidades</option><option value="agotado">Agotado</option></select></label></div>' +
-      '<div class="grid" style="margin-top:12px"><label>Descripcion<textarea name="description"></textarea></label><label>Imagenes (una ruta o URL por linea)<textarea name="images"></textarea></label></div>';
+      '<div class="grid" style="margin-top:12px"><label>Descripcion<textarea name="description"></textarea></label></div>' +
+      '<div class="image-block"><strong>Imagenes</strong><p class="hint">Puedes agregar varias. La primera sera la foto principal del catalogo.</p><div class="images"></div><div class="image-tools"><button type="button" class="secondary add-image">Agregar imagen</button></div></div>';
     div.querySelector("[name=name]").value = p.name || "";
     div.querySelector("[name=price]").value = p.price || 0;
     div.querySelector("[name=tag]").value = p.tag || "";
     div.querySelector("[name=availability]").value = p.availability || "disponible";
     div.querySelector("[name=description]").value = p.description || "";
-    div.querySelector("[name=images]").value = (p.images || (p.image ? [p.image] : [])).join("\n");
+    normalizeImages(p.images || p.image).forEach(function (src) { addImage(div, src); });
+    if (!div.querySelector(".image-row")) addImage(div, "");
+    div.querySelector(".add-image").addEventListener("click", function () { addImage(div, ""); });
     div.querySelector("button.danger").addEventListener("click", function () { div.remove(); renumber(); });
     return div;
   }

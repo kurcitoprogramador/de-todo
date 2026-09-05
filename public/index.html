@@ -602,8 +602,6 @@
   .card.agotado .btn-wa {
     background: #b0a8b4;
     color: #fff;
-    pointer-events: none;
-    cursor: default;
   }
 
   .nav-wa,
@@ -835,7 +833,7 @@
   <header>
     <nav class="nav" aria-label="Principal">
       <a href="#" class="brand" aria-label="De Todo, inicio">
-        <img class="brand-logo" src="isologo/isologo-pastel-soft-144.png" alt="Isologo De Todo" />
+        <img class="brand-logo" src="isologo/isologo-pastel-soft-144.png" alt="Isologo De Todo" onerror="this.style.display='none'" />
         <span class="brand-copy">
           De Todo
           <small>Catálogo</small>
@@ -852,7 +850,7 @@
   <main>
     <section class="hero">
       <div class="hero-mark">
-        <img src="isologo/isologo-pastel-soft-600.png" alt="Isologo principal De Todo" />
+        <img src="isologo/isologo-web.png" alt="Isologo principal De Todo" onerror="this.parentElement.style.display='none'" />
       </div>
       <span class="eyebrow">Catálogo 2026</span>
       <h1>De Todo</h1>
@@ -1040,7 +1038,9 @@
           var label = STOCK_LABELS[stock] || STOCK_LABELS.disponible;
           var agotado = stock === "agotado";
 
-          var msg = "Hola, me interesa " + p.name;
+          var msg = agotado
+            ? "Hola, vi que " + p.name + " esta agotado. Quisiera pedirlo o reservarlo si puedes traerlo nuevamente."
+            : "Hola, me interesa " + p.name;
           var wa = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
 
           var images = normalizeImages(p);
@@ -1081,7 +1081,7 @@
             article.classList.add("agotado");
           }
           btn.href = wa;
-          btn.textContent = agotado ? "Agotado" : "Comprar";
+          btn.textContent = agotado ? "Lo quiero" : "Comprar";
           btn.appendChild(waIcon());
 
           var mediaEl = article.querySelector(".card-media");
