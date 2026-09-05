@@ -1,93 +1,125 @@
-# De Todo - camino rapido
+# De Todo - catalogo y editor
 
-Este es el mapa corto para arreglar bugs sin perderse en la carpeta.
-
-## Abrir la tienda
-
-Produccion:
+Sitio actual en Vercel:
 
 ```text
-https://de-todo-catalogo.netlify.app
+https://detodo-catalogo.vercel.app
 ```
 
-Local:
+Editor privado:
+
+```text
+https://detodo-catalogo.vercel.app/editar/
+```
+
+Clave actual del editor:
+
+```text
+Raal0207@
+```
+
+## Estado actual
+
+- Catalogo publico sin login.
+- Editor separado protegido por clave simple.
+- Sin Netlify Identity, sin Decap CMS, sin dashboard, sin roles.
+- Productos guardados en `public/products.json`.
+- Imagenes guardadas en `public/products/`.
+- El editor guarda cambios haciendo commits en GitHub via API.
+- Vercel despliega automaticamente desde GitHub.
+
+## Archivos principales
+
+- `public/index.html`: catalogo publico, render de productos y botones WhatsApp.
+- `public/editar/index.html`: editor privado de productos.
+- `public/products.json`: fuente de verdad de productos.
+- `public/products/`: imagenes de productos.
+- `public/isologo/`: logos del sitio.
+- `api/catalog.js`: lee y guarda `products.json` en GitHub.
+- `api/upload.js`: sube imagenes desde el editor a GitHub.
+- `vercel.json`: headers y rewrites para Vercel.
+- `DEPLOY_VERCEL.md`: configuracion de deploy y variables.
+
+## Flujo diario
+
+1. Entrar a `/editar/`.
+2. Escribir la clave.
+3. Editar nombre, precio, descripcion, etiqueta y disponibilidad.
+4. Subir imagenes desde galeria con **Subir desde galeria**.
+5. Al subir imagenes, el editor guarda el catalogo automaticamente.
+6. Para cambios de texto/precio/stock, usar **Guardar cambios**.
+
+## Imagenes
+
+- El editor acepta imagenes desde galeria del celular.
+- Se pueden subir varias imagenes por producto.
+- La primera imagen es la principal en el catalogo.
+- Cada imagen se comprime/redimensiona en el navegador antes de subir.
+- Si algo falla, el editor muestra diagnostico tecnico en pantalla.
+- Tambien queda disponible **Agregar por ruta** para casos manuales.
+
+## WhatsApp
+
+- Productos disponibles: boton `Comprar` con mensaje normal.
+- Productos agotados: boton `Lo quiero` con mensaje orientado a pedido/reserva.
+- El numero de WhatsApp sale de `public/products.json` en la propiedad `whatsapp`.
+
+## Probar localmente
+
+Catalogo estatico:
 
 ```powershell
 python -m http.server 8123 -d public
 ```
 
-Luego abre:
+Luego abrir:
 
 ```text
 http://localhost:8123
 ```
 
-## Si falla el catalogo
+Las APIs `/api/catalog` y `/api/upload` funcionan en Vercel, no con el servidor simple de Python.
 
-Revisar en este orden:
+## Validaciones utiles
 
-1. `public/products.json`: fuente de verdad de productos.
-2. `public/products/`: fotos usadas por cada producto.
-3. `public/index.html`: render de tarjetas, WhatsApp, visor de fotos y fallback.
-
-Comando rapido para validar el JSON:
+Validar JSON:
 
 ```powershell
 node -e "JSON.parse(require('fs').readFileSync('public/products.json','utf8')); console.log('products.json OK')"
 ```
 
-## Si falla el editor
+Validar sintaxis de APIs:
 
-Revisar en este orden:
-
-1. `public/admin/index.html`: carga Decap CMS.
-2. `public/admin_config.yml`: campos del editor.
-3. `netlify.toml`: redirect de `/admin/config.yml` hacia `/admin_config.yml`.
-4. Netlify Identity: el usuario debe tener rol `editor` o `admin`.
-
-Link del editor:
-
-```text
-https://de-todo-catalogo.netlify.app/admin/
+```powershell
+node --check api/catalog.js
+node --check api/upload.js
 ```
-
-## Si falla acceso o dashboard
-
-Revisar:
-
-1. `public/acceso/index.html`: login y redireccion por rol.
-2. `public/dashboard/index.html`: panel del dueño.
-3. `netlify/functions/stats.js`: datos del dashboard.
-4. `netlify/functions/identity-signup.js` y `identity-login.js`: registro de movimientos.
-
-## Si falla una imagen
-
-1. Verifica que el archivo exista en `public/products/` o `public/isologo/`.
-2. Verifica que la ruta en `public/products.json` use exactamente el mismo nombre.
-3. Cuidado con acentos y apostrofes: `D’Oscar` no es igual a `D'Oscar`.
-
-## Archivos que importan
-
-- `public/index.html`: tienda publica.
-- `public/products.json`: productos, precios, stock, fotos y WhatsApp.
-- `public/admin_config.yml`: campos del editor.
-- `netlify.toml`: publish dir, funciones y permisos por rol.
-- `netlify/functions/`: funciones serverless.
-- `FLUJO_PRODUCTOS.md`: operacion diaria.
-- `GUIA_EDITOR_PRODUCTOS.md`: como cargar varias fotos por producto.
-- `DEPLOY_NETLIFY.md`: publicar y configurar Netlify.
-- `ARCHITECTURE.md`: arquitectura completa.
 
 ## Deploy
 
-```powershell
-netlify deploy --prod
+El repo conectado es:
+
+```text
+https://github.com/kurcitoprogramador/de-todo
 ```
 
-## Estado esperado despues de arreglar
+Cada push a `main` debe desplegar en Vercel.
 
-- La home muestra productos, no el texto `No se pudo cargar el catalogo`.
-- El contador muestra la cantidad de productos.
-- Las fotos cargan sin iconos rotos.
-- Al tocar una foto, abre el visor.
-- `/admin/` carga el editor solo para `editor` o `admin`.
+Deploy manual:
+
+```powershell
+vercel --prod --yes
+```
+
+Alias publico actual:
+
+```text
+https://detodo-catalogo.vercel.app
+```
+
+## Problemas comunes
+
+- Si aparece login de Vercel: revisar `Project -> Settings -> Deployment Protection`; SSO debe estar desactivado.
+- Si subir imagen dice permisos: `GITHUB_TOKEN` debe tener `Contents: Read and write` para `kurcitoprogramador/de-todo`.
+- Si se sube la imagen pero no aparece: esperar el deploy automatico o revisar si el catalogo se guardo.
+- Si el logo se ve borroso: usar `public/isologo/isologo-pastel-web.png`, no el `144x144`.
