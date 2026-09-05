@@ -31,6 +31,8 @@
   .image-row button { width: auto; min-width: 44px; padding-inline: 12px; }
   .image-tools { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
   .image-tools button { width: auto; padding-inline: 14px; }
+  .upload-label { width: auto; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; padding: 10px 14px; background: #a8698f; color: #fff; cursor: pointer; font-weight: 800; }
+  .upload-label input { display: none; }
   .hint { color: #8a8296; font-size: 12px; margin: 6px 0 0; }
   .status { display: none; padding: 12px; border-radius: 12px; margin-bottom: 16px; font-weight: 700; }
   .ok { background: #e7f5ed; color: #2f7d5a; }
@@ -82,6 +84,25 @@
     return fetch("/api/catalog", { method: method, headers: { "Content-Type": "application/json", "x-editor-password": password }, body: body ? JSON.stringify(body) : undefined })
       .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "Error"); return j; }); });
   }
+  function uploadImage(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        var result = String(reader.result || "");
+        var base64 = result.split(",")[1];
+        if (!base64) { reject(new Error("No se pudo leer la imagen.")); return; }
+        fetch("/api/upload", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-editor-password": password },
+          body: JSON.stringify({ name: file.name, content: base64 })
+        }).then(function (r) {
+          return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "No se pudo subir."); return j; });
+        }).then(resolve).catch(reject);
+      };
+      reader.onerror = function () { reject(new Error("No se pudo leer la imagen.")); };
+      reader.readAsDataURL(file);
+    });
+  }
   function normalizeImages(value) {
     if (Array.isArray(value)) return value.map(function (item) {
       return typeof item === "string" ? item : (item && item.src) || "";
@@ -128,7 +149,7 @@
     div.innerHTML = '<div class="product-head"><strong>Producto ' + (i + 1) + '</strong><button type="button" class="danger">Eliminar</button></div>' +
       '<div class="grid cols"><label>Nombre<input name="name"></label><label>Precio<input name="price" type="number" min="0"></label><label>Etiqueta<input name="tag"></label><label>Disponibilidad<select name="availability"><option value="disponible">Disponible</option><option value="pocas">Pocas unidades</option><option value="agotado">Agotado</option></select></label></div>' +
       '<div class="grid" style="margin-top:12px"><label>Descripcion<textarea name="description"></textarea></label></div>' +
-      '<div class="image-block"><strong>Imagenes</strong><p class="hint">Puedes agregar varias. La primera sera la foto principal del catalogo.</p><div class="images"></div><div class="image-tools"><button type="button" class="secondary add-image">Agregar imagen</button></div></div>';
+      '<div class="image-block"><strong>Imagenes</strong><p class="hint">Puedes subir varias desde tu galeria. La primera sera la foto principal del catalogo.</p><div class="images"></div><div class="image-tools"><label class="upload-label">Subir desde galeria<input class="upload-image" type="file" accept="image/*" multiple></label><button type="button" class="secondary add-image">Agregar por ruta</button></div></div>';
     div.querySelector("[name=name]").value = p.name || "";
     div.querySelector("[name=price]").value = p.price || 0;
     div.querySelector("[name=tag]").value = p.tag || "";
@@ -137,6 +158,19 @@
     normalizeImages(p.images || p.image).forEach(function (src) { addImage(div, src); });
     if (!div.querySelector(".image-row")) addImage(div, "");
     div.querySelector(".add-image").addEventListener("click", function () { addImage(div, ""); });
+    div.querySelector(".upload-image").addEventListener("change", function (e) {
+      var files = Array.prototype.slice.call(e.target.files || []);
+      if (!files.length) return;
+      show(els.ok, "Subiendo " + files.length + " imagen(es)...");
+      Promise.all(files.map(uploadImage)).then(function (items) {
+        items.forEach(function (item) { addImage(div, item.path); });
+        show(els.ok, "Imagen(es) subida(s). Ahora guarda los cambios del catalogo.");
+        e.target.value = "";
+      }).catch(function (err) {
+        show(els.err, err.message);
+        e.target.value = "";
+      });
+    });
     div.querySelector("button.danger").addEventListener("click", function () { div.remove(); renumber(); });
     return div;
   }
