@@ -37,6 +37,7 @@
   .status { display: none; padding: 12px; border-radius: 12px; margin-bottom: 16px; font-weight: 700; }
   .ok { background: #e7f5ed; color: #2f7d5a; }
   .err { background: #ffe5e5; color: #b3403a; }
+  .diag { display: none; white-space: pre-wrap; overflow-wrap: anywhere; background: #211d26; color: #f6edf7; border-radius: 14px; padding: 12px; margin-bottom: 16px; font: 12px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; }
   #editor { display: none; }
 </style>
 </head>
@@ -55,6 +56,7 @@
 
   <div class="status ok" id="ok"></div>
   <div class="status err" id="err"></div>
+  <pre class="diag" id="diag"></pre>
 
   <section id="editor">
     <div class="card grid cols">
@@ -74,30 +76,74 @@
   var password = sessionStorage.getItem("editorPassword") || "";
   var els = {
     gate: document.getElementById("gate"), editor: document.getElementById("editor"), password: document.getElementById("password"),
-    enter: document.getElementById("enter"), ok: document.getElementById("ok"), err: document.getElementById("err"),
+    enter: document.getElementById("enter"), ok: document.getElementById("ok"), err: document.getElementById("err"), diag: document.getElementById("diag"),
     whatsapp: document.getElementById("whatsapp"), products: document.getElementById("products"), add: document.getElementById("add"), save: document.getElementById("save")
   };
   els.password.value = password;
 
   function show(el, msg) { el.textContent = msg; el.style.display = "block"; setTimeout(function(){ el.style.display = "none"; }, 4200); }
+  function diag(msg, data) {
+    var line = "[" + new Date().toLocaleTimeString("es-PE") + "] " + msg;
+    if (data) line += "\n" + JSON.stringify(data, null, 2);
+    els.diag.textContent = (els.diag.textContent ? els.diag.textContent + "\n\n" : "") + line;
+    els.diag.style.display = "block";
+  }
   function api(method, body) {
     return fetch("/api/catalog", { method: method, headers: { "Content-Type": "application/json", "x-editor-password": password }, body: body ? JSON.stringify(body) : undefined })
       .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "Error"); return j; }); });
   }
   function uploadImage(file) {
+    diag("archivo seleccionado", { name: file.name, type: file.type, bytes: file.size });
+    return compressImage(file).then(function (packed) {
+      diag("imagen comprimida", { name: packed.name, type: packed.type, bytes: packed.bytes, width: packed.width, height: packed.height });
+      return fetch("/api/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-editor-password": password },
+        body: JSON.stringify({ name: packed.name, content: packed.base64 })
+      }).then(function (r) {
+        return r.json().then(function (j) {
+          diag("respuesta upload", { status: r.status, ok: r.ok, body: j });
+          if (!r.ok) throw new Error(j.error || "No se pudo subir.");
+          return j;
+        });
+      });
+    });
+  }
+  function compressImage(file) {
     return new Promise(function (resolve, reject) {
       var reader = new FileReader();
       reader.onload = function () {
-        var result = String(reader.result || "");
-        var base64 = result.split(",")[1];
-        if (!base64) { reject(new Error("No se pudo leer la imagen.")); return; }
-        fetch("/api/upload", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "x-editor-password": password },
-          body: JSON.stringify({ name: file.name, content: base64 })
-        }).then(function (r) {
-          return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "No se pudo subir."); return j; });
-        }).then(resolve).catch(reject);
+        var img = new Image();
+        img.onload = function () {
+          try {
+            var max = 1800;
+            var quality = 0.82;
+            var dataUrl = "";
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+
+            // Se adapta al limite real de Vercel/GitHub sin pedirle nada extra al usuario.
+            for (var attempt = 1; attempt <= 8; attempt++) {
+              var scale = Math.min(1, max / Math.max(img.width, img.height));
+              canvas.width = Math.max(1, Math.round(img.width * scale));
+              canvas.height = Math.max(1, Math.round(img.height * scale));
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              dataUrl = canvas.toDataURL("image/jpeg", quality);
+              diag("intento de compresion", { intento: attempt, maxLado: max, calidad: quality, bytesEstimados: Math.round((dataUrl.length - dataUrl.indexOf(",") - 1) * 0.75), width: canvas.width, height: canvas.height });
+              if (dataUrl.length < 6_800_000) break;
+              max = Math.round(max * 0.78);
+              quality = Math.max(0.58, quality - 0.06);
+            }
+            var base64 = dataUrl.split(",")[1];
+            if (!base64) throw new Error("Canvas no devolvio base64.");
+            resolve({ name: file.name.replace(/\.[^.]+$/, "") + ".jpg", type: "image/jpeg", base64: base64, bytes: Math.round(base64.length * 0.75), width: canvas.width, height: canvas.height });
+          } catch (err) {
+            reject(err);
+          }
+        };
+        img.onerror = function () { reject(new Error("El navegador no pudo decodificar la imagen.")); };
+        img.src = String(reader.result || "");
       };
       reader.onerror = function () { reject(new Error("No se pudo leer la imagen.")); };
       reader.readAsDataURL(file);
@@ -161,6 +207,7 @@
     div.querySelector(".upload-image").addEventListener("change", function (e) {
       var files = Array.prototype.slice.call(e.target.files || []);
       if (!files.length) return;
+      els.diag.textContent = "";
       show(els.ok, "Subiendo " + files.length + " imagen(es)...");
       Promise.all(files.map(uploadImage)).then(function (items) {
         items.forEach(function (item) { addImage(div, item.path); });

@@ -2,6 +2,14 @@ const REPO = "kurcitoprogramador/de-todo";
 const BRANCH = "main";
 const FOLDER = "public/products";
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "8mb",
+    },
+  },
+};
+
 function authorized(req) {
   const password = process.env.EDITOR_PASSWORD;
   return Boolean(password && req.headers["x-editor-password"] === password);
@@ -44,6 +52,12 @@ export default async function handler(req, res) {
     const fileName = cleanName(req.body && req.body.name);
     const content = req.body && req.body.content;
     if (!content || typeof content !== "string") return res.status(400).json({ error: "Imagen invalida." });
+    if (content.length > 7_500_000) {
+      return res.status(413).json({
+        error: "Imagen demasiado grande despues de optimizar.",
+        debug: { base64Length: content.length, maxBase64Length: 7500000 },
+      });
+    }
 
     const unique = `${Date.now()}-${fileName}`;
     const path = `${FOLDER}/${unique}`;
