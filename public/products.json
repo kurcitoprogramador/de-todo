@@ -4,7 +4,7 @@
     {
       "name": "Festive Fizz - Victoria Secret",
       "price": 60,
-      "description": "¡ Lleva la fiesta en tu piel con Victoria’s Secret Festive Fizz ! Bruma corporal dulce y afrutado que combina arándano y mora silvestre con un fondo cálido de ámbar",
+      "description": "� Lleva la fiesta en tu piel con Victoria's Secret Festive Fizz ! Bruma corporal dulce y afrutado que combina ar�ndano y mora silvestre con un fondo c�lido de �mbar",
       "tag": "Perfumes",
       "availability": "disponible",
       "images": [
@@ -25,7 +25,7 @@
     {
       "name": "Aceite Corporal Iluminador Pink Pineapple",
       "price": 50,
-      "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de piña dulce y tropical",
+      "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de pi�a dulce y tropical",
       "tag": "Belleza y Cuidado de la Piel",
       "availability": "disponible",
       "images": [
@@ -33,9 +33,9 @@
       ]
     },
     {
-      "name": "Loción Hidratante Clementine Hibiscus",
+      "name": "Loci�n Hidratante Clementine Hibiscus",
       "price": 65,
-      "description": "¡Energiza tu piel con esta loción corporal hidratante Victoria's Secret Clementine & Hibiscus! Su fórmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentación de 296 mL con dispensador.",
+      "description": "�Energiza tu piel con esta loci�n corporal hidratante Victoria's Secret Clementine & Hibiscus! Su f�rmula enriquecida con vitamina C aporta un brillo radiante y un delicioso aroma frutal, en una presentaci�n de 296 mL con dispensador.",
       "tag": "Belleza y Cuidado de la Piel",
       "availability": "disponible",
       "images": [
@@ -45,7 +45,7 @@
     {
       "name": "Pink Shimmer Jelly",
       "price": 50,
-      "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a piña tropical. Su fórmula de rápida absorción aporta un acabado luminoso y satinado con destellos sutiles (shimmer).",
+      "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a pi�a tropical. Su f�rmula de r�pida absorci�n aporta un acabado luminoso y satinado con destellos sutiles (shimmer).",
       "tag": "Belleza y Cuidado de la Piel",
       "availability": "disponible",
       "images": [
@@ -53,9 +53,9 @@
       ]
     },
     {
-      "name": "Piña Coco Swirl - Victoria Secret",
+      "name": "Pi�a Coco Swirl - Victoria Secret",
       "price": 60,
-      "description": "¡Lleva el verano contigo con la bruma corporal Piña Coco Swirl de Victoria’s Secret! Esta bruma combina notas dulces de piña, coco y un toque de vainilla, dejando un aroma tropical y de larga duración.",
+      "description": "�Lleva el verano contigo con la bruma corporal Pi�a Coco Swirl de Victoria's Secret! Esta bruma combina notas dulces de pi�a, coco y un toque de vainilla, dejando un aroma tropical y de larga duraci�n.",
       "tag": "Perfumes",
       "availability": "disponible",
       "images": [
@@ -63,9 +63,9 @@
       ]
     },
     {
-      "name": "Sheer Love Edición Especial - Victoria’s Secret",
+      "name": "Sheer Love Edici�n Especial - Victoria's Secret",
       "price": 65,
-      "description": "¡Llévate una fragancia exclusiva y difícil de conseguir! Está bruma corporal Sheer Love de la Archives Colletion de Victoria’s Secret tiene una combinación de aromas, entre floral fresco, limpio y romántico.",
+      "description": "�Ll�vate una fragancia exclusiva y dif�cil de conseguir! Est� bruma corporal Sheer Love de la Archives Colletion de Victoria's Secret tiene una combinaci�n de aromas, entre floral fresco, limpio y rom�ntico.",
       "tag": "Perfumes",
       "availability": "disponible",
       "images": [
@@ -75,7 +75,7 @@
     {
       "name": "Lattafa Qaed Al Fursan",
       "price": 140,
-      "description": "Déjate envolver por la intensidad y elegancia de Qaed Al Fursan de Lattafa. Su presentación de 90ml es ideal para quienes buscan un perfume con presencia y personalidad con aroma frutal, dulce y amaderado.",
+      "description": "D�jate envolver por la intensidad y elegancia de Qaed Al Fursan de Lattafa. Su presentaci�n de 90ml es ideal para quienes buscan un perfume con presencia y personalidad con aroma frutal, dulce y amaderado.",
       "tag": "Perfumes",
       "availability": "disponible",
       "images": [
@@ -86,7 +86,7 @@
     {
       "name": "Set de perfumes True Religion",
       "price": 130,
-      "description": "Set de perfume True Religion, hermosa presentación que incluye 3 fragancias femeninas en diferentes aromas cada una de 15ml, ideal para variar según la ocasión o llevar siempre contigo.",
+      "description": "Set de perfume True Religion, hermosa presentaci�n que incluye 3 fragancias femeninas en diferentes aromas cada una de 15ml, ideal para variar seg�n la ocasi�n o llevar siempre contigo.",
       "tag": "Perfumes",
       "availability": "disponible",
       "images": [
@@ -96,7 +96,7 @@
     {
       "name": "Totte bag TH azul",
       "price": 240,
-      "description": "Totte bag azul marino TH hecho de tela mojada. Su diseño amplio es perfecto para llevar una laptop, cuadernos. Destaca por su icónica franja tricolor",
+      "description": "Totte bag azul marino TH hecho de tela mojada. Su dise�o amplio es perfecto para llevar una laptop, cuadernos. Destaca por su ic�nica franja tricolor",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -106,7 +106,7 @@
     {
       "name": "Totte bag TH + bolso de mano",
       "price": 275,
-      "description": "Totte bag azul marino amplia, su amplio compartimiento es perfecto para el uso diario, combinando funcionalidad y estilo clásico, ideas para llevar una laptop. Adicional viene con un bolso de mano monogramiado extraíble.",
+      "description": "Totte bag azul marino amplia, su amplio compartimiento es perfecto para el uso diario, combinando funcionalidad y estilo cl�sico, ideas para llevar una laptop. Adicional viene con un bolso de mano monogramiado extra�ble.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -136,7 +136,7 @@
     {
       "name": "Clutch Blingita Rose Gold",
       "price": 210,
-      "description": "Bolso modelo Blingita marca Aldo, de tono oro rosa, muy versátil, complementado con una delicada correa de cadena metálica dorada extraíble. Se puede usar cruzada o como bolso tipo sobre.",
+      "description": "Bolso modelo Blingita marca Aldo, de tono oro rosa, muy vers�til, complementado con una delicada correa de cadena met�lica dorada extra�ble. Se puede usar cruzada o como bolso tipo sobre.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -147,7 +147,7 @@
     {
       "name": "Clutch negra Aldo",
       "price": 225,
-      "description": "Bolso clutch negro el accesorio perfecto para tus eventos y salidas de noche. Destaca por su diseño minimalista con una cadena dorada removible. Tiene doble uso, como bolso tipo sobre y como bolso de hombro con cadena",
+      "description": "Bolso clutch negro el accesorio perfecto para tus eventos y salidas de noche. Destaca por su dise�o minimalista con una cadena dorada removible. Tiene doble uso, como bolso tipo sobre y como bolso de hombro con cadena",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -158,7 +158,7 @@
     {
       "name": "Clutch rojo Aldo",
       "price": 195,
-      "description": "Bolso clutch rojo metalizado vanguardista con un brillo espejo electrizante con cadena desmontable convirtiéndolo en bolso tipo sobre.",
+      "description": "Bolso clutch rojo metalizado vanguardista con un brillo espejo electrizante con cadena desmontable convirti�ndolo en bolso tipo sobre.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -169,7 +169,7 @@
     {
       "name": "Tarjetero beige TH",
       "price": 125,
-      "description": "Tarjetero beige destaca por su diseño texturizado con el monograma grabado y un refinado logotipo metálico \"TH\" en dorado. Cuenta con compartimentos para tarjetas, un práctico cierre de seguridad y una cómoda correa de mano para llevar lo esencial con estilo.",
+      "description": "Tarjetero beige destaca por su dise�o texturizado con el monograma grabado y un refinado logotipo met�lico \"TH\" en dorado. Cuenta con compartimentos para tarjetas, un pr�ctico cierre de seguridad y una c�moda correa de mano para llevar lo esencial con estilo.",
       "tag": "Billetera",
       "availability": "disponible",
       "images": [
@@ -180,7 +180,7 @@
     {
       "name": "Billetera tarjetero Steve Madden",
       "price": 100,
-      "description": "Billetera Tarjetero Steve Madde en verde militar, un tono versátil y elegante que combina con todo. Compacto, práctico y perfecto para el día a día.",
+      "description": "Billetera Tarjetero Steve Madde en verde militar, un tono vers�til y elegante que combina con todo. Compacto, pr�ctico y perfecto para el d�a a d�a.",
       "tag": "Billetera",
       "availability": "disponible",
       "images": [
@@ -189,19 +189,19 @@
       ]
     },
     {
-      "name": "Baguette Náutica",
+      "name": "Baguette N�utica",
       "price": 180,
-      "description": "Bolso casual con estilo náutico, ideal para salidas diarias.",
+      "description": "Bolso casual con estilo n�utico, ideal para salidas diarias.",
       "tag": "Bolso",
       "availability": "agotado",
       "images": [
-        "products/Shoulder bag Náutica.jpg"
+        "products/Shoulder bag N�utica.jpg"
       ]
     },
     {
       "name": "Baguette Negra Juicy",
       "price": 185,
-      "description": "Shoulder bag con o cónicas cadenas doradas frontales con dijes removibles marca Juicy Couture.",
+      "description": "Shoulder bag con o c�nicas cadenas doradas frontales con dijes removibles marca Juicy Couture.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -211,7 +211,7 @@
     {
       "name": "Baguette Juicy Courier Denim",
       "price": 175,
-      "description": "Bolso confeccionado en Denim azul con un hermoso acolchado. Destaca por su brillante logo JC de pedrería en el frente",
+      "description": "Bolso confeccionado en Denim azul con un hermoso acolchado. Destaca por su brillante logo JC de pedrer�a en el frente",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -231,7 +231,7 @@
     {
       "name": "Crossbody Nine West Monogramiado Negro",
       "price": 165,
-      "description": "Elegante bolso tipo crossbody en color negro con sutil estampado de monograma. Cuenta con un bolsillo frontal liso, correa ajustable y el clásico logotipo metálico de la marca. Es compacto y versátil, ideal para llevar tus esenciales con estilo en el día a día.",
+      "description": "Elegante bolso tipo crossbody en color negro con sutil estampado de monograma. Cuenta con un bolsillo frontal liso, correa ajustable y el cl�sico logotipo met�lico de la marca. Es compacto y vers�til, ideal para llevar tus esenciales con estilo en el d�a a d�a.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -241,7 +241,7 @@
     {
       "name": "Crossbody Nautica negra",
       "price": 160,
-      "description": "Bandolera Nautica en color negro, combina el diseño curvo minimalista con su icono detalle metálico plateado en el frente.",
+      "description": "Bandolera Nautica en color negro, combina el dise�o curvo minimalista con su icono detalle met�lico plateado en el frente.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -252,7 +252,7 @@
     {
       "name": "Bolso Hobo - Nine West",
       "price": 160,
-      "description": "Hermoso bolso estilo hobo de paja tejida con asa marrón. Diseño original, cómodo y con el tamaño perfecto para llevar todo lo que necesitas con estilo.",
+      "description": "Hermoso bolso estilo hobo de paja tejida con asa marr�n. Dise�o original, c�modo y con el tama�o perfecto para llevar todo lo que necesitas con estilo.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -262,7 +262,7 @@
     {
       "name": "Mini bolso Cruzado Steve Madden",
       "price": 140,
-      "description": "¡El accesorio perfecto para tus días y noches! Este mini bolso cruzado de Steve Madden combina un diseño compacto en color negro con el icónico logotipo metálico \"SM\". Es ideal para llevar lo esencial con total comodidad y un toque sofisticado de estilo urbano.",
+      "description": "�El accesorio perfecto para tus d�as y noches! Este mini bolso cruzado de Steve Madden combina un dise�o compacto en color negro con el ic�nico logotipo met�lico \"SM\". Es ideal para llevar lo esencial con total comodidad y un toque sofisticado de estilo urbano.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -272,7 +272,7 @@
     {
       "name": "Mini bolso Crossbody Bebe",
       "price": 140,
-      "description": "Eleva cualquier look con este hermoso mini bolso crossbody de la marca Bebe en color negro. Cuenta con un elegante diseño capitonado acolchado, un broche con el logotipo metálico en tono dorado y una sofisticada correa de cadena entrelazada.",
+      "description": "Eleva cualquier look con este hermoso mini bolso crossbody de la marca Bebe en color negro. Cuenta con un elegante dise�o capitonado acolchado, un broche con el logotipo met�lico en tono dorado y una sofisticada correa de cadena entrelazada.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -280,9 +280,9 @@
       ]
     },
     {
-      "name": "Muñequera Steve Madden Marrón",
+      "name": "Mu�equera Steve Madden Marr�n",
       "price": 130,
-      "description": "Elegante cartera de mano Steve Madden en color marrón chocolate con textura granulada. Cuenta con una práctica correa de muñeca, detalles y herrajes dorados, y un diseño compacto con doble cremallera ideal para llevar tus esenciales con estilo. ¡Perfecta para el día a día o una salida casual!",
+      "description": "Elegante cartera de mano Steve Madden en color marr�n chocolate con textura granulada. Cuenta con una pr�ctica correa de mu�eca, detalles y herrajes dorados, y un dise�o compacto con doble cremallera ideal para llevar tus esenciales con estilo. �Perfecta para el d�a a d�a o una salida casual!",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -292,7 +292,7 @@
     {
       "name": "Zapatillas Tommy Hilfiger",
       "price": 280,
-      "description": "Zapatillas blancas con diseño monogramiado en alto relieve para mujer. Cómodas, modernas y clásicas.\nTalla 37.",
+      "description": "Zapatillas blancas con dise�o monogramiado en alto relieve para mujer. C�modas, modernas y cl�sicas.\nTalla 37.",
       "tag": "Calzado",
       "availability": "disponible",
       "images": [
@@ -302,7 +302,7 @@
     {
       "name": "Baby liss pro mini rosada",
       "price": 155,
-      "description": "La BaBylissPRO Ceramix Xtreme 3/4\" Mini Straightener es una plancha alisadora compacta y ligera, ideal para retoques rápidos. Gracias a sus placas de cerámica, distribuye el calor de forma uniforme para proteger el cabello, eliminar el frizz y dejar un acabado suave y brillante en un formato perfecto para viajar.",
+      "description": "La BaBylissPRO Ceramix Xtreme 3/4\" Mini Straightener es una plancha alisadora compacta y ligera, ideal para retoques r�pidos. Gracias a sus placas de cer�mica, distribuye el calor de forma uniforme para proteger el cabello, eliminar el frizz y dejar un acabado suave y brillante en un formato perfecto para viajar.",
       "tag": "Belleza y Cuidado de la Piel",
       "availability": "disponible",
       "images": [
@@ -312,7 +312,7 @@
     {
       "name": "Lentes de Sol Mujer - JS",
       "price": 105,
-      "description": "Lentes de sol estilo aviador con un diseño moderno, ideal para complementar cualquier look.\nCuenta con lunas en degradado azul y tonalidades cálidas.\nMontura en tonos dorados con varillas en color beige y detalles delicados.",
+      "description": "Lentes de sol estilo aviador con un dise�o moderno, ideal para complementar cualquier look.\nCuenta con lunas en degradado azul y tonalidades c�lidas.\nMontura en tonos dorados con varillas en color beige y detalles delicados.",
       "tag": "Accesorios",
       "availability": "disponible",
       "images": [
@@ -323,7 +323,7 @@
     {
       "name": "Lentes de Sol Mujer - True religion",
       "price": 145,
-      "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!",
+      "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protecci�n UV. Destacan por su dise�o urbano con el logotipo en el armaz�n y finos remaches dorados. �El accesorio ideal para un estilo imponente y moderno!",
       "tag": "Accesorios",
       "availability": "disponible",
       "images": [
@@ -332,9 +332,9 @@
       ]
     },
     {
-      "name": "Correa Marrón TH",
+      "name": "Correa Marr�n TH",
       "price": 100,
-      "description": "Eleva tu estilo diario con este cinturón en color marrón. Diseñado con una sofisticada hebilla dorada y un dije con el icónico monograma de la marca, talla M.\nEs el accesorio perfecto para aportar un toque de lujo clásico y distinción a cualquier atuendo.",
+      "description": "Eleva tu estilo diario con este cintur�n en color marr�n. Dise�ado con una sofisticada hebilla dorada y un dije con el ic�nico monograma de la marca, talla M.\nEs el accesorio perfecto para aportar un toque de lujo cl�sico y distinci�n a cualquier atuendo.",
       "tag": "Accesorios",
       "availability": "disponible",
       "images": [
