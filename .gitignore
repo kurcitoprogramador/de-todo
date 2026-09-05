@@ -1,4 +1,5 @@
-# Local Netlify folder
+# Local Vercel / Netlify
+.vercel
 .netlify
 
 # Carpeta de skill de diseño (no es parte del proyecto)
@@ -7,5 +8,5 @@ apple-design-skill-main/
 # Archivo legacy (marca anterior, reemplazado por index.html)
 osamu-dazai-catalogo.html
 
-# Dependencias de Node (se instalan en el build de Netlify)
+# Dependencias de Node
 node_modules/
