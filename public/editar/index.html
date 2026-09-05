@@ -10,7 +10,7 @@
   body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #fbf8f3; color: #3d3a47; }
   header { position: sticky; top: 0; z-index: 2; background: #fff; border-bottom: 1px solid #efe9e1; padding: 14px 18px; display: flex; gap: 12px; align-items: center; }
   header h1 { font-size: 18px; margin: 0; flex: 1; }
-  main { max-width: 920px; margin: 0 auto; padding: 22px 16px 60px; }
+  main { max-width: 920px; margin: 0 auto; padding: 22px 16px 96px; }
   a { color: inherit; font-weight: 700; }
   input, textarea, select, button { width: 100%; min-height: 44px; border: 1px solid #e6ded4; border-radius: 12px; padding: 10px 12px; font: inherit; background: #fff; }
   textarea { min-height: 82px; resize: vertical; }
@@ -33,12 +33,25 @@
   .image-tools button { width: auto; padding-inline: 14px; }
   .upload-label { width: auto; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; padding: 10px 14px; background: #a8698f; color: #fff; cursor: pointer; font-weight: 800; }
   .upload-label input { display: none; }
+  .save-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 4; display: none; gap: 10px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.94); border-top: 1px solid #efe9e1; box-shadow: 0 -10px 24px rgba(105,92,120,.12); }
+  .save-bar button { flex: 1; min-height: 52px; }
   .hint { color: #8a8296; font-size: 12px; margin: 6px 0 0; }
   .status { display: none; padding: 12px; border-radius: 12px; margin-bottom: 16px; font-weight: 700; }
   .ok { background: #e7f5ed; color: #2f7d5a; }
   .err { background: #ffe5e5; color: #b3403a; }
   .diag { display: none; white-space: pre-wrap; overflow-wrap: anywhere; background: #211d26; color: #f6edf7; border-radius: 14px; padding: 12px; margin-bottom: 16px; font: 12px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace; }
   #editor { display: none; }
+  @media (max-width: 640px) {
+    header { padding: 12px 14px; }
+    main { padding: 14px 10px 108px; }
+    .card { border-radius: 16px; padding: 14px; }
+    .actions button, .image-tools button, .upload-label { width: 100%; min-height: 52px; }
+    .image-tools { display: grid; grid-template-columns: 1fr; }
+    .image-row { grid-template-columns: 74px 1fr; }
+    .image-row img { width: 74px; height: 74px; }
+    .image-row button { grid-column: 1 / -1; width: 100%; }
+    .save-bar { display: flex; }
+  }
 </style>
 </head>
 <body>
@@ -68,6 +81,9 @@
       <button id="save">Guardar cambios</button>
     </div>
   </section>
+  <div class="save-bar" id="save-bar">
+    <button id="save-bottom">Guardar cambios</button>
+  </div>
 </main>
 
 <script>
@@ -77,7 +93,7 @@
   var els = {
     gate: document.getElementById("gate"), editor: document.getElementById("editor"), password: document.getElementById("password"),
     enter: document.getElementById("enter"), ok: document.getElementById("ok"), err: document.getElementById("err"), diag: document.getElementById("diag"),
-    whatsapp: document.getElementById("whatsapp"), products: document.getElementById("products"), add: document.getElementById("add"), save: document.getElementById("save")
+    whatsapp: document.getElementById("whatsapp"), products: document.getElementById("products"), add: document.getElementById("add"), save: document.getElementById("save"), saveBottom: document.getElementById("save-bottom"), saveBar: document.getElementById("save-bar")
   };
   els.password.value = password;
 
@@ -240,12 +256,14 @@
       state = j.data || { whatsapp: "", products: [] };
       els.gate.style.display = "none";
       els.editor.style.display = "block";
+      els.saveBar.style.display = "flex";
       render();
     }).catch(function (e) { show(els.err, e.message); });
   }
   els.enter.addEventListener("click", function () { password = els.password.value; sessionStorage.setItem("editorPassword", password); load(); });
   els.add.addEventListener("click", function () { els.products.appendChild(productCard({ availability: "disponible", images: [] }, els.products.children.length)); });
   els.save.addEventListener("click", function () { saveCatalog().catch(function (e) { show(els.err, e.message); }); });
+  els.saveBottom.addEventListener("click", function () { saveCatalog().catch(function (e) { show(els.err, e.message); }); });
   if (password) load();
 })();
 </script>
