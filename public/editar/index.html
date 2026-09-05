@@ -121,6 +121,7 @@
         return r.json().then(function (j) {
           diag("respuesta upload", { status: r.status, ok: r.ok, body: j });
           if (!r.ok) throw new Error(j.error || "No se pudo subir.");
+          j.previewUrl = packed.previewUrl;
           return j;
         });
       });
@@ -154,7 +155,7 @@
             }
             var base64 = dataUrl.split(",")[1];
             if (!base64) throw new Error("Canvas no devolvio base64.");
-            resolve({ name: file.name.replace(/\.[^.]+$/, "") + ".jpg", type: "image/jpeg", base64: base64, bytes: Math.round(base64.length * 0.75), width: canvas.width, height: canvas.height });
+            resolve({ name: file.name.replace(/\.[^.]+$/, "") + ".jpg", type: "image/jpeg", base64: base64, previewUrl: dataUrl, bytes: Math.round(base64.length * 0.75), width: canvas.width, height: canvas.height });
           } catch (err) {
             reject(err);
           }
@@ -173,11 +174,11 @@
     if (typeof value === "string") return value.split(/\s+/).map(function (s) { return s.trim(); }).filter(Boolean);
     return [];
   }
-  function refreshPreview(input) {
+  function refreshPreview(input, previewUrl) {
     var row = input.closest(".image-row");
     var box = row && row.querySelector(".image-preview");
     if (!box) return;
-    var src = input.value.trim();
+    var src = previewUrl || input.value.trim();
     box.textContent = "Sin imagen";
     if (!src) return;
     var img = document.createElement("img");
@@ -187,7 +188,7 @@
     img.onload = function () { box.textContent = ""; box.appendChild(img); };
     img.src = src;
   }
-  function imageRow(src) {
+  function imageRow(src, previewUrl) {
     var row = document.createElement("div");
     row.className = "image-row";
     row.innerHTML = '<div class="image-preview">Sin imagen</div><input name="image" placeholder="/products/foto.jpeg o https://..."><button type="button" class="danger">Quitar</button>';
@@ -195,11 +196,11 @@
     input.value = src || "";
     input.addEventListener("input", function () { refreshPreview(input); });
     row.querySelector("button").addEventListener("click", function () { row.remove(); });
-    refreshPreview(input);
+    refreshPreview(input, previewUrl);
     return row;
   }
-  function addImage(card, src) {
-    card.querySelector(".images").appendChild(imageRow(src || ""));
+  function addImage(card, src, previewUrl) {
+    card.querySelector(".images").appendChild(imageRow(src || "", previewUrl));
   }
   function syncFromDom() {
     state.whatsapp = els.whatsapp.value.trim();
@@ -248,7 +249,7 @@
       els.diag.textContent = "";
       show(els.ok, "Subiendo " + files.length + " imagen(es)...");
       Promise.all(files.map(uploadImage)).then(function (items) {
-        items.forEach(function (item) { addImage(div, item.path); });
+        items.forEach(function (item) { addImage(div, item.path, item.previewUrl); });
         show(els.ok, "Imagen(es) subida(s). Guardando catalogo...");
         e.target.value = "";
         return saveCatalog();
