@@ -134,10 +134,12 @@
     div.querySelector("[name=name]").value = p.name || "";
     div.querySelector("[name=price]").value = p.price || 0;
     div.querySelector("[name=tag]").value = p.tag || "";
-    div.querySelector("[name=availability]").value = p.availability || "disponible";
+    var availabilityEl = div.querySelector("[name=availability]");
+    availabilityEl.value = p.availability || "disponible";
     div.querySelector("[name=description]").value = p.description || "";
     normalizeImages(p.images || p.image).forEach(function (src) { addImage(div, src); });
     div.querySelector("[name=name]").addEventListener("input", function (e) { div.querySelector("strong").textContent = e.target.value || "Nuevo producto"; });
+    availabilityEl.addEventListener("change", function () { saveCatalog().catch(function () {}); });
     div.querySelector(".delete-product").addEventListener("click", function () { div.remove(); renumber(); });
     div.querySelector(".save-near").addEventListener("click", function () { saveCatalog().catch(function () {}); });
     div.querySelector(".upload").addEventListener("change", function (e) { var files = Array.prototype.slice.call(e.target.files || []); if (!files.length) return; els.diag.textContent = ""; show(els.ok, "Subiendo " + files.length + " imagen(es)...", true); Promise.all(files.map(uploadImage)).then(function (items) { items.forEach(function (item) { addImage(div, item.path, item.previewUrl); }); e.target.value = ""; return saveCatalog(); }).catch(function (err) { e.target.value = ""; show(els.err, err.message, true); }); });
