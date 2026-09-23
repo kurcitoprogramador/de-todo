@@ -1110,13 +1110,23 @@
         return s;
       }
 
-      fetch("products.json", { cache: "no-store" })
+      fetch("/api/catalog", { cache: "no-store" })
         .then(function (r) {
           if (!r.ok) throw new Error("HTTP " + r.status);
           return r.json();
         })
+        .then(function (payload) {
+          return payload && payload.data ? payload.data : payload;
+        })
+        .catch(function () {
+          return fetch("products.json", { cache: "no-store" }).then(function (r) {
+            if (!r.ok) throw new Error("HTTP " + r.status);
+            return r.json();
+          });
+        })
         .then(function (data) {
           var products = Array.isArray(data) ? data : (data.products || []);
+          if (data.whatsapp) WA_NUMBER = data.whatsapp;
           renderProducts(products);
           observeReveals();
         })

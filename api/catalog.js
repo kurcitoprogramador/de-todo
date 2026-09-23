@@ -38,14 +38,15 @@ function encodeBase64(value) {
 }
 
 export default async function handler(req, res) {
-  if (!authorized(req)) {
-    return res.status(401).json({ error: "Clave incorrecta." });
-  }
-
   try {
     if (req.method === "GET") {
       const file = await github(`${PATH}?ref=${BRANCH}`);
+      res.setHeader("Cache-Control", "no-store, max-age=0");
       return res.status(200).json({ data: JSON.parse(decodeBase64(file.content)), sha: file.sha });
+    }
+
+    if (!authorized(req)) {
+      return res.status(401).json({ error: "Clave incorrecta." });
     }
 
     if (req.method === "PUT") {
