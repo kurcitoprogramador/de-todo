@@ -46,6 +46,7 @@ const TEXT_FIXES = [
   ["?Ll?vate", "¡Llévate"], ["dif?cil", "difícil"], ["combinaci?n", "combinación"], ["rom?ntico", "romántico"],
   ["D?jate", "Déjate"], ["seg?n", "según"], ["dise?o", "diseño"], ["ic?nica", "icónica"],
   ["D�jate", "Déjate"], ["seg�n", "según"], ["dise�o", "diseño"], ["Dise?o", "Diseño"], ["Dise�o", "Diseño"], ["ic�nica", "icónica"],
+  ["Dise?ado", "Diseñado"], ["Dise�ado", "Diseñado"],
   ["cl?sico", "clásico"], ["extra?ble", "extraíble"], ["vers?til", "versátil"], ["met?lica", "metálica"],
   ["convirti?ndolo", "convirtiéndolo"], ["pr?ctico", "práctico"], ["c?moda", "cómoda"], ["d?a", "día"],
   ["N?utica", "Náutica"], ["n?utico", "náutico"], ["ic?nicas", "icónicas"], ["pedrer?a", "pedrería"],
