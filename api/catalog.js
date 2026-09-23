@@ -37,12 +37,49 @@ function encodeBase64(value) {
   return Buffer.from(value, "utf8").toString("base64");
 }
 
+const TEXT_FIXES = [
+  ["ar?ndano", "arándano"], ["c?lido", "cálido"], ["?mbar", "ámbar"], ["pi?a", "piña"],
+  ["ar�ndano", "arándano"], ["c�lido", "cálido"], ["�mbar", "ámbar"], ["pi�a", "piña"],
+  ["Loci?n", "Loción"], ["loci?n", "loción"], ["?Energiza", "¡Energiza"], ["f?rmula", "fórmula"],
+  ["presentaci?n", "presentación"], ["r?pida", "rápida"], ["duraci?n", "duración"], ["Edici?n", "Edición"],
+  ["presentaci�n", "presentación"], ["r�pida", "rápida"], ["duraci�n", "duración"], ["Edici�n", "Edición"],
+  ["?Ll?vate", "¡Llévate"], ["dif?cil", "difícil"], ["combinaci?n", "combinación"], ["rom?ntico", "romántico"],
+  ["D?jate", "Déjate"], ["seg?n", "según"], ["dise?o", "diseño"], ["ic?nica", "icónica"],
+  ["D�jate", "Déjate"], ["seg�n", "según"], ["dise�o", "diseño"], ["Dise?o", "Diseño"], ["Dise�o", "Diseño"], ["ic�nica", "icónica"],
+  ["cl?sico", "clásico"], ["extra?ble", "extraíble"], ["vers?til", "versátil"], ["met?lica", "metálica"],
+  ["convirti?ndolo", "convirtiéndolo"], ["pr?ctico", "práctico"], ["c?moda", "cómoda"], ["d?a", "día"],
+  ["N?utica", "Náutica"], ["n?utico", "náutico"], ["ic?nicas", "icónicas"], ["pedrer?a", "pedrería"],
+  ["marr?n", "marrón"], ["c?modo", "cómodo"], ["tama?o", "tamaño"], ["?El accesorio", "¡El accesorio"],
+  ["marr�n", "marrón"], ["c�modo", "cómodo"], ["tama�o", "tamaño"], ["�El accesorio", "¡El accesorio"],
+  ["d?as", "días"], ["met?lico", "metálico"], ["Mu?equera", "Muñequera"], ["mu?eca", "muñeca"],
+  ["d�as", "días"], ["met�lico", "metálico"], ["Mu�equera", "Muñequera"], ["mu�eca", "muñeca"],
+  ["?Perfecta", "¡Perfecta"], ["C?modas", "Cómodas"], ["cl?sicas", "clásicas"], ["r?pidos", "rápidos"],
+  ["�Perfecta", "¡Perfecta"], ["C�modas", "Cómodas"], ["cl�sicas", "clásicas"], ["r�pidos", "rápidos"],
+  ["cer?mica", "cerámica"], ["c?lidas", "cálidas"], ["protecci?n", "protección"], ["Marr?n", "Marrón"],
+  ["cer�mica", "cerámica"], ["c�lidas", "cálidas"], ["protecci�n", "protección"], ["Marr�n", "Marrón"],
+  ["ocasi?n", "ocasión"], ["ocasi�n", "ocasión"], ["ic?nico", "icónico"], ["ic�nico", "icónico"],
+  ["armaz?n", "armazón"], ["armaz�n", "armazón"], ["cintur?n", "cinturón"], ["cintur�n", "cinturón"],
+  ["distinci?n", "distinción"], ["distinci�n", "distinción"], ["pr?ctica", "práctica"], ["pr�ctica", "práctica"],
+];
+
+function fixText(value) {
+  if (typeof value === "string") {
+    for (const [bad, good] of TEXT_FIXES) value = value.split(bad).join(good);
+    return value;
+  }
+  if (Array.isArray(value)) return value.map(fixText);
+  if (value && typeof value === "object") {
+    for (const key of Object.keys(value)) value[key] = fixText(value[key]);
+  }
+  return value;
+}
+
 export default async function handler(req, res) {
   try {
     if (req.method === "GET") {
       const file = await github(`${PATH}?ref=${BRANCH}`);
       res.setHeader("Cache-Control", "no-store, max-age=0");
-      return res.status(200).json({ data: JSON.parse(decodeBase64(file.content)), sha: file.sha });
+      return res.status(200).json({ data: fixText(JSON.parse(decodeBase64(file.content))), sha: file.sha });
     }
 
     if (!authorized(req)) {
@@ -50,7 +87,7 @@ export default async function handler(req, res) {
     }
 
     if (req.method === "PUT") {
-      const data = req.body && req.body.data;
+      const data = fixText(req.body && req.body.data);
       if (!data || !Array.isArray(data.products)) {
         return res.status(400).json({ error: "Formato invalido." });
       }
