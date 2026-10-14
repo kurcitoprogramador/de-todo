@@ -6,7 +6,7 @@
       "price": 60,
       "description": "Lleva la fiesta en tu piel con Victoria's Secret Festive Fizz! Bruma corporal dulce y afrutado que combina arándano y mora silvestre con un fondo cálido de ámbar",
       "tag": "Perfumes",
-      "availability": "disponible",
+      "availability": "agotado",
       "images": [
         "/products/1788889184149-img-7742.jpg"
       ]
@@ -24,7 +24,7 @@
     {
       "name": "Aceite Corporal Iluminador Pink Pineapple",
       "price": 50,
-      "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de pi�a dulce y tropical",
+      "description": "Aceite corporal hidrata profundamente mientras deja destellos luminosos, con un aroma de piña dulce y tropical",
       "tag": "Belleza y Cuidado de la Piel",
       "availability": "agotado",
       "images": [
@@ -44,7 +44,7 @@
     {
       "name": "Pink Shimmer Jelly",
       "price": 50,
-      "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a pi�a tropical. Su fórmula de rápida absorci?n aporta un acabado luminoso y satinado con destellos sutiles (shimmer).",
+      "description": "El Pink Pineapple Shimmer Me! Jelly Body Glaze de PINK es un gel corporal ultraligero que hidrata la piel al instante mientras deja un irresistible aroma frutal a piña tropical. Su fórmula de rápida absorci?n aporta un acabado luminoso y satinado con destellos sutiles (shimmer).",
       "tag": "Belleza y Cuidado de la Piel",
       "availability": "disponible",
       "images": [
@@ -54,7 +54,7 @@
     {
       "name": "Pi?a Coco Swirl - Victoria Secret",
       "price": 60,
-      "description": "?Lleva el verano contigo con la bruma corporal pi�a Coco Swirl de Victoria's Secret! Esta bruma combina notas dulces de pi�a, coco y un toque de vainilla, dejando un aroma tropical y de larga duración.",
+      "description": "?Lleva el verano contigo con la bruma corporal piña Coco Swirl de Victoria's Secret! Esta bruma combina notas dulces de piña, coco y un toque de vainilla, dejando un aroma tropical y de larga duración.",
       "tag": "Perfumes",
       "availability": "agotado",
       "images": [
@@ -85,7 +85,7 @@
     {
       "name": "Set de perfumes True Religion",
       "price": 130,
-      "description": "Set de perfume True Religion, hermosa presentación que incluye 3 fragancias femeninas en diferentes aromas cada una de 15ml, ideal para variar según la ocasi?n o llevar siempre contigo.",
+      "description": "Set de perfume True Religion, hermosa presentación que incluye 3 fragancias femeninas en diferentes aromas cada una de 15ml, ideal para variar según la ocasión o llevar siempre contigo.",
       "tag": "Perfumes",
       "availability": "disponible",
       "images": [
@@ -241,7 +241,7 @@
     {
       "name": "Bolso Hobo - Nine West",
       "price": 160,
-      "description": "Hermoso bolso estilo hobo de paja tejida con asa marrón. Dise?o original, cómodo y con el tamaño perfecto para llevar todo lo que necesitas con estilo.",
+      "description": "Hermoso bolso estilo hobo de paja tejida con asa marrón. Diseño original, cómodo y con el tamaño perfecto para llevar todo lo que necesitas con estilo.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -251,7 +251,7 @@
     {
       "name": "Mini bolso Cruzado Steve Madden",
       "price": 140,
-      "description": "¡El accesorio perfecto para tus días y noches! Este mini bolso cruzado de Steve Madden combina un diseño compacto en color negro con el ic?nico logotipo metálico \"SM\". Es ideal para llevar lo esencial con total comodidad y un toque sofisticado de estilo urbano.",
+      "description": "¡El accesorio perfecto para tus días y noches! Este mini bolso cruzado de Steve Madden combina un diseño compacto en color negro con el icónico logotipo metálico \"SM\". Es ideal para llevar lo esencial con total comodidad y un toque sofisticado de estilo urbano.",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -271,7 +271,7 @@
     {
       "name": "Muñequera Steve Madden Marrón",
       "price": 130,
-      "description": "Elegante cartera de mano Steve Madden en color marrón chocolate con textura granulada. Cuenta con una pr?ctica correa de muñeca, detalles y herrajes dorados, y un diseño compacto con doble cremallera ideal para llevar tus esenciales con estilo. ¡Perfecta para el día a día o una salida casual!",
+      "description": "Elegante cartera de mano Steve Madden en color marrón chocolate con textura granulada. Cuenta con una práctica correa de muñeca, detalles y herrajes dorados, y un diseño compacto con doble cremallera ideal para llevar tus esenciales con estilo. ¡Perfecta para el día a día o una salida casual!",
       "tag": "Bolso",
       "availability": "disponible",
       "images": [
@@ -312,7 +312,7 @@
     {
       "name": "Lentes de Sol Mujer - True religion",
       "price": 145,
-      "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armaz?n y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!",
+      "description": "Lentes de sol True Religion estilo pantalla en color negro, equipados con cristales oscuros que ofrecen 100% protección UV. Destacan por su diseño urbano con el logotipo en el armazón y finos remaches dorados. ¡El accesorio ideal para un estilo imponente y moderno!",
       "tag": "Accesorios",
       "availability": "disponible",
       "images": [
@@ -323,7 +323,7 @@
     {
       "name": "Correa Marrón TH",
       "price": 100,
-      "description": "Eleva tu estilo diario con este cintur?n en color marrón. Dise?ado con una sofisticada hebilla dorada y un dije con el ic?nico monograma de la marca, talla M.\nEs el accesorio perfecto para aportar un toque de lujo clásico y distinci?n a cualquier atuendo.",
+      "description": "Eleva tu estilo diario con este cinturón en color marrón. Diseñado con una sofisticada hebilla dorada y un dije con el icónico monograma de la marca, talla M.\nEs el accesorio perfecto para aportar un toque de lujo clásico y distinción a cualquier atuendo.",
       "tag": "Accesorios",
       "availability": "disponible",
       "images": [
