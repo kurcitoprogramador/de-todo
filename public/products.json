@@ -73,7 +73,7 @@
     },
     {
       "name": "Lattafa Qaed Al Fursan",
-      "price": 140,
+      "price": 130,
       "description": "Déjate envolver por la intensidad y elegancia de Qaed Al Fursan de Lattafa. Su presentación de 90ml es ideal para quienes buscan un perfume con presencia y personalidad con aroma frutal, dulce y amaderado.",
       "tag": "Perfumes",
       "availability": "disponible",
@@ -84,7 +84,7 @@
     },
     {
       "name": "Set de perfumes True Religion",
-      "price": 130,
+      "price": 120,
       "description": "Set de perfume True Religion, hermosa presentación que incluye 3 fragancias femeninas en diferentes aromas cada una de 15ml, ideal para variar según la ocasión o llevar siempre contigo.",
       "tag": "Perfumes",
       "availability": "disponible",
@@ -117,7 +117,7 @@
       "price": 250,
       "description": "Totte bag monogramiada color beige con asas blancas. Amplio espacio, ideal para llevar laptop",
       "tag": "Bolso",
-      "availability": "disponible",
+      "availability": "agotado",
       "images": [
         "/products/93fa4583-7c10-44a1-ac01-e5b2e7a94045.jpeg"
       ]
